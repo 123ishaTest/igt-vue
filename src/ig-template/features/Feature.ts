@@ -3,13 +3,12 @@ import {SaveData} from "@/ig-template/tools/saving/SaveData";
 
 /**
  * An abstract class that all features should extend for.
- * Has
  */
 export abstract class Feature implements Saveable {
 
     /**
      * Initialize all feature attributes.
-     * Note that
+     * Note that you should not assume other features exist already here
      * @param saveKey
      */
     protected constructor(saveKey: string) {
@@ -17,7 +16,8 @@ export abstract class Feature implements Saveable {
     }
 
     /**
-     *
+     * Called after all features are created.
+     * Can be used to subscribe to other features events
      */
     initialize(): void {
         // This method intentionally left blank
