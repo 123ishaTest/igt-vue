@@ -24,7 +24,7 @@ export abstract class Feature implements Saveable {
     }
 
     /**
-     * Runs when the game gets started. Can be run multiple times if the player can
+     * Runs when the game gets started. Can be run multiple times if the player can stop the game
      */
     start(): void {
         // This method intentionally left blank
