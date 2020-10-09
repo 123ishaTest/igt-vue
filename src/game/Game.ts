@@ -1,37 +1,26 @@
 import {GameState} from "./GameState";
-import {Feature} from "./Feature";
-import {Wallet} from "@/engine/features/wallet/Wallet";
-import {LocalStorage} from "@/engine/saving/LocalStorage";
-import {Example} from "@/game/features/example/Example";
-import {Settings} from "@/engine/features/settings/Settings";
-import {Statistics} from "@/engine/features/statistics/Statistics";
-import {Achievements} from "@/engine/features/achievements/Achievements";
+import {LocalStorage} from "@/ig-template/tools/saving/LocalStorage";
+import {Feature} from "@/ig-template/features/Feature";
 
 export class Game {
     private _tickInterval: any;
-
-    public example: Example;
-    public wallet: Wallet;
-    public settings: Settings;
-    public statistics: Statistics;
-    public achievements: Achievements;
 
     public allFeatures: Feature[];
 
     public state: GameState;
 
-    private readonly TICK_DURATION_MS = 100.0;
+    private readonly TICK_DURATION = 0.1;
 
-    constructor(example: Example, wallet: Wallet, settings: Settings, statistics: Statistics, achievements: Achievements) {
+    /**
+     * Make sure this key is unique to your game.
+     * Otherwise you might run into loading conflicts when multiple games are hosted on the same domain (such as <username.github.io/game)
+     */
+    private readonly SAVE_KEY = "unique-key-for-your-game";
+
+    constructor() {
         this.allFeatures = [];
 
-        this.example = this.registerFeature(example);
-        this.wallet = this.registerFeature(wallet)
-        this.settings = this.registerFeature(settings);
-        this.statistics = this.registerFeature(statistics);
-        this.achievements = this.registerFeature(achievements);
-
-        this.state = GameState.starting;
+        this.state = GameState.Launching;
     }
 
     /**
@@ -46,12 +35,12 @@ export class Game {
      * Update all features
      */
     private update(): void {
-        if (this.state != GameState.playing) {
+        if (this.state != GameState.Playing) {
             return;
         }
 
-        for (const feature of this.getAllFeatures()) {
-            feature.update(this.TICK_DURATION_MS / 1000.0)
+        for (const feature of this.allFeatures) {
+            feature.update(this.TICK_DURATION)
         }
     }
 
@@ -60,25 +49,51 @@ export class Game {
      * Initialize all features
      */
     public initialize(): void {
-        for (const feature of this.getAllFeatures()) {
+        for (const feature of this.allFeatures) {
             feature.initialize();
         }
-
     }
 
     /**
      * Start the main update loop
      */
     public start(): void {
-        if (this.state === GameState.playing) {
-            console.error("Cannot start the game twice");
+        if (this.state !== GameState.Stopped && this.state !== GameState.Launching) {
+            this.printStateWarning("Cannot start the game twice.");
             return;
         }
 
-        this._tickInterval = setInterval(() => this.update(), this.TICK_DURATION_MS);
+        for (const feature of this.allFeatures) {
+            feature.start();
+        }
 
-        this.state = GameState.playing;
-        console.log("Started");
+        this._tickInterval = setInterval(() => this.update(), this.TICK_DURATION * 1000);
+
+        this.state = GameState.Playing;
+        console.debug("Game Started");
+    }
+
+    public pause(): void {
+        if (this.state !== GameState.Playing) {
+            this.printStateWarning("Cannot pause the game if we're not playing.");
+            return;
+        }
+        clearInterval(this._tickInterval);
+
+        this.state = GameState.Paused;
+        console.debug("Game Paused");
+    }
+
+
+    public resume(): void {
+        if (this.state !== GameState.Paused) {
+            this.printStateWarning("Cannot resume the game if we're not paused.");
+            return;
+        }
+        this._tickInterval = setInterval(() => this.update(), this.TICK_DURATION * 1000);
+
+        this.state = GameState.Playing;
+        console.debug("Game Resumed");
     }
 
     /**
@@ -87,8 +102,8 @@ export class Game {
     public stop(): void {
         clearInterval(this._tickInterval);
 
-        this.state = GameState.stopped;
-        console.log("Stopped");
+        this.state = GameState.Stopped;
+        console.debug("Stopped");
     }
 
     /**
@@ -96,42 +111,32 @@ export class Game {
      */
     public save(): void {
         const res: Record<string, unknown> = {};
-        for (const feature of this.getAllFeatures()) {
+        for (const feature of this.allFeatures) {
             res[feature.saveKey] = feature.save()
         }
-        LocalStorage.store('save', res)
+        LocalStorage.store(this.SAVE_KEY, res)
     }
 
     /**
      * Delete the locally stored save
      */
     public deleteSave(): void {
-        LocalStorage.delete('save');
+        LocalStorage.delete(this.SAVE_KEY);
     }
 
     /**
      * Recursively load all registered features
      */
     public load(): void {
-        const saveData = LocalStorage.get('save')
-        for (const feature of this.getAllFeatures()) {
+        const saveData = LocalStorage.get(this.SAVE_KEY)
+        for (const feature of this.allFeatures) {
             const featureSavedata: Record<string, unknown> = saveData == null ? {} : saveData[feature.saveKey] as Record<string, unknown> ?? {};
-            feature.load(feature.parseSaveData(featureSavedata));
+            feature.load(featureSavedata);
         }
     }
 
-    public getTotalMoneyMultiplier(): number {
-        let res = 1;
-        for (const feature of this.getAllFeatures()) {
-            res *= feature.getMoneyMultiplier();
-        }
-        return res;
+    private printStateWarning(reason: string) {
+        console.warn(`Current state = ${this.state}.`, reason);
     }
 
-    /**
-     * Return all registered features, see this.registerFeature()
-     */
-    public getAllFeatures(): Feature[] {
-        return this.allFeatures;
-    }
 }

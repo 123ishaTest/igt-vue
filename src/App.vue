@@ -1,32 +1,46 @@
 <template>
   <div class="container">
 
-    <wallet></wallet>
-    <example></example>
-    <settings></settings>
-    <statistics></statistics>
-    <achievements></achievements>
+    <p>GameState: {{state}}</p>
+
+    <button @click="start">Start</button>
+    <button @click="pause">Pause</button>
+    <button @click="resume">Resume</button>
+    <button @click="stop">Stop</button>
   </div>
 </template>
 
 <script>
-import Wallet from "@/engine/features/wallet/Wallet.vue";
-import Example from "@/game/features/example/Example.vue";
-import Settings from "@/engine/features/settings/Settings.vue";
-import Statistics from "@/engine/features/statistics/Statistics.vue";
-import Achievements from "@/engine/features/achievements/Achievements.vue";
+import {App} from "@/App.ts"
 
 export default {
 
-  components: {
-    'statistics': Statistics,
-    'settings': Settings,
-    'example': Example,
-    'wallet': Wallet,
-    'achievements': Achievements,
+  data() {
+    return {
+      game: App.game
+    }
   },
+  components: {},
 
-  methods: {}
+  methods: {
+    pause() {
+      this.game.pause();
+    },
+    start() {
+      this.game.start();
+    },
+    resume() {
+      this.game.resume();
+    },
+    stop() {
+      this.game.stop();
+    },
+  },
+  computed: {
+    state() {
+      return this.game.state;
+    }
+  }
 }
 </script>
 

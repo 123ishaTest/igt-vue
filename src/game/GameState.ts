@@ -1,11 +1,12 @@
 /**
- * starting: The default, game is still loading
- * playing: Normal gameplay
- * paused: Gameplay is suspended
+ * Launching: The default, game is still starting up
+ * Playing: Normal gameplay
+ * Paused: Gameplay is suspended, to continue you need to resume
+ * Stopped: Gameplay is stopped, to continue you need to start
  */
 export enum GameState {
-    starting,
-    playing,
-    paused,
-    stopped,
+    Launching = "Launching",
+    Playing = "Playing",
+    Paused = "Paused",
+    Stopped = "Stopped",
 }
