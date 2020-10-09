@@ -1,4 +1,4 @@
-import {Game} from "./game/Game";
+import {Game} from "./ig-template/Game";
 
 export class App {
 
