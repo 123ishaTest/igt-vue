@@ -100,7 +100,15 @@ export class Game {
      * Stop the main update loop
      */
     public stop(): void {
+        if (this.state === GameState.Stopped) {
+            this.printStateWarning("Cannot stop the game if we're already stopped.");
+            return;
+        }
         clearInterval(this._tickInterval);
+
+        for (const feature of this.allFeatures) {
+            feature.stop();
+        }
 
         this.state = GameState.Stopped;
         console.debug("Stopped");

@@ -31,6 +31,13 @@ export abstract class Feature implements Saveable {
     }
 
     /**
+     * Runs when the game gets stopped. NOT when the game closes
+     */
+    stop(): void {
+        // This method intentionally left blank
+    }
+
+    /**
      * Default false to avoid not implementing the proper restrictions
      */
     canAccess(): boolean {
