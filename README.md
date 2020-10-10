@@ -1,7 +1,7 @@
 # Incremental Game Template
 > A template project to quickly create incremental games with Typescript.
 
-[Please visit the actual Docs at](https://123ishatest.github.io/incremental-game-template-website/blog)
+[Please visit the actual Docs here](https://123ishatest.github.io/incremental-game-template-website)
 
 ## Project setup
 ```
