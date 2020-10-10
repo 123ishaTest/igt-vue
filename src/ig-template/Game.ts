@@ -1,13 +1,20 @@
 import {GameState} from "./GameState";
 import {LocalStorage} from "@/ig-template/tools/saving/LocalStorage";
 import {Feature} from "@/ig-template/features/Feature";
+import {CurrencyType} from "@/ig-template/features/wallet/CurrencyType";
+import {Wallet} from "@/ig-template/features/wallet/Wallet";
 
 export class Game {
     private _tickInterval: any;
 
-    public allFeatures: Feature[];
+    /**
+     * List of all features. Only add to it using registerFeature()
+     */
+    private readonly allFeatures: Feature[] = [];
 
     public state: GameState;
+
+    public wallet: Wallet;
 
     private readonly TICK_DURATION = 0.1;
 
@@ -17,8 +24,8 @@ export class Game {
      */
     private readonly SAVE_KEY = "unique-key-for-your-game";
 
-    constructor() {
-        this.allFeatures = [];
+    constructor(wallet: Wallet) {
+        this.wallet = this.registerFeature(wallet);
 
         this.state = GameState.Launching;
     }
@@ -44,6 +51,13 @@ export class Game {
         }
     }
 
+    public getTotalCurrencyMultiplier(type: CurrencyType): number {
+        let multiplier = 1;
+        for (const feature of this.allFeatures) {
+            multiplier *= feature.getTotalCurrencyMultiplier(type);
+        }
+        return multiplier;
+    }
 
     /**
      * Initialize all features

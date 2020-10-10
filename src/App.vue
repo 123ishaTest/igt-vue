@@ -7,20 +7,22 @@
     <button @click="pause">Pause</button>
     <button @click="resume">Resume</button>
     <button @click="stop">Stop</button>
+
+    <igt-wallet></igt-wallet>
   </div>
 </template>
 
 <script>
 import {App} from "@/App.ts"
+import IgtWallet from "@/components/igt-wallet";
 
 export default {
-
+  components: {IgtWallet},
   data() {
     return {
       game: App.game
     }
   },
-  components: {},
 
   methods: {
     pause() {
