@@ -20,20 +20,6 @@ export class Wallet extends Feature {
 
 
     /**
-     * Subtracts the specified currency and returns true if the wallet had enough.
-     * Otherwise return false and don't subtract anything
-     * @param currency
-     * @constructor
-     */
-    public payIfPossible(currency: Currency): boolean {
-        if (this.hasCurrency(currency)) {
-            this.loseCurrency(currency);
-            return true;
-        }
-        return false;
-    }
-
-    /**
      * Gain the specified currency and apply the global multiplier
      * @param currency
      */
@@ -65,6 +51,20 @@ export class Wallet extends Feature {
         }
 
         this.currencies[currency.type] -= currency.amount;
+    }
+
+    /**
+     * Subtracts the specified currency and returns true if the wallet had enough.
+     * Otherwise return false and don't subtract anything
+     * @param currency
+     * @constructor
+     */
+    public payIfPossible(currency: Currency): boolean {
+        if (this.hasCurrency(currency)) {
+            this.loseCurrency(currency);
+            return true;
+        }
+        return false;
     }
 
 
