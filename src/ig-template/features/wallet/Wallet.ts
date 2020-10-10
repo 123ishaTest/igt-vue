@@ -56,7 +56,7 @@ export class Wallet extends Feature {
     }
 
     /**
-     * Subtracts the specified currency and returns true if the wallet had enough.
+     * Subtracts the specified currency and returns true if the wallet has enough.
      * Otherwise return false and don't subtract anything
      * @param currency
      * @constructor
