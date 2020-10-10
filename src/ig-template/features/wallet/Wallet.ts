@@ -3,40 +3,43 @@ import {CurrencyType} from "./CurrencyType";
 
 import {SimpleEventDispatcher, ISimpleEvent} from "strongly-typed-events";
 import {Feature} from "@/ig-template/features/Feature";
-import {App} from "@/App";
 import {WalletSaveData} from "@/ig-template/features/wallet/WalletSaveData";
 
 
 export class Wallet extends Feature {
-    currencies: { [key: string]: number } = {}
+    private _currencies: Record<CurrencyType, number> = {} as Record<CurrencyType, number>
+    private _multipliers: Record<CurrencyType, number> = {} as Record<CurrencyType, number>
 
     private _onCurrencyGain = new SimpleEventDispatcher<Currency>();
 
     constructor() {
         super("wallet");
-        this.currencies[CurrencyType.Money] = 0;
-        this.currencies[CurrencyType.Secondary] = 0;
-    }
 
+        // Initialize currencies and multipliers
+        for (const type in CurrencyType) {
+            this._currencies[type as CurrencyType] = 0;
+            this._multipliers[type as CurrencyType] = 1;
+        }
+    }
 
     /**
      * Gain the specified currency and apply the global multiplier
      * @param currency
      */
     public gainCurrency(currency: Currency): void {
+        currency.multiply(this.getCurrencyMultiplier(currency.type));
+
         if (!currency.isValid()) {
             console.warn(`Could not add currency ${currency.toString()}`);
             return;
         }
 
-        currency.multiply(App.game.getTotalCurrencyMultiplier(currency.type));
-
         this._onCurrencyGain.dispatch(currency);
-        this.currencies[currency.type] += currency.amount;
+        this._currencies[currency.type] += currency.amount;
     }
 
     public hasCurrency(currency: Currency): boolean {
-        return this.currencies[currency.type] >= currency.amount;
+        return this._currencies[currency.type] >= currency.amount;
     }
 
     /**
@@ -49,8 +52,7 @@ export class Wallet extends Feature {
             console.warn(`Could not lose currency ${currency.toString()}`);
             return;
         }
-
-        this.currencies[currency.type] -= currency.amount;
+        this._currencies[currency.type] -= currency.amount;
     }
 
     /**
@@ -67,21 +69,31 @@ export class Wallet extends Feature {
         return false;
     }
 
+    /**
+     * Return 1 if the multiplier is not set
+     */
+    public getCurrencyMultiplier(type: CurrencyType) {
+        return this._multipliers[type] ?? 1;
+    }
+
+    public setCurrencyMultiplier(multiplier: number, type: CurrencyType) {
+        this._multipliers[type] = multiplier;
+    }
 
     public canAccess(): boolean {
         return true;
     }
 
-    public load(data: WalletSaveData): void {
-        this.currencies[CurrencyType.Money] = data.money ?? this.currencies[CurrencyType.Money];
-        this.currencies[CurrencyType.Secondary] = data.secondary ?? this.currencies[CurrencyType.Secondary];
-    }
-
     public save(): WalletSaveData {
         return {
-            money: this.currencies[CurrencyType.Money],
-            secondary: this.currencies[CurrencyType.Secondary],
+            money: this._currencies[CurrencyType.Money],
+            secondary: this._currencies[CurrencyType.Secondary],
         }
+    }
+
+    public load(data: WalletSaveData): void {
+        this._currencies[CurrencyType.Money] = data.money ?? this._currencies[CurrencyType.Money];
+        this._currencies[CurrencyType.Secondary] = data.secondary ?? this._currencies[CurrencyType.Secondary];
     }
 
     /**
