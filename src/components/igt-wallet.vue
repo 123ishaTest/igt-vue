@@ -51,7 +51,7 @@ export default {
   name: "igt-wallet",
   data() {
     return {
-      wallet: App.game.wallet,
+      wallet: App.game.features.wallet,
     }
   },
   methods: {
