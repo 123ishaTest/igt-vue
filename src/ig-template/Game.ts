@@ -2,6 +2,7 @@ import {GameState} from "./GameState";
 import {LocalStorage} from "@/ig-template/tools/saving/LocalStorage";
 import {CurrencyType} from "@/ig-template/features/wallet/CurrencyType";
 import {Features} from "@/ig-template/Features";
+import {Feature} from "@/ig-template/features/Feature";
 
 export class Game {
     private _tickInterval: any;
@@ -148,11 +149,11 @@ export class Game {
         }
     }
 
-    private printStateWarning(reason: string) {
+    private printStateWarning(reason: string): void {
         console.warn(`Current state = ${this.state}.`, reason);
     }
 
-    private get featureList() {
+    private get featureList(): Feature[] {
         return Object.values(this.features)
     }
 
