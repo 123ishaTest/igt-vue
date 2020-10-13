@@ -35,7 +35,6 @@ export class Wallet extends Feature {
 
     /**
      * Gain the specified currency and apply the global multiplier
-     * @param currency
      */
     public gainCurrency(currency: Currency): void {
         currency.multiply(this.getCurrencyMultiplier(currency.type));
@@ -49,6 +48,9 @@ export class Wallet extends Feature {
         this._currencies[currency.type] += currency.amount;
     }
 
+    /**
+     * Return true if the currency is valid and the player has the specified amount.
+     */
     public hasCurrency(currency: Currency): boolean {
         if (!this.supportsCurrencyType(currency.type)) {
             return false;
