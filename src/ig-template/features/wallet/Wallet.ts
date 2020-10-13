@@ -26,6 +26,13 @@ export class Wallet extends Feature {
         }
     }
 
+    public getAmount(type: CurrencyType): number {
+        if (!this.supportsCurrencyType(type)) {
+            return 0;
+        }
+        return this._currencies[type];
+    }
+
     /**
      * Gain the specified currency and apply the global multiplier
      * @param currency
@@ -84,10 +91,13 @@ export class Wallet extends Feature {
     }
 
     public setCurrencyMultiplier(multiplier: number, type: CurrencyType): void {
+        if (multiplier <= 0 || isNaN(multiplier) || !this.supportsCurrencyType(type)) {
+            return;
+        }
         this._multipliers[type] = multiplier;
     }
 
-    private supportsCurrencyType(type: CurrencyType): boolean {
+    public supportsCurrencyType(type: CurrencyType): boolean {
         return this._supportedCurrencies.includes(type);
     }
 
