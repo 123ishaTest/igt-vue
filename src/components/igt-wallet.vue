@@ -27,6 +27,10 @@
       Gain 10 Money<br>
       App.game.wallet.gainCurrency(new Currency(50, CurrencyType.Money));
     </button>
+    <button class="btn btn-primary" @click="gainSecondary(10)">
+      Gain 10 Secondary<br>
+      App.game.wallet.gainCurrency(new Currency(50, CurrencyType.Money));
+    </button>
     <button class="btn btn-primary" @click="loseMoney(9)">
       Lose 9 Money (if you have it) <br>
       App.game.wallet.payIfPossible(new Currency(50, CurrencyType.Money));
@@ -57,6 +61,9 @@ export default {
     },
     gainMoney(amount) {
       this.wallet.gainCurrency(new Currency(amount, CurrencyType.Money));
+    },
+    gainSecondary(amount) {
+      this.wallet.gainCurrency(new Currency(amount, CurrencyType.Secondary));
     },
     loseMoney(amount) {
       this.wallet.payIfPossible(new Currency(amount, CurrencyType.Money));

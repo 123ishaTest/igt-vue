@@ -12,11 +12,15 @@ export class Wallet extends Feature {
 
     private _onCurrencyGain = new SimpleEventDispatcher<Currency>();
 
-    constructor() {
+    private readonly _supportedCurrencies: CurrencyType[];
+
+    constructor(supportedCurrencies: CurrencyType[]) {
         super("wallet");
 
+        this._supportedCurrencies = supportedCurrencies;
+
         // Initialize currencies and multipliers
-        for (const type in CurrencyType) {
+        for (const type of this._supportedCurrencies) {
             this._currencies[type as CurrencyType] = 0;
             this._multipliers[type as CurrencyType] = 1;
         }
@@ -29,7 +33,7 @@ export class Wallet extends Feature {
     public gainCurrency(currency: Currency): void {
         currency.multiply(this.getCurrencyMultiplier(currency.type));
 
-        if (!currency.isValid()) {
+        if (!currency.isValid() || !this.supportsCurrencyType(currency.type)) {
             console.warn(`Could not add currency ${currency.toString()}`);
             return;
         }
@@ -39,6 +43,9 @@ export class Wallet extends Feature {
     }
 
     public hasCurrency(currency: Currency): boolean {
+        if (!this.supportsCurrencyType(currency.type)) {
+            return false;
+        }
         return this._currencies[currency.type] >= currency.amount;
     }
 
@@ -47,8 +54,8 @@ export class Wallet extends Feature {
      * IMPORTANT: This method does not care if amounts go negative
      * @param currency
      */
-    public loseCurrency(currency: Currency) {
-        if (!currency.isValid()) {
+    public loseCurrency(currency: Currency): void {
+        if (!currency.isValid() || !this.supportsCurrencyType(currency.type)) {
             console.warn(`Could not lose currency ${currency.toString()}`);
             return;
         }
@@ -72,12 +79,16 @@ export class Wallet extends Feature {
     /**
      * Return 1 if the multiplier is not set
      */
-    public getCurrencyMultiplier(type: CurrencyType) {
+    public getCurrencyMultiplier(type: CurrencyType): number {
         return this._multipliers[type] ?? 1;
     }
 
-    public setCurrencyMultiplier(multiplier: number, type: CurrencyType) {
+    public setCurrencyMultiplier(multiplier: number, type: CurrencyType): void {
         this._multipliers[type] = multiplier;
+    }
+
+    private supportsCurrencyType(type: CurrencyType): boolean {
+        return this._supportedCurrencies.includes(type);
     }
 
     public canAccess(): boolean {
