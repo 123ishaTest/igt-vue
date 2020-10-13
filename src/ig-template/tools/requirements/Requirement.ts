@@ -1,4 +1,4 @@
-import {Progress} from "./Progress";
+import {RequirementProgress} from "./RequirementProgress";
 
 /**
  * Abstract class that can be configured to whatever requirements you like.
@@ -11,8 +11,8 @@ export abstract class Requirement {
         return this.actualValue >= this.targetValue;
     }
 
-    get progress(): Progress {
-        return new Progress(Math.min(this.actualValue, this.targetValue), this.targetValue);
+    get progress(): RequirementProgress {
+        return new RequirementProgress(Math.min(this.actualValue, this.targetValue), this.targetValue);
     }
 
     abstract get hint(): string;

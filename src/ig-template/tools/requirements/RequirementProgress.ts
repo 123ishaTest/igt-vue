@@ -1,4 +1,4 @@
-export class Progress {
+export class RequirementProgress {
     actual: number;
     target: number;
 
