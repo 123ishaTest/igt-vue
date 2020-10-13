@@ -9,7 +9,9 @@ export class App {
     static start(): void {
 
         this.game = new Game(
-            new Wallet([CurrencyType.Money, CurrencyType.Secondary]),
+            {
+                wallet: new Wallet([CurrencyType.Money, CurrencyType.Secondary]),
+            }
         );
         this.game.initialize();
         this.game.load();

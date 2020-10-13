@@ -1,20 +1,18 @@
 import {GameState} from "./GameState";
 import {LocalStorage} from "@/ig-template/tools/saving/LocalStorage";
-import {Feature} from "@/ig-template/features/Feature";
 import {CurrencyType} from "@/ig-template/features/wallet/CurrencyType";
-import {Wallet} from "@/ig-template/features/wallet/Wallet";
+import {Features} from "@/ig-template/Features";
 
 export class Game {
     private _tickInterval: any;
 
     /**
-     * List of all features. Only add to it using registerFeature()
+     * Object with registered features. If you want them as a list use this.featureList
      */
-    private readonly allFeatures: Feature[] = [];
+    public readonly features: Features;
 
     public state: GameState;
 
-    public wallet: Wallet;
 
     private readonly TICK_DURATION = 0.1;
 
@@ -24,19 +22,12 @@ export class Game {
      */
     private readonly SAVE_KEY = "unique-key-for-your-game";
 
-    constructor(wallet: Wallet) {
-        this.wallet = this.registerFeature(wallet);
+    constructor(features: Features) {
+        this.features = features;
 
         this.state = GameState.Launching;
     }
 
-    /**
-     * Register a feature so it becomes part of all features
-     */
-    private registerFeature<T extends Feature>(feature: T): T {
-        this.allFeatures.push(feature);
-        return feature;
-    }
 
     /**
      * Update all features
@@ -46,14 +37,14 @@ export class Game {
             return;
         }
 
-        for (const feature of this.allFeatures) {
+        for (const feature of this.featureList) {
             feature.update(this.TICK_DURATION)
         }
     }
 
     public getTotalCurrencyMultiplier(type: CurrencyType): number {
         let multiplier = 1;
-        for (const feature of this.allFeatures) {
+        for (const feature of this.featureList) {
             multiplier *= feature.getTotalCurrencyMultiplier(type);
         }
         return multiplier;
@@ -63,8 +54,8 @@ export class Game {
      * Initialize all features
      */
     public initialize(): void {
-        for (const feature of this.allFeatures) {
-            feature.initialize();
+        for (const feature of this.featureList) {
+            feature.initialize(this.features);
         }
     }
 
@@ -77,7 +68,7 @@ export class Game {
             return;
         }
 
-        for (const feature of this.allFeatures) {
+        for (const feature of this.featureList) {
             feature.start();
         }
 
@@ -120,7 +111,7 @@ export class Game {
         }
         clearInterval(this._tickInterval);
 
-        for (const feature of this.allFeatures) {
+        for (const feature of this.featureList) {
             feature.stop();
         }
 
@@ -133,7 +124,7 @@ export class Game {
      */
     public save(): void {
         const res: Record<string, unknown> = {};
-        for (const feature of this.allFeatures) {
+        for (const feature of this.featureList) {
             res[feature.saveKey] = feature.save()
         }
         LocalStorage.store(this.SAVE_KEY, res)
@@ -151,7 +142,7 @@ export class Game {
      */
     public load(): void {
         const saveData = LocalStorage.get(this.SAVE_KEY)
-        for (const feature of this.allFeatures) {
+        for (const feature of this.featureList) {
             const featureSaveData: Record<string, unknown> = saveData == null ? {} : saveData[feature.saveKey] as Record<string, unknown> ?? {};
             feature.load(featureSaveData);
         }
@@ -159,6 +150,10 @@ export class Game {
 
     private printStateWarning(reason: string) {
         console.warn(`Current state = ${this.state}.`, reason);
+    }
+
+    private get featureList() {
+        return Object.values(this.features)
     }
 
 }

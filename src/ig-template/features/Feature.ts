@@ -1,6 +1,7 @@
 import {Saveable} from "@/ig-template/tools/saving/Saveable";
 import {SaveData} from "@/ig-template/tools/saving/SaveData";
 import {CurrencyType} from "@/ig-template/features/wallet/CurrencyType";
+import {Features} from "@/ig-template/Features";
 
 /**
  * An abstract class that all features should extend for.
@@ -20,7 +21,7 @@ export abstract class Feature implements Saveable {
      * Called after all features are created.
      * Can be used to subscribe to other features events
      */
-    initialize(): void {
+    initialize(features: Features): void {
         // This method intentionally left blank
     }
 
