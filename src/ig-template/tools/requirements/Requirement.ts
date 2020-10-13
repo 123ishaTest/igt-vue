@@ -1,19 +1,23 @@
 import {Progress} from "./Progress";
 
+/**
+ * Abstract class that can be configured to whatever requirements you like.
+ */
 export abstract class Requirement {
 
-    isCompleted(): boolean {
-        return this.getActualValue() >= this.getTargetValue();
+    // Getters as the user should view these as attributes
+
+    get isCompleted(): boolean {
+        return this.actualValue >= this.targetValue;
     }
 
-    getProgress(): Progress {
-        const targetValue = this.getTargetValue();
-        return new Progress(Math.min(this.getActualValue(), targetValue), targetValue);
+    get progress(): Progress {
+        return new Progress(Math.min(this.actualValue, this.targetValue), this.targetValue);
     }
 
-    abstract hint(): string;
+    abstract get hint(): string;
 
-    abstract getActualValue(): number;
+    abstract get actualValue(): number;
 
-    abstract getTargetValue(): number;
+    abstract get targetValue(): number;
 }

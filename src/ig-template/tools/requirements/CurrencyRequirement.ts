@@ -16,15 +16,15 @@ export class CurrencyRequirement extends Requirement {
         this.type = type;
     }
 
-    getActualValue(): number {
+    get actualValue(): number {
         return this._wallet.getAmount(this.type);
     }
 
-    getTargetValue(): number {
+    get targetValue(): number {
         return this.amount;
     }
 
-    hint(): string {
+    get hint(): string {
         return `Have ${this.amount} ${this.type}`;
     }
 

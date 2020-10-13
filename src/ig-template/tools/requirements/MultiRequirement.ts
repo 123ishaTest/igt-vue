@@ -1,6 +1,8 @@
 import {Requirement} from "@/ig-template/tools/requirements/Requirement";
 
-
+/**
+ * All requirements in the provided list need to be completed for this requirement to be completed.
+ */
 export class MultiRequirement extends Requirement {
     requirements: Requirement[];
 
@@ -9,29 +11,34 @@ export class MultiRequirement extends Requirement {
         this.requirements = requirements;
     }
 
-    public isCompleted() {
+    get isCompleted() {
         return this.requirements.every(requirement => {
-            return requirement.isCompleted();
+            return requirement.isCompleted;
         });
     }
 
-    getActualValue(): number {
+    get hint(): string {
+        let hint = "Complete the following requirements:\n";
+        for (const req of this.requirements) {
+            hint += req.hint + "\n";
+        }
+        return hint;
+    }
+
+    get actualValue(): number {
         let completed = 0;
 
         for (const req of this.requirements) {
-            if (req.isCompleted()) {
+            if (req.isCompleted) {
                 completed++;
             }
         }
         return completed;
     }
 
-    getTargetValue(): number {
+    get targetValue(): number {
         return this.requirements.length;
     }
 
-    hint(): string {
-        return "";
-    }
 
 }
