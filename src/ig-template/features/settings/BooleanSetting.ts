@@ -7,12 +7,12 @@ import {SettingOption} from "@/ig-template/features/settings/SettingOption";
  * A setting that can only be on or off.
  * The options can't have requirements but this can be solved by using the correct defaultValue and requirement.
  */
-export class BooleanSetting extends Setting<Boolean> {
+export class BooleanSetting extends Setting<boolean> {
 
-    constructor(id: SettingId, displayName: string, defaultValue: Boolean, requirement?: Requirement) {
+    constructor(id: SettingId, displayName: string, defaultValue: boolean, requirement?: Requirement) {
         super(id, displayName, [
-            new SettingOption<Boolean>("On", true),
-            new SettingOption<Boolean>("Off", false)
+            new SettingOption<boolean>("On", true),
+            new SettingOption<boolean>("Off", false)
         ], defaultValue, requirement);
     }
 }
