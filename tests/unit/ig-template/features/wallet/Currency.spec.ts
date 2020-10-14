@@ -11,7 +11,7 @@ describe('Currency', () => {
         // Act
 
         // Assert
-        expect(currency.amount).toBe(3);
+        expect(currency.amount).toBe(2);
         expect(currency.type).toBe(CurrencyType.Money);
     });
 
