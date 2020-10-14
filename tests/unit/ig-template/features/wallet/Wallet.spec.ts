@@ -17,11 +17,11 @@ describe('Wallet', () => {
 
         wallet.gainCurrency(new Currency(10, CurrencyType.Money));
 
-        expect(wallet.getAmount(CurrencyType.Money)).toBe(10);
+        expect(wallet.money).toBe(10);
 
         wallet.setCurrencyMultiplier(2, CurrencyType.Money);
         wallet.gainCurrency(new Currency(10, CurrencyType.Money));
-        expect(wallet.getAmount(CurrencyType.Money)).toBe(30);
+        expect(wallet.money).toBe(30);
 
         const couldAffordFalse = wallet.payIfPossible(new Currency(31, CurrencyType.Money));
         expect(couldAffordFalse).toBeFalsy();
@@ -29,7 +29,7 @@ describe('Wallet', () => {
         expect(couldAffordTrue).toBeTruthy();
 
         expect(wallet.getCurrencyMultiplier(CurrencyType.Secondary)).toBe(1);
-        expect(wallet.getAmount(CurrencyType.Money)).toBe(5);
+        expect(wallet.money).toBe(5);
 
     });
 
