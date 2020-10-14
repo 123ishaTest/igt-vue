@@ -39,7 +39,7 @@ describe('Currency', () => {
         expect(currency.type).toBe(CurrencyType.Money);
     });
 
-    test('subtract', () => {
+    test('multiply', () => {
         // Arrange
         const currency = new Currency(3, CurrencyType.Money);
 
