@@ -127,4 +127,8 @@ export class Wallet extends Feature {
         return this._onCurrencyGain.asEvent();
     }
 
+    public get money(): number {
+        return this._currencies.Money;
+    }
+
 }
