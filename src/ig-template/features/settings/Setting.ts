@@ -19,10 +19,6 @@ export abstract class Setting<T> {
         this.options = options;
         this.defaultValue = defaultValue;
 
-        if (!this.validValue(this.defaultValue)) {
-            throw new RangeError(`${this.defaultValue} is not a valid value for setting ${this.id}.`);
-        }
-
         this.value = defaultValue;
 
         this.requirement = requirement;
