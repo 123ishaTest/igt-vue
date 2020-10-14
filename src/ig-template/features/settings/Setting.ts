@@ -1,7 +1,7 @@
-import {SettingOption} from "./SettingOption";
 import {SettingId} from "@/ig-template/features/settings/SettingId";
 import {Requirement} from "@/ig-template/tools/requirements/Requirement";
 import {NoRequirement} from "@/ig-template/tools/requirements/NoRequirement";
+import {SettingOption} from "@/ig-template/features/settings/SettingOption";
 
 
 export abstract class Setting<T> {
