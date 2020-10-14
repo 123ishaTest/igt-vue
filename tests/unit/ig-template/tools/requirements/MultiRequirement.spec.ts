@@ -19,6 +19,7 @@ describe('Multi Requirement', () => {
         expect(isCompleted).toBeFalsy();
         expect(progress.actual).toBe(1);
         expect(progress.target).toBe(2);
+        expect(multi.hint).toBe("Complete the following requirements:\nAlways true\nAlways false\n");
     });
 
     test('both true', () => {

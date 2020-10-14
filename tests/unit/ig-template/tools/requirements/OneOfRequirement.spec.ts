@@ -19,6 +19,7 @@ describe('One Of Requirement', () => {
         expect(isCompleted).toBeFalsy();
         expect(progress.actual).toBe(0);
         expect(progress.target).toBe(1);
+        expect(oneOf.hint).toBe("Complete one of the following requirements:\nAlways false\nAlways false\n");
     });
 
     test('one true one false', () => {

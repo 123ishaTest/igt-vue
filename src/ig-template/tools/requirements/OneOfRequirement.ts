@@ -18,7 +18,7 @@ export class OneOfRequirement extends Requirement {
     }
 
     get hint(): string {
-        let hint = "Complete one of following requirements:\n";
+        let hint = "Complete one of the following requirements:\n";
         for (const req of this.requirements) {
             hint += req.hint + "\n";
         }
