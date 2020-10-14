@@ -11,7 +11,7 @@ export abstract class Setting<T> {
     defaultValue: T;
     value: T;
 
-    requirement: Requirement
+    requirement: Requirement;
 
     protected constructor(id: SettingId, displayName: string, options: SettingOption<T>[], defaultValue: T, requirement: Requirement = new NoRequirement()) {
         this.id = id;
@@ -22,7 +22,6 @@ export abstract class Setting<T> {
         this.value = defaultValue;
 
         this.requirement = requirement;
-
     }
 
     set(value: T): void {
