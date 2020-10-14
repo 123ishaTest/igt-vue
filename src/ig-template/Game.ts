@@ -33,7 +33,7 @@ export class Game {
     /**
      * Update all features
      */
-    private update(): void {
+    public update(): void {
         if (this.state != GameState.Playing) {
             return;
         }
