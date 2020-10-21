@@ -7,6 +7,12 @@ export class KeyBind {
     requirement: Requirement;
     eventType: KeyEventType;
 
+    /**
+     * @param keys Can be any string that is accepted by Mousetrap (https://craig.is/killing/mice)
+     * @param callback
+     * @param requirement
+     * @param eventType
+     */
     constructor(keys: string | string[], callback: Function, requirement: Requirement, eventType: KeyEventType = KeyEventType.KeyDown) {
         this.keys = keys;
         this.callback = callback;
