@@ -143,8 +143,14 @@ export class Game {
      */
     public load(): void {
         const saveData = LocalStorage.get(this.SAVE_KEY)
+        if (saveData == null) {
+            return;
+        }
         for (const feature of this.featureList) {
-            const featureSaveData: Record<string, unknown> = saveData == null ? {} : saveData[feature.saveKey] as Record<string, unknown> ?? {};
+            const featureSaveData: Record<string, unknown> = saveData[feature.saveKey] as Record<string, unknown>;
+            if (featureSaveData == null) {
+                continue;
+            }
             feature.load(featureSaveData);
         }
     }
