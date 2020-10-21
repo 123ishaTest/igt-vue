@@ -16,7 +16,7 @@ export class HotKeys {
     }
 
     public static removeKeyBind(keys: string | string[], action = KeyEventType.KeyDown) {
-        this._keyBinds.push()
+        this._keyBinds = this._keyBinds.filter((keyBind) => keyBind.keys !== keys);
         Mousetrap.unbind(keys, action);
     }
 

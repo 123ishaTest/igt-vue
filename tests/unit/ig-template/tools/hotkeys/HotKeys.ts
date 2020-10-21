@@ -12,7 +12,9 @@ describe('HotKeys', () => {
 
     test('add and remove keybind', () => {
         // Arrange
-        expect.assertions(2);
+
+        // 2 callbacks and 3 description checks
+        expect.assertions(2 + 3);
 
         const keyBind = new KeyBind(keys,
             "For test purposes", () => {
@@ -22,15 +24,20 @@ describe('HotKeys', () => {
 
         // Act
         HotKeys.addKeyBind(keyBind);
+        expect(HotKeys.getKeyBindDescriptions().length).toBe(1);
+
         // First trigger
         HotKeys.trigger(keys);
 
         HotKeys.removeKeyBind(keys);
+        expect(HotKeys.getKeyBindDescriptions().length).toBe(0);
 
         // Doesn't work as it's removed
         HotKeys.trigger(keys);
 
         HotKeys.addKeyBind(keyBind);
+        expect(HotKeys.getKeyBindDescriptions().length).toBe(1);
+
         // Second trigger
         HotKeys.trigger(keys);
 
