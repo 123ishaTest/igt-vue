@@ -9,7 +9,7 @@ describe('Custom Condition Key Bind', () => {
         expect.assertions(1);
 
         const keyBind = new CustomConditionKeyBind(keys,
-            () => {
+            "For test purposes", () => {
                 // Assert
                 expect(true).toBeTruthy();
             }, () => {
@@ -27,7 +27,7 @@ describe('Custom Condition Key Bind', () => {
         expect.assertions(0);
 
         const keyBind = new CustomConditionKeyBind(keys,
-            () => {
+            "For test purposes", () => {
                 // Assert
                 expect(true).toBeTruthy();
             }, () => {
