@@ -47,10 +47,12 @@ describe('HotKeys', () => {
 
         const keyBind1 = new KeyBind(firstKeys,
             firstDescription, () => {
+                // Empty
             }, new NoRequirement())
 
         const keyBind2 = new KeyBind(secondKeys,
             secondDescription, () => {
+                // Empty
             }, new NoRequirement())
 
         const expectedDescriptions: KeyBindDescription[] = [
