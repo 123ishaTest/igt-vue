@@ -4,6 +4,8 @@ import {CurrencyType} from "./CurrencyType";
 import {SimpleEventDispatcher, ISimpleEvent} from "strongly-typed-events";
 import {Feature} from "@/ig-template/features/Feature";
 import {WalletSaveData} from "@/ig-template/features/wallet/WalletSaveData";
+import {AbstractField} from "@/ig-template/developer-panel/AbstractField";
+import {NumberField} from "@/ig-template/developer-panel/NumberField";
 
 
 export class Wallet extends Feature {
@@ -131,4 +133,14 @@ export class Wallet extends Feature {
         return this._currencies.Money;
     }
 
+    public set money(value: number) {
+        this._currencies.Money = value;
+    }
+
+
+    getDeveloperPanelFields(): AbstractField[] {
+        return [
+            new NumberField("money", 'Money'),
+        ]
+    }
 }

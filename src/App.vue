@@ -10,15 +10,20 @@
     <button class="btn btn-red" @click="stop">Stop</button>
     </div>
     <igt-wallet></igt-wallet>
+
+    <igt-developer-panel></igt-developer-panel>
+
   </div>
+
 </template>
 
 <script>
 import {App} from "@/App.ts"
 import IgtWallet from "@/components/igt-wallet";
+import IgtDeveloperPanel from "@/components/developer-panel/igt-developer-panel";
 
 export default {
-  components: {IgtWallet},
+  components: {IgtDeveloperPanel, IgtWallet},
   data() {
     return {
       game: App.game
