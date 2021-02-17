@@ -1,5 +1,5 @@
 <template>
-  <div class="text-lg">{{ field.displayLabel }} :
+  <div class="text-lg">{{ field.displayLabel }}:
     {{ field.value }}
   </div>
 </template>
