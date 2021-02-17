@@ -4,10 +4,10 @@ import {CurrencyType} from "./CurrencyType";
 import {SimpleEventDispatcher, ISimpleEvent} from "strongly-typed-events";
 import {Feature} from "@/ig-template/features/Feature";
 import {WalletSaveData} from "@/ig-template/features/wallet/WalletSaveData";
-import {AbstractField} from "@/ig-template/developer-panel/AbstractField";
-import {NumberField} from "@/ig-template/developer-panel/NumberField";
-import {FunctionField} from "@/ig-template/developer-panel/FunctionField";
-import {RangeField} from "@/ig-template/developer-panel/RangeField";
+import {AbstractField} from "@/ig-template/developer-panel/fields/AbstractField";
+import {NumberField} from "@/ig-template/developer-panel/fields/NumberField";
+import {FunctionField} from "@/ig-template/developer-panel/fields/FunctionField";
+import {RangeField} from "@/ig-template/developer-panel/fields/RangeField";
 
 
 export class Wallet extends Feature {

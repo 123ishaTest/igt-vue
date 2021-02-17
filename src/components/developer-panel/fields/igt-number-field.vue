@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import {NumberField} from "@/ig-template/developer-panel/NumberField";
+import {NumberField} from "@/ig-template/developer-panel/fields/NumberField";
 
 export default {
   name: "igt-number-field",

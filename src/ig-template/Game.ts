@@ -5,8 +5,8 @@ import {Features} from "@/ig-template/Features";
 import {Feature} from "@/ig-template/features/Feature";
 import {DeveloperPanel} from "@/ig-template/developer-panel/DeveloperPanel";
 import {DeveloperPanelTab} from "@/ig-template/developer-panel/DeveloperPanelTab";
-import {FunctionField} from "@/ig-template/developer-panel/FunctionField";
-import {DisplayField} from "@/ig-template/developer-panel/DisplayField";
+import {FunctionField} from "@/ig-template/developer-panel/fields/FunctionField";
+import {DisplayField} from "@/ig-template/developer-panel/fields/DisplayField";
 
 export class Game {
     private _tickInterval: any;

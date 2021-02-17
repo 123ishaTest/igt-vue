@@ -1,4 +1,4 @@
-import {AbstractField} from "@/ig-template/developer-panel/AbstractField";
+import {AbstractField} from "@/ig-template/developer-panel/fields/AbstractField";
 
 /**
  * Runs a custom function when the button is pressed

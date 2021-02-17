@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import {FunctionField} from "@/ig-template/developer-panel/FunctionField";
+import {FunctionField} from "@/ig-template/developer-panel/fields/FunctionField";
 
 export default {
   name: "igt-button-field",

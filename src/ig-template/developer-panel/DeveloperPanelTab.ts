@@ -1,4 +1,4 @@
-import {AbstractField} from "@/ig-template/developer-panel/AbstractField";
+import {AbstractField} from "@/ig-template/developer-panel/fields/AbstractField";
 
 export class DeveloperPanelTab {
     label: string;
