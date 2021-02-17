@@ -7,6 +7,7 @@ import {WalletSaveData} from "@/ig-template/features/wallet/WalletSaveData";
 import {AbstractField} from "@/ig-template/developer-panel/AbstractField";
 import {NumberField} from "@/ig-template/developer-panel/NumberField";
 import {FunctionField} from "@/ig-template/developer-panel/FunctionField";
+import {RangeField} from "@/ig-template/developer-panel/RangeField";
 
 
 export class Wallet extends Feature {
@@ -141,10 +142,11 @@ export class Wallet extends Feature {
 
     getDeveloperPanelFields(): AbstractField[] {
         return [
-            new NumberField("money", 'Money'),
+            new NumberField('money', 'Money'),
             new FunctionField(() => {
                 this.money = 10
             }, 'Set money to 10'),
+            new RangeField('money', 0, 100, 2, 'Money Slider'),
         ]
     }
 }

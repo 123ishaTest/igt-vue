@@ -5,7 +5,6 @@
     <div :key=field.propertyName v-for="field in fields">
       <component :is="field.componentName" :field="field"></component>
     </div>
-
   </div>
 </template>
 
@@ -13,10 +12,11 @@
 import {App} from "@/App.ts"
 import IgtNumberField from "@/components/developer-panel/igt-number-field";
 import IgtButtonField from "@/components/developer-panel/igt-button-field";
+import IgtRangeField from "@/components/developer-panel/igt-range-field";
 
 export default {
   name: "igt-developer-panel",
-  components: {IgtButtonField, IgtNumberField},
+  components: {IgtRangeField, IgtButtonField, IgtNumberField},
   data() {
     return {
       fields: App.game.getDeveloperPanelFields(),
