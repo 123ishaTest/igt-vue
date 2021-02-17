@@ -12,10 +12,11 @@
 <script>
 import {App} from "@/App.ts"
 import IgtNumberField from "@/components/developer-panel/igt-number-field";
+import IgtButtonField from "@/components/developer-panel/igt-button-field";
 
 export default {
   name: "igt-developer-panel",
-  components: {IgtNumberField},
+  components: {IgtButtonField, IgtNumberField},
   data() {
     return {
       fields: App.game.getDeveloperPanelFields(),

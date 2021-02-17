@@ -1,7 +1,9 @@
 <template>
   <div class="flex flex-row">
     <span class="align-middle m-4">{{ field.displayLabel }}</span>
-    <input class="input-primary w-32" v-model.number="field.feature[field.propertyName]" type="number">
+    <label>
+      <input class="input-primary w-32" v-model.number="field.feature[field.propertyName]" type="number">
+    </label>
   </div>
 </template>
 
@@ -16,22 +18,6 @@ export default {
       type: NumberField,
       required: true,
     }
-  },
-
-  data() {
-    return {}
-  },
-  methods: {
-
-    setValue(value) {
-      console.log(value)
-      this.field.feature = value;
-    }
-  },
-  computed: {
-    value() {
-      return this.field.feature[this.field.propertyName];
-    },
   },
 
 }
