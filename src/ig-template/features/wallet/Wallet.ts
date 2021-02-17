@@ -1,7 +1,7 @@
 import {Currency} from "./Currency";
 import {CurrencyType} from "./CurrencyType";
 
-import {SimpleEventDispatcher, ISimpleEvent} from "strongly-typed-events";
+import {ISimpleEvent, SimpleEventDispatcher} from "strongly-typed-events";
 import {Feature} from "@/ig-template/features/Feature";
 import {WalletSaveData} from "@/ig-template/features/wallet/WalletSaveData";
 import {AbstractField} from "@/ig-template/developer-panel/fields/AbstractField";

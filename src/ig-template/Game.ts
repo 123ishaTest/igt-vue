@@ -7,6 +7,7 @@ import {DeveloperPanel} from "@/ig-template/developer-panel/DeveloperPanel";
 import {DeveloperPanelTab} from "@/ig-template/developer-panel/DeveloperPanelTab";
 import {FunctionField} from "@/ig-template/developer-panel/fields/FunctionField";
 import {DisplayField} from "@/ig-template/developer-panel/fields/DisplayField";
+import {ChoiceField} from "@/ig-template/developer-panel/fields/ChoiceField";
 
 export class Game {
     private _tickInterval: any;
@@ -20,6 +21,7 @@ export class Game {
 
 
     private readonly TICK_DURATION = 0.1;
+    private gameSpeed = 1;
 
     /**
      * Make sure this key is unique to your game.
@@ -38,6 +40,12 @@ export class Game {
         const tabs: DeveloperPanelTab[] = [
             new DeveloperPanelTab('Game', [
                 new DisplayField('state', 'State').setObject(this),
+                new ChoiceField('gameSpeed', [
+                    ['0.5x', 0.5],
+                    ['1x', 1],
+                    ['2x', 2],
+                    ['4x', 4],
+                ], 'Game speed').setObject(this),
                 new FunctionField(() => {this.start()}, 'Start').setCssClass('btn-green'),
                 new FunctionField(() => {this.pause()}, 'Pause').setCssClass('btn-blue'),
                 new FunctionField(() => {this.resume()}, 'Resume').setCssClass('btn-green'),
@@ -72,7 +80,7 @@ export class Game {
         }
 
         for (const feature of this.featureList) {
-            feature.update(this.TICK_DURATION)
+            feature.update(this.TICK_DURATION * this.gameSpeed)
         }
     }
 
