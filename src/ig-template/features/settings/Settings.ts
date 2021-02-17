@@ -5,6 +5,8 @@ import {SettingId} from "@/ig-template/features/settings/SettingId";
 import {MultipleChoiceSetting} from "@/ig-template/features/settings/MultipleChoiceSetting";
 import {SettingOption} from "@/ig-template/features/settings/SettingOption";
 import {Features} from "@/ig-template/Features";
+import {AbstractField} from "@/ig-template/developer-panel/AbstractField";
+import {FunctionField} from "@/ig-template/developer-panel/FunctionField";
 
 export class Settings extends Feature {
     list: Setting<any>[];
@@ -68,6 +70,14 @@ export class Settings extends Feature {
             })
         }
 
+    }
+
+    getDeveloperPanelFields(): AbstractField[] {
+        return [
+            new FunctionField(() => {
+                alert('test')
+            }, 'Test'),
+        ]
     }
 
 }

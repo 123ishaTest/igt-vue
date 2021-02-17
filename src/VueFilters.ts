@@ -6,3 +6,12 @@ Vue.filter('numberFormat', function (value: number) {
     }
     return value.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 })
+
+Vue.filter('humanizeString', function (string: string) {
+    if (string == undefined) {
+        return "";
+    }
+    string = string.charAt(0).toUpperCase() + string.slice(1);
+    string.replace("_", " ").replace("-", " ");
+    return string;
+})

@@ -3,7 +3,8 @@ import {LocalStorage} from "@/ig-template/tools/saving/LocalStorage";
 import {CurrencyType} from "@/ig-template/features/wallet/CurrencyType";
 import {Features} from "@/ig-template/Features";
 import {Feature} from "@/ig-template/features/Feature";
-import {AbstractField} from "@/ig-template/developer-panel/AbstractField";
+import {DeveloperPanel} from "@/ig-template/developer-panel/DeveloperPanel";
+import {DeveloperPanelTab} from "@/ig-template/developer-panel/DeveloperPanelTab";
 
 export class Game {
     private _tickInterval: any;
@@ -30,18 +31,22 @@ export class Game {
         this.state = GameState.Launching;
     }
 
-    public getDeveloperPanelFields(): AbstractField[] {
-        const allFields: AbstractField[] = [];
+    public getDeveloperPanel(): DeveloperPanel {
+        const tabs: DeveloperPanelTab[] = []
         for (const feature of this.featureList) {
-            const featureFields = feature.getDeveloperPanelFields();
+            const fields = feature.getDeveloperPanelFields();
 
             // Inject the feature into the field.
-            for (const field of featureFields) {
+            for (const field of fields) {
                 field.setFeature(feature);
-                allFields.push(field)
+            }
+
+            const tab = new DeveloperPanelTab(feature.saveKey, fields)
+            if (!tab.isEmpty()) {
+                tabs.push(tab)
             }
         }
-        return allFields;
+        return new DeveloperPanel(tabs);
     }
 
     /**
