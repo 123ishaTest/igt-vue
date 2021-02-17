@@ -3,11 +3,15 @@
 @tailwind utilities;
 
 .btn {
-    @apply py-2 px-4 font-semibold rounded-lg shadow-md;
+    @apply m-1 py-2 px-4 font-semibold rounded-lg shadow-md;
 }
 
 .btn-green {
     @apply text-white bg-green-500 hover:bg-green-600;
+}
+
+.btn-blue {
+    @apply text-white bg-blue-500 hover:bg-blue-600;
 }
 
 .btn-red {

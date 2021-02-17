@@ -3,11 +3,12 @@
 
     <p>GameState: {{state}}</p>
 
-    <button @click="start">Start</button>
-    <button @click="pause">Pause</button>
-    <button @click="resume">Resume</button>
-    <button @click="stop">Stop</button>
-
+    <div class="flex flex-row">
+    <button class="btn btn-green" @click="start">Start</button>
+    <button class="btn btn-blue" @click="pause">Pause</button>
+    <button class="btn btn-green" @click="resume">Resume</button>
+    <button class="btn btn-red" @click="stop">Stop</button>
+    </div>
     <igt-wallet></igt-wallet>
   </div>
 </template>
