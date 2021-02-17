@@ -1,16 +1,7 @@
 <template>
   <div class="container">
 
-    <p>GameState: {{state}}</p>
-
-    <div class="flex flex-row">
-    <button class="btn btn-green" @click="start">Start</button>
-    <button class="btn btn-blue" @click="pause">Pause</button>
-    <button class="btn btn-green" @click="resume">Resume</button>
-    <button class="btn btn-red" @click="stop">Stop</button>
-    </div>
     <igt-wallet></igt-wallet>
-
     <igt-developer-panel></igt-developer-panel>
 
   </div>

@@ -5,6 +5,7 @@ import {Features} from "@/ig-template/Features";
 import {Feature} from "@/ig-template/features/Feature";
 import {DeveloperPanel} from "@/ig-template/developer-panel/DeveloperPanel";
 import {DeveloperPanelTab} from "@/ig-template/developer-panel/DeveloperPanelTab";
+import {FunctionField} from "@/ig-template/developer-panel/FunctionField";
 
 export class Game {
     private _tickInterval: any;
@@ -32,7 +33,18 @@ export class Game {
     }
 
     public getDeveloperPanel(): DeveloperPanel {
-        const tabs: DeveloperPanelTab[] = []
+        // Start with play buttons for the game
+        const tabs: DeveloperPanelTab[] = [
+            new DeveloperPanelTab('Game', [
+                new FunctionField(this.start, 'Start').setCssClass('btn-green'),
+                new FunctionField(this.pause, 'Pause').setCssClass('btn-blue'),
+                new FunctionField(this.resume, 'Resume').setCssClass('btn-green'),
+                new FunctionField(this.stop, 'Stop').setCssClass('btn-red'),
+            ]),
+
+        ];
+
+
         for (const feature of this.featureList) {
             const fields = feature.getDeveloperPanelFields();
 

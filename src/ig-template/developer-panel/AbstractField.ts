@@ -7,21 +7,30 @@ export class AbstractField {
     propertyName: string;
     label: string | undefined;
 
+    cssClass: string;
 
     constructor(propertyName: string, label?: string) {
         this.propertyName = propertyName;
         this.label = label;
+        this.cssClass = 'btn-green';
     }
 
     get displayLabel() {
         return this.label ?? this.propertyName;
     }
 
-    setFeature(feature: Feature) {
+    setFeature(feature: Feature): this {
         this.feature = feature;
+        return this;
     }
 
-    setComponentName(name: string) {
+    setCssClass(cssClass: string): this {
+        this.cssClass = cssClass;
+        return this;
+    }
+
+    setComponentName(name: string): this {
         this.componentName = name;
+        return this;
     }
 }

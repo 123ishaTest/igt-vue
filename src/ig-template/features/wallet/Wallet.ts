@@ -145,7 +145,7 @@ export class Wallet extends Feature {
             new NumberField('money', 'Money'),
             new FunctionField(() => {
                 this.money = 10
-            }, 'Set money to 10'),
+            }, 'Set money to 10').setCssClass('btn-blue'),
             new RangeField('money', 0, 100, 2, 'Money Slider'),
         ]
     }

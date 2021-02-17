@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-row">
-    <button class="btn btn-green" @click="run()">
+    <button class="btn" :class="field.cssClass" @click="run()">
       {{ field.displayLabel }}
     </button>
 
