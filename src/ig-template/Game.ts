@@ -6,6 +6,7 @@ import {Feature} from "@/ig-template/features/Feature";
 import {DeveloperPanel} from "@/ig-template/developer-panel/DeveloperPanel";
 import {DeveloperPanelTab} from "@/ig-template/developer-panel/DeveloperPanelTab";
 import {FunctionField} from "@/ig-template/developer-panel/FunctionField";
+import {DisplayField} from "@/ig-template/developer-panel/DisplayField";
 
 export class Game {
     private _tickInterval: any;
@@ -36,10 +37,11 @@ export class Game {
         // Start with play buttons for the game
         const tabs: DeveloperPanelTab[] = [
             new DeveloperPanelTab('Game', [
-                new FunctionField(this.start, 'Start').setCssClass('btn-green'),
-                new FunctionField(this.pause, 'Pause').setCssClass('btn-blue'),
-                new FunctionField(this.resume, 'Resume').setCssClass('btn-green'),
-                new FunctionField(this.stop, 'Stop').setCssClass('btn-red'),
+                new DisplayField('state', 'State').setObject(this),
+                new FunctionField(() => {this.start()}, 'Start').setCssClass('btn-green'),
+                new FunctionField(() => {this.pause()}, 'Pause').setCssClass('btn-blue'),
+                new FunctionField(() => {this.resume()}, 'Resume').setCssClass('btn-green'),
+                new FunctionField(() => {this.stop()}, 'Stop').setCssClass('btn-red'),
             ]),
 
         ];
@@ -50,7 +52,7 @@ export class Game {
 
             // Inject the feature into the field.
             for (const field of fields) {
-                field.setFeature(feature);
+                field.setObject(feature);
             }
 
             const tab = new DeveloperPanelTab(feature.saveKey, fields)
@@ -95,6 +97,7 @@ export class Game {
      * Start the main update loop
      */
     public start(): void {
+        console.log("asdasasd");
         if (this.state !== GameState.Stopped && this.state !== GameState.Launching) {
             this.printStateWarning("Cannot start the game twice.");
             return;

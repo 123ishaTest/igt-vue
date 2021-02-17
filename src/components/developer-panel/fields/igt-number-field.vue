@@ -2,7 +2,7 @@
   <div class="flex flex-row">
     <span class="align-middle m-4">{{ field.displayLabel }}</span>
     <label>
-      <input class="input-primary w-32" v-model.number="field.feature[field.propertyName]" type="number">
+      <input class="input-primary w-32" v-model.number="field.value" type="number">
     </label>
   </div>
 </template>

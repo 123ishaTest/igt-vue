@@ -1,7 +1,5 @@
-import {Feature} from "@/ig-template/features/Feature";
-
 export class AbstractField {
-    feature: Feature | undefined;
+    object: object | undefined;
     componentName: string | undefined;
 
     propertyName: string;
@@ -19,8 +17,20 @@ export class AbstractField {
         return this.label ?? this.propertyName;
     }
 
-    setFeature(feature: Feature): this {
-        this.feature = feature;
+    get value() {
+        if (this.object == undefined) {
+            console.warn(`Cannot get warning as object is undefined for AbstractField ${this.propertyName}`)
+            return '';
+        }
+        return (this.object as any)[this.propertyName];
+    }
+
+    set value(value: any) {
+        (this.object as any)[this.propertyName] = value;
+    }
+
+    setObject(object: object): this {
+        this.object = object;
         return this;
     }
 
