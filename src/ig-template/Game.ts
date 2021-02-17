@@ -97,7 +97,6 @@ export class Game {
      * Start the main update loop
      */
     public start(): void {
-        console.log("asdasasd");
         if (this.state !== GameState.Stopped && this.state !== GameState.Launching) {
             this.printStateWarning("Cannot start the game twice.");
             return;
