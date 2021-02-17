@@ -10,9 +10,9 @@
 
 <script>
 import {App} from "@/App.ts"
-import IgtNumberField from "@/components/developer-panel/igt-number-field";
-import IgtButtonField from "@/components/developer-panel/igt-button-field";
-import IgtRangeField from "@/components/developer-panel/igt-range-field";
+import IgtNumberField from "@/components/developer-panel/fields/igt-number-field";
+import IgtButtonField from "@/components/developer-panel/fields/igt-button-field";
+import IgtRangeField from "@/components/developer-panel/fields/igt-range-field";
 
 export default {
   name: "igt-developer-panel",
