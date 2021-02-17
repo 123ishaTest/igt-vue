@@ -2,7 +2,7 @@
   <div class="m-4 p-4 bg-yellow-100">
     <p class="text-lg">Developer Panel</p>
     <hr>
-    <div :key=field.propertyName v-for="field in fields">
+    <div :key="index + '-' +field.propertyName" v-for="(field, index) in fields">
       <component :is="field.componentName" :field="field"></component>
     </div>
   </div>
