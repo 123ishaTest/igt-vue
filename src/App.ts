@@ -9,16 +9,19 @@ export class App {
 
     static start(): void {
 
-        this.game = new Game(
-            {
-                wallet: new Wallet([CurrencyType.Money, CurrencyType.Secondary]),
-                settings: new Settings(),
-            }
-        );
+        this.game = this.getDefaultGame();
         this.game.initialize();
         this.game.load();
         this.game.start();
     }
 
 
+    public static getDefaultGame(): Game {
+        return new Game(
+            {
+                wallet: new Wallet([CurrencyType.Money, CurrencyType.Secondary]),
+                settings: new Settings(),
+            }
+        );
+    }
 }
