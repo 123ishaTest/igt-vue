@@ -1,27 +1,24 @@
-import {Game} from "@/ig-template/Game";
-import {Wallet} from "@/ig-template/features/wallet/Wallet";
-import {CurrencyType} from "@/ig-template/features/wallet/CurrencyType";
-import {Settings} from "@/ig-template/features/settings/Settings";
+import {App} from "@/App.ts";
+import VueApp from "@/App.vue";
 
+import '@/VueFilters';
+import {mount} from "@vue/test-utils";
 
 /**
- * This smoke test simply starts the game and runs 100 game ticks.
+ * This smoke test starts the game and runs 100 game ticks.
+ * It will also mount the Vue instance.
  * It fails if any exceptions are thrown.
  */
 describe('Game launch smoke test', () => {
 
     test('smoke test', () => {
         expect(() => {
-            const game = new Game(
-                {
-                    wallet: new Wallet([CurrencyType.Money, CurrencyType.Secondary]),
-                    settings: new Settings(),
-                }
-            );
-            game.initialize();
-            game.start();
+            App.start()
+
+            mount(VueApp);
+
             for (let i = 0; i < 100; i++) {
-                game.update();
+                App.game.update();
             }
         }).not.toThrow();
     });
