@@ -1,5 +1,9 @@
 import {AbstractExpLevel} from "@/ig-template/tools/exp-level/AbstractExpLevel";
 
+/**
+ * Implementation of AbstractExpLevel that takes a function to calculate exp needed for each level.
+ */
+
 export class ContinuousExpLevel extends AbstractExpLevel {
     levelFunc: (arg1: number) => number;
 

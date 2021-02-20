@@ -1,5 +1,8 @@
 import {AbstractExpLevel} from "@/ig-template/tools/exp-level/AbstractExpLevel";
 
+/**
+ * Implementation of AbstractExpLevel that takes a list of exps needed for each level.
+ */
 export class DiscreteExpLevel extends AbstractExpLevel {
     expPerLevel: number[]
 
