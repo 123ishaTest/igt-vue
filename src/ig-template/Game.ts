@@ -10,7 +10,7 @@ import {DisplayField} from "@/ig-template/developer-panel/fields/DisplayField";
 import {ChoiceField} from "@/ig-template/developer-panel/fields/ChoiceField";
 
 export class Game {
-    private _tickInterval: any;
+    private _tickInterval: number = -1;
 
     /**
      * Object with registered features. If you want them as a list use this.featureList
@@ -22,6 +22,7 @@ export class Game {
 
     private readonly TICK_DURATION = 0.1;
     private gameSpeed = 1;
+    private _lastUpdate: number = 0;
 
     /**
      * Make sure this key is unique to your game.
@@ -75,13 +76,19 @@ export class Game {
      * Update all features
      */
     public update(): void {
+        const now = new Date().getTime() / 1000;
+        const timeDifference = now - this._lastUpdate;
+
         if (this.state != GameState.Playing) {
             return;
         }
 
+        const delta = timeDifference * this.gameSpeed;
         for (const feature of this.featureList) {
-            feature.update(this.TICK_DURATION * this.gameSpeed)
+            feature.update(delta)
         }
+
+        this._lastUpdate = now;
     }
 
     public getTotalCurrencyMultiplier(type: CurrencyType): number {
@@ -114,6 +121,7 @@ export class Game {
             feature.start();
         }
 
+        this._lastUpdate = new Date().getTime() / 1000;
         this._tickInterval = setInterval(() => this.update(), this.TICK_DURATION * 1000);
 
         this.state = GameState.Playing;
@@ -137,6 +145,8 @@ export class Game {
             this.printStateWarning("Cannot resume the game if we're not paused.");
             return;
         }
+
+        this._lastUpdate = new Date().getTime() / 1000;
         this._tickInterval = setInterval(() => this.update(), this.TICK_DURATION * 1000);
 
         this.state = GameState.Playing;
