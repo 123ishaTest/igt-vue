@@ -5,8 +5,6 @@ import {Progress} from "@/ig-template/tools/requirements/Progress";
  * The level isn't stored, only the experience.
  */
 export abstract class AbstractExpLevel {
-    // readonly EXP_TO_LEVEL = [0, 100, 250, 500, 1000, Infinity]
-
     exp: number;
     maxLevel: number;
 
@@ -20,24 +18,23 @@ export abstract class AbstractExpLevel {
     }
 
     getLevel(): number {
-        for (let i = 0; i < this.getExpNeededForLevel.length; i++) {
+        for (let i = 1; i < this.maxLevel; i++) {
             if (this.exp < this.getExpNeededForLevel(i)) {
-                return i;
+                return i - 1;
             }
         }
-        console.error(`Could not calculate level with exp ${this.exp}`);
-        return -1;
+        return this.maxLevel;
     }
 
     getLevelProgress(): Progress {
         const level = this.getLevel();
         const expForNextLevel = this.getExpForNextLevel(level);
-        const alreadyGainedExp = this.exp - this.getExpNeededForLevel(level - 1);
+        const alreadyGainedExp = this.exp - this.getExpNeededForLevel(level);
         return new Progress(alreadyGainedExp, expForNextLevel);
     }
 
     getExpForNextLevel(level: number): number {
-        return this.getExpNeededForLevel(level) - this.getExpNeededForLevel(level - 1);
+        return this.getExpNeededForLevel(level + 1) - this.getExpNeededForLevel(level);
     }
 
     abstract getExpNeededForLevel(level: number): number;

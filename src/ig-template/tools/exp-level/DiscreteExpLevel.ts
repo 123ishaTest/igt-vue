@@ -15,7 +15,7 @@ export class DiscreteExpLevel extends AbstractExpLevel {
     }
 
     getExpNeededForLevel(level: number): number {
-        return this.expPerLevel[level];
+        return this.expPerLevel[level - 1];
     }
 
 }
