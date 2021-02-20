@@ -3,10 +3,6 @@ import {Outcome} from "@/ig-template/tools/probability/Outcome";
 import {BooleanRequirement} from "@/ig-template/tools/requirements/BooleanRequirement";
 
 describe('WeightedDistribution', () => {
-    beforeEach(() => {
-        true;
-    });
-
     test('draw happy path', () => {
         expect(() => {
             const distribution = new WeightedDistribution([
