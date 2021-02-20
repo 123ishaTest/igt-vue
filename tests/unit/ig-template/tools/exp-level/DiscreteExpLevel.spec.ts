@@ -32,4 +32,22 @@ describe('Discrete Exp Level', () => {
         }).toThrow();
     });
 
+    test('Base exp', () => {
+        const level = new DiscreteExpLevel(5, [0, 10, 30, 60, 100], 10)
+        expect(level.getLevel()).toBe(2)
+    });
+
+    test('Get Level Progress', () => {
+        // Arrange
+        const level = new DiscreteExpLevel(5, [0, 10, 30, 60, 100])
+
+        // Act
+        level.gainExperience(15)
+        const progress = level.getLevelProgress();
+
+        // Assert
+        expect(progress.actual).toBe(5);
+        expect(progress.target).toBe(20);
+    })
+
 });

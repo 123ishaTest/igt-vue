@@ -8,7 +8,7 @@ export abstract class AbstractExpLevel {
     exp: number;
     maxLevel: number;
 
-    protected constructor(maxLevel: number, baseExp: number = 0) {
+    protected constructor(maxLevel: number, baseExp: number) {
         this.exp = baseExp;
         this.maxLevel = maxLevel
     }
