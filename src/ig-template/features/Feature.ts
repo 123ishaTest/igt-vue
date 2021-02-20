@@ -2,6 +2,7 @@ import {Saveable} from "@/ig-template/tools/saving/Saveable";
 import {SaveData} from "@/ig-template/tools/saving/SaveData";
 import {CurrencyType} from "@/ig-template/features/wallet/CurrencyType";
 import {Features} from "@/ig-template/Features";
+import {AbstractField} from "@/ig-template/developer-panel/fields/AbstractField";
 
 /**
  * An abstract class that all features should extend for.
@@ -15,6 +16,13 @@ export abstract class Feature implements Saveable {
      */
     protected constructor(saveKey: string) {
         this.saveKey = saveKey;
+    }
+
+    /**
+     * Called in dev mode, decides which fields to show in the developer panel.
+     */
+    getDeveloperPanelFields(): AbstractField[] {
+        return []
     }
 
     /**

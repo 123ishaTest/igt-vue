@@ -1,9 +1,13 @@
 import {Currency} from "./Currency";
 import {CurrencyType} from "./CurrencyType";
 
-import {SimpleEventDispatcher, ISimpleEvent} from "strongly-typed-events";
+import {ISimpleEvent, SimpleEventDispatcher} from "strongly-typed-events";
 import {Feature} from "@/ig-template/features/Feature";
 import {WalletSaveData} from "@/ig-template/features/wallet/WalletSaveData";
+import {AbstractField} from "@/ig-template/developer-panel/fields/AbstractField";
+import {NumberField} from "@/ig-template/developer-panel/fields/NumberField";
+import {FunctionField} from "@/ig-template/developer-panel/fields/FunctionField";
+import {RangeField} from "@/ig-template/developer-panel/fields/RangeField";
 
 
 export class Wallet extends Feature {
@@ -131,4 +135,18 @@ export class Wallet extends Feature {
         return this._currencies.Money;
     }
 
+    public set money(value: number) {
+        this._currencies.Money = value;
+    }
+
+
+    getDeveloperPanelFields(): AbstractField[] {
+        return [
+            new NumberField('money', 'Money'),
+            new FunctionField(() => {
+                this.money = 10
+            }, 'Set money to 10').setCssClass('btn-blue'),
+            new RangeField('money', 0, 100, 2, 'Money Slider'),
+        ]
+    }
 }

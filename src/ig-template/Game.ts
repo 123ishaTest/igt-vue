@@ -3,6 +3,11 @@ import {LocalStorage} from "@/ig-template/tools/saving/LocalStorage";
 import {CurrencyType} from "@/ig-template/features/wallet/CurrencyType";
 import {Features} from "@/ig-template/Features";
 import {Feature} from "@/ig-template/features/Feature";
+import {DeveloperPanel} from "@/ig-template/developer-panel/DeveloperPanel";
+import {DeveloperPanelTab} from "@/ig-template/developer-panel/DeveloperPanelTab";
+import {FunctionField} from "@/ig-template/developer-panel/fields/FunctionField";
+import {DisplayField} from "@/ig-template/developer-panel/fields/DisplayField";
+import {ChoiceField} from "@/ig-template/developer-panel/fields/ChoiceField";
 
 export class Game {
     private _tickInterval: any;
@@ -16,6 +21,7 @@ export class Game {
 
 
     private readonly TICK_DURATION = 0.1;
+    private gameSpeed = 1;
 
     /**
      * Make sure this key is unique to your game.
@@ -29,6 +35,41 @@ export class Game {
         this.state = GameState.Launching;
     }
 
+    public getDeveloperPanel(): DeveloperPanel {
+        // Start with play buttons for the game
+        const tabs: DeveloperPanelTab[] = [
+            new DeveloperPanelTab('Game', [
+                new DisplayField('state', 'State').setObject(this),
+                new ChoiceField('gameSpeed', [
+                    ['0.5x', 0.5],
+                    ['1x', 1],
+                    ['2x', 2],
+                    ['4x', 4],
+                ], 'Game speed').setObject(this),
+                new FunctionField(() => {this.start()}, 'Start').setCssClass('btn-green'),
+                new FunctionField(() => {this.pause()}, 'Pause').setCssClass('btn-blue'),
+                new FunctionField(() => {this.resume()}, 'Resume').setCssClass('btn-green'),
+                new FunctionField(() => {this.stop()}, 'Stop').setCssClass('btn-red'),
+            ]),
+
+        ];
+
+
+        for (const feature of this.featureList) {
+            const fields = feature.getDeveloperPanelFields();
+
+            // Inject the feature into the field.
+            for (const field of fields) {
+                field.setObject(feature);
+            }
+
+            const tab = new DeveloperPanelTab(feature.saveKey, fields)
+            if (!tab.isEmpty()) {
+                tabs.push(tab)
+            }
+        }
+        return new DeveloperPanel(tabs);
+    }
 
     /**
      * Update all features
@@ -39,7 +80,7 @@ export class Game {
         }
 
         for (const feature of this.featureList) {
-            feature.update(this.TICK_DURATION)
+            feature.update(this.TICK_DURATION * this.gameSpeed)
         }
     }
 
@@ -143,8 +184,14 @@ export class Game {
      */
     public load(): void {
         const saveData = LocalStorage.get(this.SAVE_KEY)
+        if (saveData == null) {
+            return;
+        }
         for (const feature of this.featureList) {
-            const featureSaveData: Record<string, unknown> = saveData == null ? {} : saveData[feature.saveKey] as Record<string, unknown> ?? {};
+            const featureSaveData: Record<string, unknown> = saveData[feature.saveKey] as Record<string, unknown>;
+            if (featureSaveData == null) {
+                continue;
+            }
             feature.load(featureSaveData);
         }
     }

@@ -4,7 +4,7 @@ import {App} from "./App";
 
 import './VueFilters';
 
-import "./index.scss";
+import "./index.css";
 
 Vue.config.productionTip = false
 

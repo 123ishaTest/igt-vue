@@ -1,7 +1,7 @@
 language: node_js
 
 node_js:
-  - "10"
+  - "14"
 
 cache:
   directories:
@@ -11,6 +11,10 @@ install:
   - npm install
 
 script:
+  - npm install codecov -g
   - npm run build
   - npm run test
   - npm run lint
+
+after_success:
+  - codecov
