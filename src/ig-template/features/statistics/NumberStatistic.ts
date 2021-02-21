@@ -9,8 +9,4 @@ export class NumberStatistic extends AbstractStatistic {
         this.value = value;
     }
 
-    public increment(amount: number = 1): void {
-        this.value += amount
-    }
-
 }

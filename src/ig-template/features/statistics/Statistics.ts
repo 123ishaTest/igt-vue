@@ -52,7 +52,7 @@ export class Statistics extends Feature {
         return id in this.list
     }
 
-    private registerStatistic(statistic: AbstractStatistic) {
+    public registerStatistic(statistic: AbstractStatistic) {
         this.list[statistic.id] = statistic;
     }
 
