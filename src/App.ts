@@ -2,6 +2,7 @@ import {Game} from "./ig-template/Game";
 import {Wallet} from "@/ig-template/features/wallet/Wallet";
 import {CurrencyType} from "@/ig-template/features/wallet/CurrencyType";
 import {Settings} from "@/ig-template/features/settings/Settings";
+import {Statistics} from "@/ig-template/features/statistics/Statistics";
 
 export class App {
 
@@ -21,6 +22,7 @@ export class App {
             {
                 wallet: new Wallet([CurrencyType.Money, CurrencyType.Secondary]),
                 settings: new Settings(),
+                statistics: new Statistics(),
             }
         );
     }
