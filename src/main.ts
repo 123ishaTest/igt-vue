@@ -2,11 +2,15 @@ import Vue from 'vue'
 import VueApp from './App.vue'
 import {App} from "./App";
 
+import Notifications from "vt-notifications";
+
 import './VueFilters';
 
 import "./index.css";
 
 Vue.config.productionTip = false
+
+Vue.use(Notifications);
 
 declare global {
     interface Window {

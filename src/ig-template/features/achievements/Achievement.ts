@@ -8,16 +8,17 @@ export class Achievement {
     public description: string;
     public image: string;
     public requirement: Requirement;
-
+    public isHidden: boolean;
     public unlocked: boolean
 
-    constructor(key: AchievementId, title: string, description: string, requirement: Requirement, image: string = '') {
+    constructor(key: AchievementId, title: string, description: string, requirement: Requirement, image: string = '', isHidden = false) {
         this.key = key;
         this.title = title;
         this.description = description;
         this.image = image;
         this.requirement = requirement;
-        this.unlocked = false
+        this.isHidden = isHidden;
+        this.unlocked = false;
     }
 
     /**
