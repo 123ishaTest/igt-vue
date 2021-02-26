@@ -21,6 +21,9 @@ export class Game {
 
 
     private readonly TICK_DURATION = 0.1;
+    private readonly SAVE_INTERVAL = 30;
+    private _nextSave = this.SAVE_INTERVAL;
+
     private gameSpeed = 1;
     private _lastUpdate: number = 0;
 
@@ -89,6 +92,11 @@ export class Game {
         }
 
         this._lastUpdate = now;
+        this._nextSave -= delta;
+        if (this._nextSave <= 0) {
+            this.save();
+            this._nextSave = this.SAVE_INTERVAL;
+        }
     }
 
     public getTotalCurrencyMultiplier(type: CurrencyType): number {
