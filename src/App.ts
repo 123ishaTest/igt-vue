@@ -6,6 +6,7 @@ import {Statistics} from "@/ig-template/features/statistics/Statistics";
 import {Achievements} from "@/ig-template/features/achievements/Achievements";
 
 export class App {
+    static inProduction: boolean = (process.env.NODE_ENV === "production");
 
     static game: Game;
 

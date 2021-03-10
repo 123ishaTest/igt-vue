@@ -2,7 +2,7 @@
   <div class="container">
 
     <igt-wallet></igt-wallet>
-    <igt-developer-panel></igt-developer-panel>
+    <igt-developer-panel v-if="showDevPanel"></igt-developer-panel>
 
   </div>
 
@@ -20,26 +20,11 @@ export default {
       game: App.game
     }
   },
-
-  methods: {
-    pause() {
-      this.game.pause();
-    },
-    start() {
-      this.game.start();
-    },
-    resume() {
-      this.game.resume();
-    },
-    stop() {
-      this.game.stop();
-    },
-  },
   computed: {
-    state() {
-      return this.game.state;
+    showDevPanel() {
+      return !App.inProduction;
     }
-  }
+  },
 }
 </script>
 
