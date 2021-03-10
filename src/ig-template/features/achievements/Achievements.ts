@@ -66,8 +66,9 @@ export class Achievements extends Feature {
         }
     }
 
-    private registerAchievement(achievement: Achievement) {
+    private registerAchievement<T extends Achievement>(achievement: T): T {
         this.list[achievement.key] = achievement;
+        return achievement;
     }
 
     public getAchievement(key: AchievementId): Achievement | null {
