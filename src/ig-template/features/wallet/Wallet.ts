@@ -53,6 +53,18 @@ export class Wallet extends Feature {
     }
 
     /**
+     * Return true if all currencies are valid and the player has the specified amount.
+     */
+    hasCurrencies(costs: Currency[]) {
+        for (const cost of costs) {
+            if (!this.hasCurrency(cost)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
      * Return true if the currency is valid and the player has the specified amount.
      */
     public hasCurrency(currency: Currency): boolean {
@@ -73,6 +85,28 @@ export class Wallet extends Feature {
             return;
         }
         this._currencies[currency.type] -= currency.amount;
+    }
+
+    /**
+     * Remove the currencies amounts from the specified currency.
+     * IMPORTANT: This method does not care if amounts go negative
+     */
+    public loseMultipleCurrencies(currencies: Currency[]) {
+        for (const currency of currencies) {
+            this.loseCurrency(currency);
+        }
+    }
+
+    /**
+     * Subtracts the specified currencies and returns true if the wallet has enough.
+     * Otherwise return false and don't subtract anything
+     */
+    public payMultipleIfPossible(currencies: Currency[]): boolean {
+        if (this.hasCurrencies(currencies)) {
+            this.loseMultipleCurrencies(currencies);
+            return true;
+        }
+        return false;
     }
 
     /**
