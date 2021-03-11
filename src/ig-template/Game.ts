@@ -77,7 +77,7 @@ export class Game {
      */
     public update(): void {
         const now = new Date().getTime() / 1000;
-        const timeDifference = now - this._lastUpdate;
+        const timeDifference = Math.max(0, now - this._lastUpdate);
 
         if (this.state != GameState.Playing) {
             return;

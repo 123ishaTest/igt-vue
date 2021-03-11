@@ -6,24 +6,26 @@ import {NumberStatistic} from "@/ig-template/features/statistics/NumberStatistic
 import {Feature} from "@/ig-template/features/Feature";
 import {AbstractStatistic} from "@/ig-template/features/statistics/AbstractStatistic";
 import {StatisticsSaveData} from "@/ig-template/features/statistics/StatisticsSaveData";
-import {StatisticsValue} from "@/ig-template/features/statistics/StatisticsValueType";
 import {Features} from "@/ig-template/Features";
 import {Currency} from "@/ig-template/features/wallet/Currency";
 import {CurrencyType} from "@/ig-template/features/wallet/CurrencyType";
+import {ArrayStatistic} from "@/ig-template/features/statistics/ArrayStatistic";
 
 export class Statistics extends Feature {
 
     list: Record<StatisticId, AbstractStatistic>
 
+    public totalMoneyGained: NumberStatistic;
 
     constructor() {
         super('statistics');
         this.list = {} as Record<StatisticId, AbstractStatistic>;
+
+        // You can register statistics as attributes for easy access, but you don't have to.
+        this.totalMoneyGained = this.registerStatistic(new NumberStatistic(StatisticId.TotalMoneyGained, 'Total money'));
     }
 
     initialize(features: Features): void {
-        this.registerStatistic(new NumberStatistic(StatisticId.TotalMoneyGained, 'Total money'))
-
         features.wallet.onCurrencyGain.subscribe((currency: Currency) => {
             if (currency.type === CurrencyType.Money) {
                 this.incrementNumberStatistic(StatisticId.TotalMoneyGained, currency.amount);
@@ -36,7 +38,26 @@ export class Statistics extends Feature {
             console.warn(`Could not find statistic with id ${id}`)
             return;
         }
-        this.list[id].value += amount;
+        const statistic = this.list[id];
+        if (!(statistic instanceof NumberStatistic)) {
+            console.warn(`Trying to treat ${id} as NumberStatistic but it's not.`);
+            return;
+        }
+        statistic.value += amount;
+    }
+
+    incrementArrayStatistic(id: StatisticId, index: number, amount = 1): void {
+        if (!this.hasStatistic(id)) {
+            console.warn(`Could not find statistic with id ${id}`)
+            return;
+        }
+        const statistic = this.list[id];
+        if (!(statistic instanceof ArrayStatistic)) {
+            console.warn(`Trying to treat ${id} as ArrayStatistic but it's not.`);
+            return;
+        }
+        const newValue = statistic.value[index] + amount;
+        statistic.value.splice(index, 1, newValue);
     }
 
     public getStatistic(id: StatisticId): AbstractStatistic | null {
@@ -52,8 +73,9 @@ export class Statistics extends Feature {
         return id in this.list
     }
 
-    public registerStatistic(statistic: AbstractStatistic) {
+    public registerStatistic<T extends AbstractStatistic>(statistic: T): T {
         this.list[statistic.id] = statistic;
+        return statistic;
     }
 
     load(data: StatisticsSaveData): void {
@@ -68,16 +90,6 @@ export class Statistics extends Feature {
         }
     }
 
-    parseSaveData(json: Record<string, unknown>): StatisticsSaveData {
-        const data = new StatisticsSaveData();
-        const list = json.list as Record<string, StatisticsValue>;
-        for (const id in list) {
-            if (Object.prototype.hasOwnProperty.call(list, id)) {
-                data.addStatistic(id as StatisticId, list[id])
-            }
-        }
-        return data;
-    }
 
     save(): StatisticsSaveData {
         const data = new StatisticsSaveData();
