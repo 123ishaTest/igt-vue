@@ -12,10 +12,6 @@ export class NumberStatisticRequirement extends Requirement {
         this.targetValue = targetValue;
     }
 
-    getTargetValue(): number {
-        return this.targetValue;
-    }
-
     get actualValue(): number {
         return this.statistic.value;
     }

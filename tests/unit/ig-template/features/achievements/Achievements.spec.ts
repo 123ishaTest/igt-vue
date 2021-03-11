@@ -5,10 +5,29 @@ import {NoRequirement} from "@/ig-template/tools/requirements/NoRequirement";
 import {ImpossibleRequirement} from "@/ig-template/tools/requirements/ImpossibleRequirement";
 import {CustomAchievement} from "@/ig-template/features/achievements/CustomAchievement";
 import {Progress} from "@/ig-template/tools/requirements/Progress";
+import {ArrayStatistic} from "@/ig-template/features/statistics/ArrayStatistic";
+import {StatisticId} from "@/ig-template/features/statistics/StatisticId";
+import {ArrayStatisticRequirement} from "@/ig-template/features/statistics/requirements/ArrayStatisticRequirement";
 
 
 describe('Achievements', () => {
     const id = "dummy" as AchievementId;
+    const array = new ArrayStatistic("array" as StatisticId, 'array stat', [0, 0, 0]);
+
+    test('array stat achievement', () => {
+        const achievements = new Achievements();
+        const achievement = achievements.registerAchievement(
+            new Achievement(
+                id, 'title', '',
+                new ArrayStatisticRequirement(array, 1, 3),
+            )
+        );
+
+        array.value[1] = 3;
+        achievements.update(3);
+        expect(achievement.unlocked).toBeTruthy();
+        expect(achievement.getProgress()).toStrictEqual(new Progress(3, 3));
+    });
 
     test('test unlock', () => {
         expect.assertions(2);

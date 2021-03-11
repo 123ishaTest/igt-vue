@@ -14,10 +14,6 @@ export class ArrayStatisticRequirement extends Requirement {
         this.targetValue = targetValue;
     }
 
-    getTargetValue(): number {
-        return this.targetValue;
-    }
-
     get actualValue(): number {
         return this.statistic.value[this.index];
     }
