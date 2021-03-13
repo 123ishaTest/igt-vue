@@ -9,7 +9,7 @@ describe('Multiple Choice Setting', () => {
     test('valid default setting', () => {
         // Arrange
         const setting = new MultipleChoiceSetting(SettingId.ExampleSetting, "Example setting", [
-            new SettingOption<number>("Option 1", 2),
+            new SettingOption("Option 1", 2),
         ], 2)
 
         // Assert
@@ -19,7 +19,7 @@ describe('Multiple Choice Setting', () => {
     test('invalid default setting', () => {
         expect(() => {
             new MultipleChoiceSetting(SettingId.ExampleSetting, "Example setting", [
-                new SettingOption<number>("Option 1", 2),
+                new SettingOption("Option 1", 2),
             ], 2123123)
 
         }).toThrow();
@@ -29,8 +29,8 @@ describe('Multiple Choice Setting', () => {
     test('set setting', () => {
         // Arrange
         const setting = new MultipleChoiceSetting(SettingId.ExampleSetting, "Example setting", [
-            new SettingOption<number>("Option 1", 1),
-            new SettingOption<number>("Option 2", 2),
+            new SettingOption("Option 1", 1),
+            new SettingOption("Option 2", 2),
         ], 1)
 
         // Act
@@ -44,8 +44,8 @@ describe('Multiple Choice Setting', () => {
     test('set invalid value', () => {
         // Arrange
         const setting = new MultipleChoiceSetting(SettingId.ExampleSetting, "Example setting", [
-            new SettingOption<number>("Option 1", 1),
-            new SettingOption<number>("Option 2", 2),
+            new SettingOption("Option 1", 1),
+            new SettingOption("Option 2", 2),
         ], 1)
 
         // Act
@@ -58,8 +58,8 @@ describe('Multiple Choice Setting', () => {
     test('set locked setting not allowed', () => {
         // Arrange
         const setting = new MultipleChoiceSetting(SettingId.ExampleSetting, "Example setting", [
-            new SettingOption<number>("Option 1", 1),
-            new SettingOption<number>("Option 2", 2),
+            new SettingOption("Option 1", 1),
+            new SettingOption("Option 2", 2),
         ], 1, new CustomRequirement("Always false", () => 0, () => 1))
 
         // Act
@@ -72,8 +72,8 @@ describe('Multiple Choice Setting', () => {
     test('set locked option not allowed', () => {
         // Arrange
         const setting = new MultipleChoiceSetting(SettingId.ExampleSetting, "Example setting", [
-            new SettingOption<number>("Option 1", 1, ),
-            new SettingOption<number>("Option 2", 2, new CustomRequirement("Always false", () => 0, () => 1)),
+            new SettingOption("Option 1", 1),
+            new SettingOption("Option 2", 2, new CustomRequirement("Always false", () => 0, () => 1)),
         ], 1)
 
         // Act

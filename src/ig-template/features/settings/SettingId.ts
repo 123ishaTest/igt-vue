@@ -1,3 +1,4 @@
 export enum SettingId {
-  ExampleSetting = "Example Setting"
+  ExampleSetting = "Example Setting",
+  ExampleBooleanSetting = "Example Boolean Setting",
 }

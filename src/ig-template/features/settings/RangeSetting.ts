@@ -6,13 +6,13 @@ import {SettingOption} from "@/ig-template/features/settings/SettingOption";
 /**
  * A setting which allows any floating point value between min and max (both inclusive).
  */
-export class RangeSetting extends Setting<number> {
+export class RangeSetting extends Setting {
     min: number;
     max: number;
 
     constructor(id: SettingId, displayName: string, min: number, max: number, defaultValue: number, requirement?: Requirement) {
         // Pass the default value as an option
-        super(id, displayName, [new SettingOption<number>("Default", defaultValue)], defaultValue, requirement);
+        super(id, displayName, [new SettingOption("Default", defaultValue)], defaultValue, requirement);
 
         if (min >= max || max <= min) {
             throw new RangeError(`Invalid range settings (min: ${min}, max: ${max}) for setting ${this.id}`)
@@ -20,7 +20,7 @@ export class RangeSetting extends Setting<number> {
         this.min = min;
         this.max = max;
 
-        if (!this.validValue(this.defaultValue)) {
+        if (!this.validValue(defaultValue)) {
             throw new RangeError(`${this.defaultValue} is not a valid value for setting ${this.id}.`);
         }
     }

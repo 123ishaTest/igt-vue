@@ -2,18 +2,19 @@ import {SettingId} from "@/ig-template/features/settings/SettingId";
 import {Requirement} from "@/ig-template/tools/requirements/Requirement";
 import {NoRequirement} from "@/ig-template/tools/requirements/NoRequirement";
 import {SettingOption} from "@/ig-template/features/settings/SettingOption";
+import {SettingsValue} from "@/ig-template/features/settings/SettingsValueType";
 
 
-export abstract class Setting<T> {
+export abstract class Setting {
     id: SettingId;
     displayName: string;
-    options: SettingOption<T>[];
-    defaultValue: T;
-    value: T;
+    options: SettingOption[];
+    defaultValue: SettingsValue;
+    value: SettingsValue;
 
     requirement: Requirement;
 
-    protected constructor(id: SettingId, displayName: string, options: SettingOption<T>[], defaultValue: T, requirement: Requirement = new NoRequirement()) {
+    protected constructor(id: SettingId, displayName: string, options: SettingOption[], defaultValue: SettingsValue, requirement: Requirement = new NoRequirement()) {
         this.id = id;
         this.displayName = displayName;
         this.options = options;
@@ -24,7 +25,7 @@ export abstract class Setting<T> {
         this.requirement = requirement;
     }
 
-    set(value: T): void {
+    set(value: SettingsValue): void {
         if (!this.canAccess) {
             return;
         }
@@ -35,7 +36,7 @@ export abstract class Setting<T> {
         }
     }
 
-    validValue(value: T): boolean {
+    validValue(value: SettingsValue): boolean {
         const option = this.options.find((option) => option.value === value);
         if (option == undefined || !option.canAccess) {
             return false;
@@ -43,7 +44,7 @@ export abstract class Setting<T> {
         return true;
     }
 
-    isSelected(value: T): boolean {
+    isSelected(value: SettingsValue): boolean {
         return this.value === value;
     }
 
