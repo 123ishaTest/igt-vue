@@ -1,5 +1,5 @@
 <template>
-  <div class="m-4 p-4 bg-yellow-100">
+  <div class="feature-tab bg-yellow-100">
     <div class="text-xl">Developer Panel</div>
     <igt-tabs>
       <igt-tab :name="tab.label | humanizeString " :selected="index === 0" :key="index + '-' +tab.label"
