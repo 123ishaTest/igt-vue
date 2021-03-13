@@ -14,12 +14,24 @@
           </div>
         </div>
 
-        <nav class="flex flex-col mt-10 px-4 text-center">
+        <nav class="flex flex-col mt-10 px-4 text-left">
 
-          <a class="tab-entry" :key="'tab'+index" v-for="(tab, index) in tabs"
-             :class="{ 'bg-gray-200': tab.isActive }" :href="tab.href" @click="selectTab(tab)">{{ tab.name }}
+          <a class="flex flex-row w-full justify-between items-center tab-entry" :key="'tabasd'+index"
+             v-for="(tab, index) in tabs"
+             :class="{ 'bg-gray-200': tab.isActive,
+             'hover:text-gray-700 hover:bg-gray-200 cursor-pointer': !tab.isCategory }"
+             :href="tab.link" target="_blank"
+             @click="tab.canSelect ? selectTab(tab) : ''"
+          >
+
+            <div v-if="tab.isCategory" class="w-full mt-8 mb-4 text-sm text-left" :key="'tab'+index">
+              {{ tab.name }}
+              <hr/>
+            </div>
+            <span v-else>{{ tab.name }}</span>
+            <img v-if="tab.image" class="w-8 h-8" :src="require('@/assets/' +tab.image)" :alt="tab.image"/>
+
           </a>
-
 
         </nav>
       </div>
@@ -94,6 +106,6 @@ export default {
 
 <style scoped>
 .tab-entry {
-  @apply mt-3 py-2 text-sm text-gray-600 hover:text-gray-700 hover:bg-gray-200 rounded;
+  @apply mt-1 p-2 text-sm text-gray-600 rounded w-full h-10;
 }
 </style>
