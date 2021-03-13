@@ -43,7 +43,7 @@ export default {
     this.achievementsFeature.onUnlock.subscribe((achievement) => {
       this.$notify(
           {
-            title: achievement.title,
+            title: `Achievement get: ${achievement.title}`,
             text: achievement.description,
             type: "success",
             group: "top-left",
