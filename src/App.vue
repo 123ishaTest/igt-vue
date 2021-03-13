@@ -19,8 +19,8 @@
 
       <igt-sidebar-category name="Other"></igt-sidebar-category>
 
-      <igt-tab name="Developer Panel">
-        <igt-developer-panel v-if="showDevPanel"></igt-developer-panel>
+      <igt-tab name="Developer Panel" v-if="showDevPanel">
+        <igt-developer-panel></igt-developer-panel>
       </igt-tab>
 
       <igt-sidebar-category name="Socials"></igt-sidebar-category>
