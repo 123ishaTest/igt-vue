@@ -2,10 +2,11 @@ import {Setting} from "@/ig-template/features/settings/Setting";
 import {SettingId} from "@/ig-template/features/settings/SettingId";
 import {SettingOption} from "@/ig-template/features/settings/SettingOption";
 import {Requirement} from "@/ig-template/tools/requirements/Requirement";
+import {SettingsValue} from "@/ig-template/features/settings/SettingsValueType";
 
-export class MultipleChoiceSetting<T> extends Setting<T> {
+export class MultipleChoiceSetting extends Setting {
 
-    constructor(id: SettingId, displayName: string, options: SettingOption<T>[], defaultValue: T, requirement?: Requirement) {
+    constructor(id: SettingId, displayName: string, options: SettingOption[], defaultValue: SettingsValue, requirement?: Requirement) {
         super(id, displayName, options, defaultValue, requirement);
 
         if (!this.validValue(this.defaultValue)) {

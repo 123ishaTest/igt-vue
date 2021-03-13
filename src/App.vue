@@ -13,6 +13,10 @@
         <igt-achievements :achievements-feature="game.features.achievements"></igt-achievements>
       </igt-tab>
 
+      <igt-tab name="Settings">
+        <igt-settings></igt-settings>
+      </igt-tab>
+
       <igt-sidebar-category name="Other"></igt-sidebar-category>
 
       <igt-tab name="Developer Panel">
@@ -37,15 +41,17 @@
 import {App} from "@/App.ts"
 import IgtSidebar from "@/components/util/sidebar/igt-sidebar-layout";
 import IgtTab from "@/components/util/igt-tab";
-import IgtAchievements from "@/components/igt-achievements";
-import IgtWallet from "@/components/igt-wallet";
+import IgtAchievements from "@/components/features/achievements/igt-achievements";
+import IgtWallet from "@/components/features/wallet/igt-wallet";
 import IgtNotifications from "@/components/util/igt-notifications";
 import IgtDeveloperPanel from "@/components/developer-panel/igt-developer-panel";
 import IgtSidebarCategory from "@/components/util/sidebar/igt-sidebar-category";
 import IgtSidebarExternalLink from "@/components/util/sidebar/igt-sidebar-external-link";
+import IgtSettings from "@/components/features/settings/igt-settings";
 
 export default {
   components: {
+    IgtSettings,
     IgtSidebarExternalLink,
     IgtSidebarCategory, IgtDeveloperPanel, IgtNotifications, IgtWallet, IgtAchievements, IgtTab, IgtSidebar
   },

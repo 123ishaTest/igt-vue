@@ -12,18 +12,18 @@ describe('Settings', () => {
 
     beforeEach(() => {
         settings = new Settings();
-        settings.add(
+        settings.registerSetting(
             new MultipleChoiceSetting(SettingId.ExampleSetting, "Example setting", [
-                new SettingOption<number>("Option 1", 1),
-                new SettingOption<number>("Option 2", 2),
-                new SettingOption<number>("Option 3", 3),
+                new SettingOption("Option 1", 1),
+                new SettingOption("Option 2", 2),
+                new SettingOption("Option 3", 3),
             ], 2)
         )
     });
 
     test('adding same setting multiple times', () => {
         // Arrange
-        settings.add(new BooleanSetting(SettingId.ExampleSetting, "Duplicate", false));
+        settings.registerSetting(new BooleanSetting(SettingId.ExampleSetting, "Duplicate", false));
 
         // Assert
         expect(settings.list.length).toBe(1);
@@ -31,7 +31,7 @@ describe('Settings', () => {
 
     test('get valid setting', () => {
         // Act
-        const setting = settings.getSetting<number>(SettingId.ExampleSetting);
+        const setting = settings.getSetting(SettingId.ExampleSetting);
 
         // Assert
         expect(setting).toBeDefined();
@@ -40,7 +40,7 @@ describe('Settings', () => {
 
     test('get invalid setting', () => {
         // Act
-        const setting = settings.getSetting<number>("undefined setting" as SettingId);
+        const setting = settings.getSetting("undefined setting" as SettingId);
 
         // Assert
         expect(setting).toBeNull();
@@ -48,8 +48,8 @@ describe('Settings', () => {
 
     test('set valid setting', () => {
         // Act
-        settings.setSetting<number>(SettingId.ExampleSetting, 1);
-        const setting = settings.getSetting<number>(SettingId.ExampleSetting);
+        settings.setSetting(SettingId.ExampleSetting, 1);
+        const setting = settings.getSetting(SettingId.ExampleSetting);
 
         // Assert
         expect(setting).toBeDefined();
@@ -58,7 +58,7 @@ describe('Settings', () => {
 
     test('set invalid setting', () => {
         expect(() => {
-            settings.setSetting<number>("undefined setting" as SettingId, 1);
+            settings.setSetting("undefined setting" as SettingId, 1);
         }).not.toThrow()
     });
 
