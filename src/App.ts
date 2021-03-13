@@ -22,6 +22,7 @@ export class App {
     public static getDefaultGame(): Game {
         return new Game(
             {
+                // TODO Add more currencies here
                 wallet: new Wallet([CurrencyType.Money, CurrencyType.Secondary]),
                 settings: new Settings(),
                 statistics: new Statistics(),

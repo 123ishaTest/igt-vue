@@ -15,4 +15,8 @@ export class BooleanSetting extends Setting<boolean> {
             new SettingOption<boolean>("Off", false)
         ], defaultValue, requirement);
     }
+
+    public toggle(): void {
+        this.value = !this.value;
+    }
 }

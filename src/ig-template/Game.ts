@@ -21,11 +21,14 @@ export class Game {
 
 
     private readonly TICK_DURATION = 0.1;
+    private readonly SAVE_INTERVAL = 30;
+    private _nextSave = this.SAVE_INTERVAL;
+
     private gameSpeed = 1;
     private _lastUpdate: number = 0;
 
     /**
-     * Make sure this key is unique to your game.
+     * TODO Make sure this key is unique to your game.
      * Otherwise you might run into loading conflicts when multiple games are hosted on the same domain (such as <username.github.io/game)
      */
     private readonly SAVE_KEY = "unique-key-for-your-game";
@@ -47,10 +50,18 @@ export class Game {
                     ['2x', 2],
                     ['4x', 4],
                 ], 'Game speed').setObject(this),
-                new FunctionField(() => {this.start()}, 'Start').setCssClass('btn-green'),
-                new FunctionField(() => {this.pause()}, 'Pause').setCssClass('btn-blue'),
-                new FunctionField(() => {this.resume()}, 'Resume').setCssClass('btn-green'),
-                new FunctionField(() => {this.stop()}, 'Stop').setCssClass('btn-red'),
+                new FunctionField(() => {
+                    this.start()
+                }, 'Start').setCssClass('btn-green'),
+                new FunctionField(() => {
+                    this.pause()
+                }, 'Pause').setCssClass('btn-blue'),
+                new FunctionField(() => {
+                    this.resume()
+                }, 'Resume').setCssClass('btn-green'),
+                new FunctionField(() => {
+                    this.stop()
+                }, 'Stop').setCssClass('btn-red'),
             ]),
 
         ];
@@ -89,6 +100,11 @@ export class Game {
         }
 
         this._lastUpdate = now;
+        this._nextSave -= delta;
+        if (this._nextSave <= 0) {
+            this.save();
+            this._nextSave = this.SAVE_INTERVAL;
+        }
     }
 
     public getTotalCurrencyMultiplier(type: CurrencyType): number {

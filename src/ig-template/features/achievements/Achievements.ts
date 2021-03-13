@@ -34,14 +34,14 @@ export class Achievements extends Feature {
             new Achievement(
                 AchievementId.TotalMoney100, "Gain 100 total money", 'Automatically triggered if you gain enough money',
                 new NumberStatisticRequirement(features.statistics.totalMoneyGained, 100),
+                'logo.png',
             )
         );
 
         // Or have manual ones. You'll have to trigger them with `achievement.forceUnlock()`
         this.registerAchievement(
-            new CustomAchievement(AchievementId.ExampleAchievement, "Custom Achievement", 'Can be completed manually')
+            new CustomAchievement(AchievementId.ExampleAchievement, "Custom Achievement", 'Can be completed manually', 'logo.png', true)
         );
-
 
     }
 
