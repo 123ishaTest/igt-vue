@@ -1,13 +1,12 @@
 <template>
   <div v-show="isActive">
-    <slot></slot>
   </div>
 </template>
 
 <script>
 
 export default {
-  name: "igt-tab",
+  name: "igt-sidebar-category",
   props: {
     name: {required: true},
     selected: {default: false}
@@ -15,20 +14,11 @@ export default {
 
   data() {
     return {
-      canSelect: true,
+      isCategory: true,
       isActive: false
     };
   },
 
-  computed: {
-    href() {
-      return '#' + this.name.toLowerCase().replace(/ /g, '-');
-    }
-  },
-
-  mounted() {
-    this.isActive = this.selected;
-  }
 }
 </script>
 
