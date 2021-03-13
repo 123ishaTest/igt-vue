@@ -19,7 +19,6 @@ export default {
   },
   computed: {
     booleanSetting() {
-      console.log(this.settings.exampleBooleanSetting);
       return this.settings.exampleBooleanSetting;
     }
   },
