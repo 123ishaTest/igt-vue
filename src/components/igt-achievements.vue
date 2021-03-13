@@ -1,7 +1,5 @@
 <template>
-  <div class="feature-tab bg-green-700">
-    <p class="text-2xl font-semibold text-white">Achievements</p>
-    <hr/>
+  <igt-feature container-class="bg-green-300">
     <div class="flex flex-row flex-wrap">
       <div :key=achievement.id v-for="achievement in achievements" class="w-72">
         <div class="flex flex-col border-2 m-2 p-2 h-72 justify-between shadow-md"
@@ -19,14 +17,15 @@
         </div>
       </div>
     </div>
-
-  </div>
+  </igt-feature>
 </template>
 <script>
 import {Achievements} from "@/ig-template/features/achievements/Achievements";
+import IgtFeature from "@/components/util/igt-feature";
 
 export default {
   name: "igt-achievements",
+  components: {IgtFeature},
   props: {
     achievementsFeature: {
       type: Achievements,

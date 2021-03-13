@@ -1,6 +1,5 @@
 <template>
-  <div class="bg-red-100">
-    <h3>Wallet</h3>
+  <igt-feature container-class="bg-red-100">
     <table>
       <tr>
         <th>Currency</th>
@@ -39,16 +38,18 @@
     <button class="btn btn-green" :disabled="!hasMoney(50)">
       App.game.wallet.hasCurrency(new Currency(50, CurrencyType.Money));
     </button>
-  </div>
+  </igt-feature>
 </template>
 
 <script>
 import {App} from "@/App.ts"
 import {CurrencyType} from "@/ig-template/features/wallet/CurrencyType";
 import {Currency} from "@/ig-template/features/wallet/Currency";
+import IgtFeature from "@/components/util/igt-feature";
 
 export default {
   name: "igt-wallet",
+  components: {IgtFeature},
   data() {
     return {
       wallet: App.game.features.wallet,

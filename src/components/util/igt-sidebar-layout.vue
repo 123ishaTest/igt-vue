@@ -6,9 +6,11 @@
 
       <div :class="sidebarOpen ? 'translate-x-0 ease-out' : '-translate-x-full ease-in'"
            class="fixed z-30 inset-y-0 left-0 w-60 transition duration-300 transform bg-white dark:bg-gray-900 overflow-y-auto lg:translate-x-0 lg:static lg:inset-0 shadow-xl">
-        <div class="flex items-center justify-center mt-8">
-          <div class="flex items-center">
-            <span class="text-gray-800 dark:text-white text-2xl font-semibold">Dashboard</span>
+        <div class="flex items-center justify-center mt-2">
+          <div class="flex items-center p-2 mx-2">
+            <img class="h-12 w-12" :src="require(`@/assets/logo.png`)" alt="logo">
+            <span
+                class="text-gray-800 dark:text-white text-xl font-semibold text-center">Incremental Game Template</span>
           </div>
         </div>
 

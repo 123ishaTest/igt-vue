@@ -20,7 +20,7 @@
 
 <script>
 import {App} from "@/App.ts"
-import IgtSidebar from "@/components/util/sidebar/igt-sidebar";
+import IgtSidebar from "@/components/util/igt-sidebar-layout";
 import IgtTab from "@/components/util/igt-tab";
 import IgtAchievements from "@/components/igt-achievements";
 import IgtWallet from "@/components/igt-wallet";
