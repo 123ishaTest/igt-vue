@@ -1,9 +1,6 @@
 <template>
   <igt-feature container-class="bg-gray-100">
-    <p>Redeemable codes are a great way to reward a specific set of players.
-      You can distribute a code in your Discord that gives the user 100 money once.</p>
-    <p>It is also useful for an early beta, where you can let the testers skip the early game with a code.</p>
-
+    <p>Enter code DUMMY to gain 100 money</p>
     <div class="flex flex-row">
       <label>
         <input class="input-primary" v-model="code">
