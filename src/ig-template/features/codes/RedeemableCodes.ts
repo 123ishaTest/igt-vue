@@ -8,16 +8,16 @@ import {Currency} from "@/ig-template/features/wallet/Currency";
 
 export class RedeemableCodes extends Feature {
 
-    codeList: RedeemableCode[];
+    list: RedeemableCode[];
 
     constructor() {
         super('redeemable-codes')
-        this.codeList = [];
+        this.list = [];
     }
 
 
     initialize(features: Features) {
-        this.codeList.push(
+        this.list.push(
             new RedeemableCode(RedeemableCodeId.exampleCode, 'Example code that gives 100 money, the key is "DUMMY"', 65408136, () => {
                 features.wallet.gainCurrency(new Currency(100, CurrencyType.Money));
             })
@@ -30,7 +30,7 @@ export class RedeemableCodes extends Feature {
     enterCode(codeString: string): boolean | RedeemableCode | undefined {
         const hash = this.hash(codeString);
 
-        const redeemableCode = this.codeList.find(c => {
+        const redeemableCode = this.list.find(c => {
             return c.hash === hash;
         });
 
@@ -70,7 +70,7 @@ export class RedeemableCodes extends Feature {
         }
 
         data.list.forEach(id => {
-            const foundCode = this.codeList.find(code => {
+            const foundCode = this.list.find(code => {
                 return code.id === id;
             });
 
@@ -81,7 +81,7 @@ export class RedeemableCodes extends Feature {
     }
 
     save(): RedeemableCodesSaveData {
-        const list = this.codeList.filter(code => {
+        const list = this.list.filter(code => {
             return code.isRedeemed;
         }).map(code => {
             return code.id;
