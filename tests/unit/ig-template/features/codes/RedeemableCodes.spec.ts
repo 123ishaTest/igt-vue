@@ -7,11 +7,15 @@ describe('Redeemable Codes', () => {
     const id = "example-code" as RedeemableCodeId
     const plainText = "DUMMY";
     let code: RedeemableCode;
+    let repeatableCode: RedeemableCode;
 
     beforeEach(() => {
         code = new RedeemableCode(id, 'Example code', 65408136, () => {
             // Empty
         })
+        repeatableCode = new RedeemableCode(id, 'Example code', 65408136, () => {
+            // Empty
+        }, true)
     })
 
 
@@ -71,6 +75,20 @@ describe('Redeemable Codes', () => {
         newRedeemableCodes.list.push(newCode);
         newRedeemableCodes.load(saveData);
         expect(newCode.isRedeemed).toBe(true);
+    });
+
+    test('redeeming repeatable code twice', () => {
+        // Arrange
+        const redeemableCodes = new RedeemableCodes();
+        redeemableCodes.list.push(repeatableCode)
+
+        redeemableCodes.enterCode("DUMMY");
+
+        const redeemedCode = redeemableCodes.enterCode("DUMMY");
+        const redeemedSecondTime = redeemableCodes.enterCode("DUMMY");
+
+        expect(redeemedCode).toBeTruthy();
+        expect(redeemedSecondTime).toBeTruthy();
     });
 
 });
