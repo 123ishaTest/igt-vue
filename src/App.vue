@@ -13,6 +13,10 @@
         <igt-achievements :achievements-feature="game.features.achievements"></igt-achievements>
       </igt-tab>
 
+      <igt-tab name="Redeemable Codes">
+        <igt-redeemable-codes></igt-redeemable-codes>
+      </igt-tab>
+
       <igt-tab name="Settings">
         <igt-settings></igt-settings>
       </igt-tab>
@@ -21,9 +25,6 @@
 
       <igt-tab name="Developer Panel" v-if="showDevPanel">
         <igt-developer-panel></igt-developer-panel>
-      </igt-tab>
-      <igt-tab name="Redeemable Codes">
-        <igt-redeemable-codes></igt-redeemable-codes>
       </igt-tab>
 
       <igt-sidebar-category name="Socials"></igt-sidebar-category>
