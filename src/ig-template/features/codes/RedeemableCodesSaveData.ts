@@ -7,12 +7,7 @@ import {RedeemableCodeId} from "@/ig-template/features/codes/RedeemableCodeId";
 export class RedeemableCodesSaveData implements SaveData {
     list: RedeemableCodeId[];
 
-    constructor(list: RedeemableCodeId[] = []) {
+    constructor(list: RedeemableCodeId[]) {
         this.list = list;
     }
-
-    addAchievement(key: RedeemableCodeId): void {
-        this.list.push(key);
-    }
-
 }
