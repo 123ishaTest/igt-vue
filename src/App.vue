@@ -13,6 +13,10 @@
         <igt-achievements :achievements-feature="game.features.achievements"></igt-achievements>
       </igt-tab>
 
+      <igt-tab name="Redeemable Codes">
+        <igt-redeemable-codes></igt-redeemable-codes>
+      </igt-tab>
+
       <igt-tab name="Settings">
         <igt-settings></igt-settings>
       </igt-tab>
@@ -48,9 +52,11 @@ import IgtDeveloperPanel from "@/components/developer-panel/igt-developer-panel"
 import IgtSidebarCategory from "@/components/util/sidebar/igt-sidebar-category";
 import IgtSidebarExternalLink from "@/components/util/sidebar/igt-sidebar-external-link";
 import IgtSettings from "@/components/features/settings/igt-settings";
+import IgtRedeemableCodes from "@/components/features/codes/igt-redeemable-codes";
 
 export default {
   components: {
+    IgtRedeemableCodes,
     IgtSettings,
     IgtSidebarExternalLink,
     IgtSidebarCategory, IgtDeveloperPanel, IgtNotifications, IgtWallet, IgtAchievements, IgtTab, IgtSidebar
