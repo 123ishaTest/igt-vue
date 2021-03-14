@@ -45,8 +45,8 @@ describe('Redeemable Codes', () => {
         const redeemedDirectly = code.redeem();
         const redeemedCode = redeemableCodes.enterCode("DUMMY");
 
-        expect(redeemedCode).toBeFalsy();
-        expect(redeemedDirectly).toBeFalsy();
+        expect(redeemedCode).toBe(false);
+        expect(redeemedDirectly).toBe(false);
     });
 
 
@@ -70,7 +70,7 @@ describe('Redeemable Codes', () => {
         })
         newRedeemableCodes.list.push(newCode);
         newRedeemableCodes.load(saveData);
-        expect(newCode.isRedeemed).toBeTruthy();
+        expect(newCode.isRedeemed).toBe(true);
     });
 
 });

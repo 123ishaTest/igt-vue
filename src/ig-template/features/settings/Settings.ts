@@ -4,8 +4,6 @@ import {Setting} from "@/ig-template/features/settings/Setting";
 import {SettingId} from "@/ig-template/features/settings/SettingId";
 import {MultipleChoiceSetting} from "@/ig-template/features/settings/MultipleChoiceSetting";
 import {SettingOption} from "@/ig-template/features/settings/SettingOption";
-import {AbstractField} from "@/ig-template/developer-panel/fields/AbstractField";
-import {FunctionField} from "@/ig-template/developer-panel/fields/FunctionField";
 import {BooleanSetting} from "@/ig-template/features/settings/BooleanSetting";
 import {SettingsValue} from "@/ig-template/features/settings/SettingsValueType";
 
@@ -80,13 +78,4 @@ export class Settings extends Feature {
         }
 
     }
-
-    getDeveloperPanelFields(): AbstractField[] {
-        return [
-            new FunctionField(() => {
-                alert('test')
-            }, 'Test'),
-        ]
-    }
-
 }

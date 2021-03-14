@@ -12,5 +12,15 @@ describe('Boolean Setting', () => {
         expect(setting.defaultValue).toBe(false);
     });
 
+    test('toggle', () => {
+        // Arrange
+        const setting = new BooleanSetting(SettingId.ExampleSetting, "Example setting", false);
+
+        // Act
+        setting.toggle();
+        // Assert
+        expect(setting.value).toBe(true);
+    });
+
 
 });
