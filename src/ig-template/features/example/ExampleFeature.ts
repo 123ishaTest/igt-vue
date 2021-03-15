@@ -9,12 +9,15 @@ import {UpgradesFeature} from "@/ig-template/features/UpgradesFeature";
 import {Currency} from "@/ig-template/features/wallet/Currency";
 import {ContinuousUpgrade} from "@/ig-template/tools/upgrades/ContinuousUpgrade";
 import {SingleLevelUpgrade} from "@/ig-template/tools/upgrades/SingleLevelUpgrade";
+import {ContinuousExpLevel} from "@/ig-template/tools/exp-level/ContinuousExpLevel";
 
 export class ExampleFeature extends UpgradesFeature {
 
     moneyAdditiveUpgrade: DiscreteUpgrade;
     moneyMultiplicativeUpgrade: ContinuousUpgrade;
     singleLevelUpgrade: SingleLevelUpgrade;
+
+    exampleSkill: ContinuousExpLevel;
 
     constructor() {
         super('example-feature');
@@ -39,12 +42,15 @@ export class ExampleFeature extends UpgradesFeature {
 
         this.singleLevelUpgrade = new SingleLevelUpgrade(UpgradeId.SingleLevel, UpgradeType.None, 'Single Level', new Currency(1000, CurrencyType.Money), 1);
 
-
         this.upgrades = [
             this.moneyAdditiveUpgrade,
             this.moneyMultiplicativeUpgrade,
             this.singleLevelUpgrade
         ]
+
+        this.exampleSkill = new ContinuousExpLevel(100, (level) => {
+            return 1 / 8 * (level ** 2 - level + 600 * (2 ** (level / 7) - 2 ** (1 / 7)) / (2 ** (1 / 7) - 1))
+        })
     }
 
     initialize(features: Features) {
@@ -53,6 +59,7 @@ export class ExampleFeature extends UpgradesFeature {
 
     update(delta: number) {
         this._wallet.gainCurrency(new Currency(this.moneyPerSecond() * delta, CurrencyType.Money));
+        this.exampleSkill.gainExperience(this.moneyPerSecond() * delta / 10);
     }
 
     moneyPerSecond(): number {

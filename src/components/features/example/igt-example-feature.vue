@@ -10,18 +10,20 @@
                      :can-buy="example.canAfford(upgrade)"></igt-upgrade>
       </div>
     </div>
+    <igt-exp-level :exp-level="example.exampleSkill"></igt-exp-level>
   </igt-feature>
 </template>
 
 <script>
 import {App} from "@/App.ts"
 import IgtFeature from "@/components/util/igt-feature";
-import IgtUpgrade from "@/components/tools/igt-discrete-upgrade";
+import IgtUpgrade from "@/components/tools/upgrades/igt-discrete-upgrade";
 import {UpgradeId} from "@/ig-template/tools/upgrades/UpgradeId";
+import IgtExpLevel from "@/components/tools/exp-level/igt-exp-level";
 
 export default {
   name: "igt-example-feature",
-  components: {IgtUpgrade, IgtFeature},
+  components: {IgtExpLevel, IgtUpgrade, IgtFeature},
   data() {
     return {
       example: App.game.features.example,
