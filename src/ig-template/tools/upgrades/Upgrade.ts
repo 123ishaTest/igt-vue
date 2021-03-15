@@ -25,11 +25,15 @@ export abstract class Upgrade implements Saveable {
 
     abstract getCost(): Currency;
 
-    abstract getBonus(level: number): number;
+    getBonus(): number {
+        return this.getBonusForLevel(this.level);
+    }
+
+    abstract getBonusForLevel(level: number): number;
 
     getUpgradeBonus(): number {
         if (!this.isMaxLevel()) {
-            return this.getBonus(this.level + 1) - this.getBonus(this.level);
+            return this.getBonusForLevel(this.level + 1) - this.getBonusForLevel(this.level);
         }
         return 0;
     }

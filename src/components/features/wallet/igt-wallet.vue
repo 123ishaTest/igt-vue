@@ -88,11 +88,6 @@ export default {
     },
   },
 
-  mounted() {
-    this.wallet.onCurrencyGain.subscribe(currency => {
-      console.log("We gained", currency.amount, currency.type);
-    });
-  }
 }
 </script>
 

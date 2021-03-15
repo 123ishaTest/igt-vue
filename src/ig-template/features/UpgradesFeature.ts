@@ -12,7 +12,7 @@ export abstract class UpgradesFeature extends Feature {
     _wallet: Wallet = null as unknown as Wallet;
     upgrades: Upgrade[];
 
-    protected constructor(saveKey: string, upgrades: Upgrade[]) {
+    protected constructor(saveKey: string, upgrades: Upgrade[] = []) {
         super(saveKey);
         this.upgrades = upgrades;
     }

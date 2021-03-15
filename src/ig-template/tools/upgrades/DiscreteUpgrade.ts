@@ -13,6 +13,9 @@ export class DiscreteUpgrade extends Upgrade {
         super(id, type, displayName, maxLevel);
         this.costList = costList;
         this.bonusList = bonusList;
+        if (this.costList.length + 1 !== this.bonusList.length) {
+            throw new Error(`BonusList must have a length 1 larger than CostList, got (${this.bonusList.length}) and (${this.costList.length}) respectively`)
+        }
     }
 
     getCost(): Currency {
@@ -22,7 +25,7 @@ export class DiscreteUpgrade extends Upgrade {
         return this.costList[this.level];
     }
 
-    getBonus(level: number = this.level): number {
+    getBonusForLevel(level: number): number {
         return this.bonusList[level];
     }
 

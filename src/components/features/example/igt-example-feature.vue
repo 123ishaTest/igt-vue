@@ -1,6 +1,8 @@
 <template>
   <igt-feature container-class="bg-gray-300">
     <p>Example feature</p>
+    <p>You have {{example._wallet.money | numberFormat}} Money</p>
+    <p>You are gaining {{ moneyPerSecond }} Money per second</p>
     <igt-upgrade :upgrade="moneyUpgrade1" @click.native="buyUpgrade(moneyUpgrade1)"
                  :can-buy="example.canAfford(moneyUpgrade1)"></igt-upgrade>
   </igt-feature>
@@ -29,6 +31,9 @@ export default {
   computed: {
     moneyUpgrade1() {
       return this.example.getUpgrade(UpgradeId.MoneyUpgrade1);
+    },
+    moneyPerSecond() {
+      return this.example.moneyPerSecond();
     }
   },
 
