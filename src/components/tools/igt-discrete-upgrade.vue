@@ -1,10 +1,11 @@
 <template>
   <button class="btn btn-blue" :disabled="!canBuy">
-    <div class="flex flex-col">
+    <span class="flex flex-col">
       <span>{{ upgrade.displayName }}</span>
       <span>Lvl. {{ upgrade.level }} / {{ upgrade.maxLevel }}</span>
-      <span>{{ upgrade.getCost() }}</span>
-    </div>
+      <span v-if="!upgrade.isMaxLevel()">{{ upgrade.getCost() }}</span>
+      <span v-else>Max</span>
+    </span>
   </button>
 </template>
 
