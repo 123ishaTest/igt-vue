@@ -3,6 +3,7 @@
     <p>Example feature</p>
     <p>You have {{ example._wallet.money | numberFormat }} Money</p>
     <p>You are gaining {{ moneyPerSecond }} Money per second</p>
+    <p>You have {{ singleLevelUpgrade.isBought() ? '' : 'not' }} bought the Single Level Upgrade</p>
     <div class="flex flex-row">
       <div v-for="upgrade in example.upgrades" :key="upgrade.id">
         <igt-upgrade :upgrade="upgrade" @click.native="buyUpgrade(upgrade)"
@@ -32,8 +33,8 @@ export default {
     }
   },
   computed: {
-    moneyUpgrade1() {
-      return this.example.getUpgrade(UpgradeId.MoneyUpgrade1);
+    singleLevelUpgrade() {
+      return this.example.getUpgrade(UpgradeId.SingleLevel);
     },
     moneyPerSecond() {
       return this.example.moneyPerSecond();

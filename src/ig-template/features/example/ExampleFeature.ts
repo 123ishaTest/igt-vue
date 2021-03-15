@@ -8,24 +8,26 @@ import {Features} from "@/ig-template/Features";
 import {UpgradesFeature} from "@/ig-template/features/UpgradesFeature";
 import {Currency} from "@/ig-template/features/wallet/Currency";
 import {ContinuousUpgrade} from "@/ig-template/tools/upgrades/ContinuousUpgrade";
+import {SingleLevelUpgrade} from "@/ig-template/tools/upgrades/SingleLevelUpgrade";
 
 export class ExampleFeature extends UpgradesFeature {
 
-    moneyUpgrade1: DiscreteUpgrade;
-    moneyUpgrade2: ContinuousUpgrade;
+    moneyAdditiveUpgrade: DiscreteUpgrade;
+    moneyMultiplicativeUpgrade: ContinuousUpgrade;
+    singleLevelUpgrade: SingleLevelUpgrade;
 
     constructor() {
         super('example-feature');
 
-        this.moneyUpgrade1 = new DiscreteUpgrade(
-            UpgradeId.MoneyUpgrade1,
+        this.moneyAdditiveUpgrade = new DiscreteUpgrade(
+            UpgradeId.MoneyAdditive,
             UpgradeType.Money,
             'Discrete Upgrade',
             20,
             CurrencyBuilder.createArray(ArrayBuilder.fromStartAndStepAdditive(10, 10, 20), CurrencyType.Money),
             ArrayBuilder.fromStartAndStepAdditive(1, 1, 21));
-        this.moneyUpgrade2 = new ContinuousUpgrade(
-            UpgradeId.MoneyUpgrade2,
+        this.moneyMultiplicativeUpgrade = new ContinuousUpgrade(
+            UpgradeId.MoneyMultiplicative,
             UpgradeType.Money,
             'Continuous Upgrade',
             Infinity,
@@ -35,10 +37,13 @@ export class ExampleFeature extends UpgradesFeature {
                 return new Currency(level * 10, CurrencyType.Money);
             })
 
+        this.singleLevelUpgrade = new SingleLevelUpgrade(UpgradeId.SingleLevel, UpgradeType.None, 'Single Level', new Currency(1000, CurrencyType.Money), 1);
+
 
         this.upgrades = [
-            this.moneyUpgrade1,
-            this.moneyUpgrade2,
+            this.moneyAdditiveUpgrade,
+            this.moneyMultiplicativeUpgrade,
+            this.singleLevelUpgrade
         ]
     }
 
@@ -51,7 +56,7 @@ export class ExampleFeature extends UpgradesFeature {
     }
 
     moneyPerSecond(): number {
-        return this.moneyUpgrade1.getBonus() * this.moneyUpgrade2.getBonus();
+        return this.moneyAdditiveUpgrade.getBonus() * this.moneyMultiplicativeUpgrade.getBonus();
     }
 
 }
