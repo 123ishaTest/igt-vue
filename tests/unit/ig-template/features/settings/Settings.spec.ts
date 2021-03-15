@@ -7,13 +7,13 @@ import {SettingsSaveData} from "@/ig-template/features/settings/SettingsSaveData
 
 
 describe('Settings', () => {
-
+    const id = 'example-setting' as SettingId
     let settings: Settings;
 
     beforeEach(() => {
         settings = new Settings();
         settings.registerSetting(
-            new MultipleChoiceSetting(SettingId.ExampleSetting, "Example setting", [
+            new MultipleChoiceSetting(id, "Example setting", [
                 new SettingOption("Option 1", 1),
                 new SettingOption("Option 2", 2),
                 new SettingOption("Option 3", 3),
@@ -23,7 +23,7 @@ describe('Settings', () => {
 
     test('adding same setting multiple times', () => {
         // Arrange
-        settings.registerSetting(new BooleanSetting(SettingId.ExampleSetting, "Duplicate", false));
+        settings.registerSetting(new BooleanSetting(id, "Duplicate", false));
 
         // Assert
         expect(settings.list.length).toBe(1);
@@ -31,7 +31,7 @@ describe('Settings', () => {
 
     test('get valid setting', () => {
         // Act
-        const setting = settings.getSetting(SettingId.ExampleSetting);
+        const setting = settings.getSetting(id);
 
         // Assert
         expect(setting).toBeDefined();
@@ -48,8 +48,8 @@ describe('Settings', () => {
 
     test('set valid setting', () => {
         // Act
-        settings.setSetting(SettingId.ExampleSetting, 1);
-        const setting = settings.getSetting(SettingId.ExampleSetting);
+        settings.setSetting(id, 1);
+        const setting = settings.getSetting(id);
 
         // Assert
         expect(setting).toBeDefined();
@@ -81,13 +81,13 @@ describe('Settings', () => {
         // Arrange
         const expectedSaveData: SettingsSaveData = {
             list: [{
-                "id": SettingId.ExampleSetting,
+                "id": id,
                 "value": 1,
             }]
         };
 
         // Act
-        settings.setSetting(SettingId.ExampleSetting, 1);
+        settings.setSetting(id, 1);
         const actualSaveData = settings.save();
 
         // Assert
@@ -98,18 +98,18 @@ describe('Settings', () => {
         // Arrange
         const saveData: SettingsSaveData = {
             list: [{
-                id: SettingId.ExampleSetting,
+                id: id,
                 value: 1,
             }]
         };
-        settings.setSetting(SettingId.ExampleSetting, 2);
+        settings.setSetting(id, 2);
 
         // Act
         settings.load(saveData);
 
 
         // Assert
-        expect(settings.getSetting(SettingId.ExampleSetting)?.value).toBe(1);
+        expect(settings.getSetting(id)?.value).toBe(1);
     });
 
 });

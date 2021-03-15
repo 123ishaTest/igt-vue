@@ -3,10 +3,11 @@ import {BooleanSetting} from "@/ig-template/features/settings/BooleanSetting";
 
 
 describe('Boolean Setting', () => {
+    const id = 'example-setting' as SettingId
 
     test('valid default setting', () => {
         // Arrange
-        const setting = new BooleanSetting(SettingId.ExampleSetting, "Example setting", false);
+        const setting = new BooleanSetting(id, "Example setting", false);
 
         // Assert
         expect(setting.defaultValue).toBe(false);
@@ -14,7 +15,7 @@ describe('Boolean Setting', () => {
 
     test('toggle', () => {
         // Arrange
-        const setting = new BooleanSetting(SettingId.ExampleSetting, "Example setting", false);
+        const setting = new BooleanSetting(id, "Example setting", false);
 
         // Act
         setting.toggle();
