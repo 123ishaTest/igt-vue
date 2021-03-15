@@ -20,7 +20,7 @@ export class Game {
     public state: GameState;
 
 
-    private readonly TICK_DURATION = 0.1;
+    private readonly TICK_DURATION = 0.05;
     private readonly SAVE_INTERVAL = 30;
     private _nextSave = this.SAVE_INTERVAL;
 
