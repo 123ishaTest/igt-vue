@@ -6,4 +6,8 @@ export class Progress {
         this.actual = actual;
         this.target = target;
     }
+
+    getPercentage(): number {
+        return Math.min(1, Math.max(0, this.actual / this.target));
+    }
 }
