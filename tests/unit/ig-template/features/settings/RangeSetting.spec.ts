@@ -4,10 +4,11 @@ import {CustomRequirement} from "@/ig-template/tools/requirements/CustomRequirem
 
 
 describe('Range Setting', () => {
+    const id = 'example-setting' as SettingId
 
     test('valid default setting', () => {
         // Arrange
-        const setting = new RangeSetting(SettingId.ExampleSetting, "Example setting", 1, 3, 2);
+        const setting = new RangeSetting(id, "Example setting", 1, 3, 2);
 
         // Assert
         expect(setting.defaultValue).toBe(2);
@@ -15,7 +16,7 @@ describe('Range Setting', () => {
 
     test('set valid option on locked setting', () => {
         // Arrange
-        const setting = new RangeSetting(SettingId.ExampleSetting, "Example setting", 1, 3, 2,
+        const setting = new RangeSetting(id, "Example setting", 1, 3, 2,
             new CustomRequirement("Always false", () => 0, () => 1));
 
         // Act
@@ -31,7 +32,7 @@ describe('Range Setting', () => {
     test('min === max', () => {
         // Arrange
         expect(() => {
-            new RangeSetting(SettingId.ExampleSetting, "Example setting", 1, 1, 1);
+            new RangeSetting(id, "Example setting", 1, 1, 1);
 
         }).toThrow(RangeError)
     });
@@ -39,14 +40,14 @@ describe('Range Setting', () => {
     test('min > max', () => {
         // Arrange
         expect(() => {
-            new RangeSetting(SettingId.ExampleSetting, "Example setting", 3, 1, 2);
+            new RangeSetting(id, "Example setting", 3, 1, 2);
         }).toThrow(RangeError)
     });
 
     test('default outside of range', () => {
         // Arrange
         expect(() => {
-            new RangeSetting(SettingId.ExampleSetting, "Example setting", 1, 3, 10);
+            new RangeSetting(id, "Example setting", 1, 3, 10);
         }).toThrow(RangeError)
     });
 });
