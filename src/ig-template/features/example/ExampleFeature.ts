@@ -30,7 +30,7 @@ export class ExampleFeature extends UpgradesFeature {
             'Continuous Upgrade',
             Infinity,
             (level) => {
-                return 1 + level
+                return 1 + level;
             }, (level) => {
                 return new Currency(level * 10, CurrencyType.Money);
             })

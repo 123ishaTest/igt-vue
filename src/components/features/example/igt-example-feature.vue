@@ -28,8 +28,7 @@ export default {
   },
   methods: {
     buyUpgrade(id) {
-      const bought = this.example.buyUpgrade(id);
-      console.log(bought)
+      this.example.buyUpgrade(id);
     }
   },
   computed: {
