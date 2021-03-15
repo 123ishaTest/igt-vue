@@ -1,6 +1,6 @@
 <template>
   <igt-feature>
-    <igt-boolean-setting :setting="darkMode" true-icon="fa-check" false-icon="fa-times"></igt-boolean-setting>
+    <igt-boolean-setting :setting="darkMode" true-icon="fa-moon" false-icon="fa-sun"></igt-boolean-setting>
     <button class="btn btn-red" @click="resetSave">Reset Save</button>
   </igt-feature>
 </template>
