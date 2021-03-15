@@ -5,6 +5,7 @@ import {Settings} from "@/ig-template/features/settings/Settings";
 import {Statistics} from "@/ig-template/features/statistics/Statistics";
 import {Achievements} from "@/ig-template/features/achievements/Achievements";
 import {RedeemableCodes} from "@/ig-template/features/codes/RedeemableCodes";
+import {ExampleFeature} from "@/ig-template/features/example/ExampleFeature";
 
 export class App {
     static inProduction: boolean = (process.env.NODE_ENV === "production");
@@ -27,6 +28,7 @@ export class App {
                 wallet: new Wallet([CurrencyType.Money, CurrencyType.Secondary]),
                 settings: new Settings(),
                 codes: new RedeemableCodes(),
+                example: new ExampleFeature(),
                 statistics: new Statistics(),
                 achievements: new Achievements(),
             }
