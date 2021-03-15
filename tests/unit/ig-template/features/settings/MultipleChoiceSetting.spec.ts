@@ -5,10 +5,11 @@ import {CustomRequirement} from "@/ig-template/tools/requirements/CustomRequirem
 
 
 describe('Multiple Choice Setting', () => {
+    const id = 'example-setting' as SettingId
 
     test('valid default setting', () => {
         // Arrange
-        const setting = new MultipleChoiceSetting(SettingId.ExampleSetting, "Example setting", [
+        const setting = new MultipleChoiceSetting(id, "Example setting", [
             new SettingOption("Option 1", 2),
         ], 2)
 
@@ -18,7 +19,7 @@ describe('Multiple Choice Setting', () => {
 
     test('invalid default setting', () => {
         expect(() => {
-            new MultipleChoiceSetting(SettingId.ExampleSetting, "Example setting", [
+            new MultipleChoiceSetting(id, "Example setting", [
                 new SettingOption("Option 1", 2),
             ], 2123123)
 
@@ -28,7 +29,7 @@ describe('Multiple Choice Setting', () => {
 
     test('set setting', () => {
         // Arrange
-        const setting = new MultipleChoiceSetting(SettingId.ExampleSetting, "Example setting", [
+        const setting = new MultipleChoiceSetting(id, "Example setting", [
             new SettingOption("Option 1", 1),
             new SettingOption("Option 2", 2),
         ], 1)
@@ -43,7 +44,7 @@ describe('Multiple Choice Setting', () => {
 
     test('set invalid value', () => {
         // Arrange
-        const setting = new MultipleChoiceSetting(SettingId.ExampleSetting, "Example setting", [
+        const setting = new MultipleChoiceSetting(id, "Example setting", [
             new SettingOption("Option 1", 1),
             new SettingOption("Option 2", 2),
         ], 1)
@@ -57,7 +58,7 @@ describe('Multiple Choice Setting', () => {
 
     test('set locked setting not allowed', () => {
         // Arrange
-        const setting = new MultipleChoiceSetting(SettingId.ExampleSetting, "Example setting", [
+        const setting = new MultipleChoiceSetting(id, "Example setting", [
             new SettingOption("Option 1", 1),
             new SettingOption("Option 2", 2),
         ], 1, new CustomRequirement("Always false", () => 0, () => 1))
@@ -71,7 +72,7 @@ describe('Multiple Choice Setting', () => {
 
     test('set locked option not allowed', () => {
         // Arrange
-        const setting = new MultipleChoiceSetting(SettingId.ExampleSetting, "Example setting", [
+        const setting = new MultipleChoiceSetting(id, "Example setting", [
             new SettingOption("Option 1", 1),
             new SettingOption("Option 2", 2, new CustomRequirement("Always false", () => 0, () => 1)),
         ], 1)
