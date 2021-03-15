@@ -1,5 +1,5 @@
 <template>
-  <igt-feature container-class="bg-yellow-100">
+  <igt-feature container-class="bg-yellow-100 dark:bg-gray-700">
     <igt-tabs>
       <igt-tab :name="tab.label | humanizeString " :selected="index === 0" :key="index + '-' +tab.label"
                v-for="(tab, index) in developerPanel.tabs">

@@ -1,5 +1,5 @@
 <template>
-  <igt-feature container-class="bg-red-100">
+  <igt-feature>
     <table>
       <tr>
         <th>Currency</th>

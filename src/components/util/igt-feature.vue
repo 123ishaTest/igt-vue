@@ -11,7 +11,7 @@ export default {
   props: {
     containerClass: {
       type: String,
-      default: ''
+      default: 'bg-gray-200 dark:bg-gray-700'
     },
   },
 }

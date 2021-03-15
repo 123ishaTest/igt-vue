@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :class="{'dark': darkMode}">
     <igt-notifications></igt-notifications>
     <igt-sidebar>
 
@@ -75,6 +75,9 @@ export default {
   computed: {
     showDevPanel() {
       return !App.inProduction;
+    },
+    darkMode() {
+      return App.game.features.settings.darkMode.value;
     }
   },
 }
