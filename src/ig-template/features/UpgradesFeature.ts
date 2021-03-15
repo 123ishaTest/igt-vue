@@ -42,6 +42,6 @@ export abstract class UpgradesFeature extends Feature {
     }
 
     canAfford(upgrade: Upgrade): boolean {
-        return this._wallet.hasCurrency(upgrade.getCost());
+        return upgrade.canAfford(this._wallet);
     }
 }
