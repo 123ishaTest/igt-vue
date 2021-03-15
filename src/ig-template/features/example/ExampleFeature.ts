@@ -1,4 +1,3 @@
-import {SaveData} from "@/ig-template/tools/saving/SaveData";
 import {DiscreteUpgrade} from "@/ig-template/tools/upgrades/DiscreteUpgrade";
 import {UpgradeId} from "@/ig-template/tools/upgrades/UpgradeId";
 import {UpgradeType} from "@/ig-template/tools/upgrades/UpgradeType";
@@ -43,6 +42,9 @@ export class ExampleFeature extends UpgradesFeature {
         ]
     }
 
+    initialize(features: Features) {
+        this._wallet = features.wallet;
+    }
 
     update(delta: number) {
         this._wallet.gainCurrency(new Currency(this.moneyPerSecond() * delta, CurrencyType.Money));
@@ -50,19 +52,6 @@ export class ExampleFeature extends UpgradesFeature {
 
     moneyPerSecond(): number {
         return this.moneyUpgrade1.getBonus() * this.moneyUpgrade2.getBonus();
-    }
-
-
-    initialize(features: Features) {
-        this._wallet = features.wallet;
-    }
-
-    load(): void {
-        // Empty
-    }
-
-    save(): SaveData {
-        return {};
     }
 
 }

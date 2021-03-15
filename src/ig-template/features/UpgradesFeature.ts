@@ -3,6 +3,7 @@ import {Wallet} from "@/ig-template/features/wallet/Wallet";
 import {UpgradeId} from "@/ig-template/tools/upgrades/UpgradeId";
 import {Feature} from "@/ig-template/features/Feature";
 import {Features} from "@/ig-template/Features";
+import {UpgradesFeatureSaveData} from "@/ig-template/tools/saving/UpgradesFeatureSaveData";
 
 /**
  * An abstract class for all features that need to buy Upgrades
@@ -43,5 +44,25 @@ export abstract class UpgradesFeature extends Feature {
 
     canAfford(upgrade: AbstractUpgrade): boolean {
         return upgrade.canAfford(this._wallet);
+    }
+
+    /**
+     * IMPORTANT: Make sure to call super().load(data) when overriding to also load upgrades.
+     */
+    load(data: UpgradesFeatureSaveData) {
+        data.upgrades?.forEach(upgradeSaveData => {
+            this.getUpgrade(upgradeSaveData.id as UpgradeId)?.load(upgradeSaveData);
+        });
+    }
+
+    /**
+     * IMPORTANT: Make sure to call super().save() when overriding to also save upgrades.
+     */
+    save(): UpgradesFeatureSaveData {
+        return {
+            upgrades: this.upgrades.map(upgrade => {
+                return upgrade.save();
+            })
+        }
     }
 }
