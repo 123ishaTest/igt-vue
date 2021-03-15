@@ -11,13 +11,14 @@
 
 <script>
 
-import {DiscreteUpgrade} from "@/ig-template/tools/upgrades/DiscreteUpgrade";
+
+import {AbstractUpgrade} from "@/ig-template/tools/upgrades/AbstractUpgrade";
 
 export default {
   name: "igt-upgrade",
   props: {
     upgrade: {
-      type: DiscreteUpgrade,
+      type: AbstractUpgrade,
       required: true,
     },
     canBuy: {

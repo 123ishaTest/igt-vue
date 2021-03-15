@@ -1,4 +1,4 @@
-import {Upgrade} from "@/ig-template/tools/upgrades/Upgrade";
+import {AbstractUpgrade} from "@/ig-template/tools/upgrades/AbstractUpgrade";
 import {Wallet} from "@/ig-template/features/wallet/Wallet";
 import {UpgradeId} from "@/ig-template/tools/upgrades/UpgradeId";
 import {Feature} from "@/ig-template/features/Feature";
@@ -10,9 +10,9 @@ import {Features} from "@/ig-template/Features";
 export abstract class UpgradesFeature extends Feature {
 
     _wallet: Wallet = null as unknown as Wallet;
-    upgrades: Upgrade[];
+    upgrades: AbstractUpgrade[];
 
-    protected constructor(saveKey: string, upgrades: Upgrade[] = []) {
+    protected constructor(saveKey: string, upgrades: AbstractUpgrade[] = []) {
         super(saveKey);
         this.upgrades = upgrades;
     }
@@ -24,13 +24,13 @@ export abstract class UpgradesFeature extends Feature {
         this._wallet = features.wallet;
     }
 
-    getUpgrade(id: UpgradeId): Upgrade | undefined {
+    getUpgrade(id: UpgradeId): AbstractUpgrade | undefined {
         return this.upgrades.find(upgrade => {
             return upgrade.id === id;
         });
     }
 
-    buyUpgrade(upgrade: Upgrade): boolean {
+    buyUpgrade(upgrade: AbstractUpgrade): boolean {
         if (!this._wallet) {
             console.warn("Wallet not found, are you sure it is initialized?")
             return false;
@@ -41,7 +41,7 @@ export abstract class UpgradesFeature extends Feature {
         return upgrade.buy(this._wallet);
     }
 
-    canAfford(upgrade: Upgrade): boolean {
+    canAfford(upgrade: AbstractUpgrade): boolean {
         return upgrade.canAfford(this._wallet);
     }
 }

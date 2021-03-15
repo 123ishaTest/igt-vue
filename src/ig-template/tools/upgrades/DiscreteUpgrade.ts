@@ -1,10 +1,10 @@
 import {Currency} from "@/ig-template/features/wallet/Currency";
-import {Upgrade} from "@/ig-template/tools/upgrades/Upgrade";
+import {AbstractUpgrade} from "@/ig-template/tools/upgrades/AbstractUpgrade";
 import {UpgradeType} from "@/ig-template/tools/upgrades/UpgradeType";
 import {UpgradeId} from "@/ig-template/tools/upgrades/UpgradeId";
 import {CurrencyType} from "@/ig-template/features/wallet/CurrencyType";
 
-export class DiscreteUpgrade extends Upgrade {
+export class DiscreteUpgrade extends AbstractUpgrade {
 
     costList: Currency[] = [];
     bonusList: number[] = []

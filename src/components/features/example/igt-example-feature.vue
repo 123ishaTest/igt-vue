@@ -1,10 +1,14 @@
 <template>
   <igt-feature container-class="bg-gray-300">
     <p>Example feature</p>
-    <p>You have {{example._wallet.money | numberFormat}} Money</p>
+    <p>You have {{ example._wallet.money | numberFormat }} Money</p>
     <p>You are gaining {{ moneyPerSecond }} Money per second</p>
-    <igt-upgrade :upgrade="moneyUpgrade1" @click.native="buyUpgrade(moneyUpgrade1)"
-                 :can-buy="example.canAfford(moneyUpgrade1)"></igt-upgrade>
+    <div class="flex flex-row">
+      <div v-for="upgrade in example.upgrades" :key="upgrade.id">
+        <igt-upgrade :upgrade="upgrade" @click.native="buyUpgrade(upgrade)"
+                     :can-buy="example.canAfford(upgrade)"></igt-upgrade>
+      </div>
+    </div>
   </igt-feature>
 </template>
 

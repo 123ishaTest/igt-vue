@@ -8,7 +8,7 @@ import {Currency} from "@/ig-template/features/wallet/Currency";
 import {UpgradeSaveData} from "@/ig-template/tools/upgrades/UpgradeSaveData";
 import {Wallet} from "@/ig-template/features/wallet/Wallet";
 
-export abstract class Upgrade implements Saveable {
+export abstract class AbstractUpgrade implements Saveable {
     id: UpgradeId;
     type: UpgradeType;
     displayName: string;
