@@ -1,5 +1,5 @@
 <template>
-  <igt-feature container-class="bg-gray-100">
+  <igt-feature>
     <p>Enter code DUMMY to gain 100 money</p>
     <div class="flex flex-row">
       <label>

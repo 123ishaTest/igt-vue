@@ -1,5 +1,5 @@
 <template>
-  <igt-feature container-class="bg-gray-300">
+  <igt-feature>
     <p>Example feature</p>
     <p>You have {{ example._wallet.money | numberFormat }} Money</p>
     <p>You are gaining {{ moneyPerSecond }} Money per second</p>

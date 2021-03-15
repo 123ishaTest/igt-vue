@@ -1,6 +1,6 @@
 <template>
-  <igt-feature container-class="bg-gray-100">
-    <igt-boolean-setting :setting="booleanSetting" true-icon="fa-check" false-icon="fa-times"></igt-boolean-setting>
+  <igt-feature>
+    <igt-boolean-setting :setting="darkMode" true-icon="fa-check" false-icon="fa-times"></igt-boolean-setting>
     <button class="btn btn-red" @click="resetSave">Reset Save</button>
   </igt-feature>
 </template>
@@ -29,8 +29,8 @@ export default {
     }
   },
   computed: {
-    booleanSetting() {
-      return this.settings.exampleBooleanSetting;
+    darkMode() {
+      return this.settings.darkMode;
     }
   },
 }

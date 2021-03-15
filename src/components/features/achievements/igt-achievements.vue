@@ -1,5 +1,5 @@
 <template>
-  <igt-feature container-class="bg-green-300">
+  <igt-feature>
     <div class="flex flex-row flex-wrap">
       <div :key=achievement.id v-for="achievement in achievements" class="w-72">
         <div class="flex flex-col border-2 m-2 p-2 h-72 justify-between shadow-md"
