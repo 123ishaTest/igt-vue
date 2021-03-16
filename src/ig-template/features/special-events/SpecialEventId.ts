@@ -1,3 +1,4 @@
 export enum SpecialEventId {
-    AllowButtonEvent,
+    AllowButton,
+    Weekly
 }

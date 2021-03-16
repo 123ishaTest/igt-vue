@@ -5,7 +5,7 @@
 
       <igt-sidebar-category name="Features"></igt-sidebar-category>
 
-      <igt-tab name="Example" :selected="true">
+      <igt-tab name="Example">
         <igt-example-feature></igt-example-feature>
       </igt-tab>
 
@@ -13,7 +13,7 @@
         <igt-wallet></igt-wallet>
       </igt-tab>
 
-      <igt-tab name="Special Events">
+      <igt-tab name="Special Events" :selected="true">
         <igt-special-events></igt-special-events>
       </igt-tab>
 

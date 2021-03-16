@@ -1,5 +1,5 @@
 export enum SpecialEventDateState {
-    Before,
-    During,
-    After,
+    Before = 'before',
+    During = 'during',
+    After = 'after',
 }

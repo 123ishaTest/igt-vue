@@ -8,6 +8,8 @@
     <button v-if="showEventButton" class="btn btn-blue" @click="eventButton">
       This button is managed by a Special Event.
     </button>
+    <span v-if="example.weeklyEventActive">Weekly</span>
+
     <div class="flex flex-row">
       <div v-for="upgrade in example.upgrades" :key="upgrade.id">
         <igt-upgrade :upgrade="upgrade" @click.native="buyUpgrade(upgrade)"

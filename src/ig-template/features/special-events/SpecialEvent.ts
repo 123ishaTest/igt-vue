@@ -18,13 +18,6 @@ export class SpecialEvent extends AbstractSpecialEvent {
         this.endTime = endTime;
     }
 
-    canStart(date: Date): boolean {
-        if (this.isActive) {
-            return false;
-        }
-        return this.getDateState(date) === SpecialEventDateState.During;
-    }
-
     public getTimeUntilStart(date: Date) {
         return new Date(+this.startTime - +date);
     }

@@ -5,13 +5,14 @@ import {Features} from "@/ig-template/Features";
 import {ISimpleEvent, SimpleEventDispatcher} from "strongly-typed-events";
 import {SpecialEventId} from "@/ig-template/features/special-events/SpecialEventId";
 import {DateHelper} from "@/ig-template/util/DateHelper";
+import {WeeklySpecialEvent} from "@/ig-template/features/special-events/WeeklySpecialEvent";
 
 export class SpecialEvents extends Feature {
 
     events: SpecialEvent[]
 
     // Delay between checking for special events
-    private readonly SPECIAL_EVENT_CHECK_TIME: number = 10.0;
+    private readonly SPECIAL_EVENT_CHECK_TIME: number = 1.0;
     private _checkCounter: number = 0;
 
     private _onEventStart = new SimpleEventDispatcher<SpecialEvent>();
@@ -27,7 +28,7 @@ export class SpecialEvents extends Feature {
     initialize(features: Features) {
         this.events.push(
             new SpecialEvent(
-                SpecialEventId.AllowButtonEvent,
+                SpecialEventId.AllowButton,
                 'Example Event',
                 'Make the sacred button appear in the example feature',
                 DateHelper.addMinutes(new Date(), 1),
@@ -37,6 +38,21 @@ export class SpecialEvents extends Feature {
                 },
                 () => {
                     features.example.showEventButton = false;
+                },
+            )
+        );
+        this.events.push(
+            new WeeklySpecialEvent(
+                SpecialEventId.Weekly,
+                'Weekly Event',
+                'Weekly',
+                DateHelper.addSeconds(new Date(), 5),
+                DateHelper.addSeconds(new Date(), 10),
+                () => {
+                    features.example.weeklyEventActive = true;
+                },
+                () => {
+                    features.example.weeklyEventActive = false;
                 },
             )
         );

@@ -21,6 +21,7 @@ export class ExampleFeature extends UpgradesFeature {
      * This boolean is set by a SpecialEvent
      */
     showEventButton: boolean = false;
+    weeklyEventActive: boolean = false;
 
     exampleSkill: ContinuousExpLevel;
 

@@ -25,7 +25,7 @@ export abstract class AbstractSpecialEvent {
     }
 
     canStart(date: Date): boolean {
-        if (!this.isActive) {
+        if (this.isActive) {
             return false;
         }
         return this.getDateState(date) === SpecialEventDateState.During;
@@ -56,6 +56,7 @@ export abstract class AbstractSpecialEvent {
     }
 
     end(): void {
+        console.log("abstract end")
         if (!this.isActive) {
             console.warn(`Cannot end. Special Event ${this.title} is not active.`);
             return;

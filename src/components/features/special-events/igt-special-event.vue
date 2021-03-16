@@ -8,6 +8,7 @@
         <span>{{ event.endTime | dateFormat }}</span>
         <span>{{ startsIn }}</span>
         <span>{{ endsIn }}</span>
+        <span>State {{ state }}</span>
       </div>
     </div>
   </div>
@@ -27,6 +28,7 @@ export default {
     return {
       startsIn: 0,
       endsIn: 0,
+      state: 'unknown'
     }
   },
 
@@ -35,6 +37,7 @@ export default {
       const date = new Date();
       this.startsIn = +this.event.getTimeUntilStart(date);
       this.endsIn = +this.event.getTimeUntilEnd(date);
+      this.state = this.event.getDateState(date);
     }, 1000);
   }
 }
