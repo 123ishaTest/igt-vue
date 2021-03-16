@@ -27,13 +27,10 @@ export class SpecialEvents extends Feature {
     }
 
     initialize(features: Features) {
+        // Schedule an event for a specific date and time.
         this.addEvent(
-            new SpecialEvent(
-                SpecialEventId.AllowButton,
-                'Example Event',
-                'Make the sacred button appear in the example feature',
-                DateHelper.addMinutes(new Date(), 1),
-                DateHelper.addMinutes(new Date(), 2),
+            new SpecialEvent(SpecialEventId.AllowButton, 'Example Event', 'Make the sacred button appear in the example feature',
+                DateHelper.addMinutes(new Date(), 1), DateHelper.addMinutes(new Date(), 2),
                 () => {
                     features.example.showEventButton = true;
                 },
@@ -42,13 +39,10 @@ export class SpecialEvents extends Feature {
                 },
             )
         );
+        // You can also schedule weekly events
         this.addEvent(
-            new WeeklySpecialEvent(
-                SpecialEventId.Weekly,
-                'Weekly Event',
-                'Every week this is active',
-                new Date(2021, 2, 9),
-                new Date(2021, 2, 10),
+            new WeeklySpecialEvent(SpecialEventId.Weekly, 'Weekly Event', 'Every week this is active',
+                new Date(2021, 2, 9), new Date(2021, 2, 10),
                 () => {
                     features.example.weeklyEventActive = true;
                 },
@@ -59,6 +53,9 @@ export class SpecialEvents extends Feature {
         );
     }
 
+    /**
+     * Adds an event, also upgrades weeklies if they're out of date.
+     */
     addEvent(event: AbstractSpecialEvent) {
         if (event instanceof WeeklySpecialEvent) {
             const now = Date.now()
