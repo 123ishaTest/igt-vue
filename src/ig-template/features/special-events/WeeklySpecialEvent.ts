@@ -15,8 +15,12 @@ export class WeeklySpecialEvent extends SpecialEvent {
 
 
     end() {
+        this.increaseWeek();
+        super.end();
+    }
+
+    increaseWeek() {
         this.startTime = DateHelper.addWeeks(this.startTime, 1);
         this.endTime = DateHelper.addWeeks(this.endTime, 1);
-        super.end();
     }
 }

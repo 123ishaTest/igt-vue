@@ -1,23 +1,24 @@
 import {Feature} from "@/ig-template/features/Feature";
 import {SaveData} from "@/ig-template/tools/saving/SaveData";
-import {SpecialEvent} from "@/ig-template/features/special-events/SpecialEvent";
 import {Features} from "@/ig-template/Features";
 import {ISimpleEvent, SimpleEventDispatcher} from "strongly-typed-events";
 import {SpecialEventId} from "@/ig-template/features/special-events/SpecialEventId";
 import {DateHelper} from "@/ig-template/util/DateHelper";
 import {WeeklySpecialEvent} from "@/ig-template/features/special-events/WeeklySpecialEvent";
+import {AbstractSpecialEvent} from "@/ig-template/features/special-events/AbstractSpecialEvent";
+import {SpecialEvent} from "@/ig-template/features/special-events/SpecialEvent";
 
 export class SpecialEvents extends Feature {
 
-    events: SpecialEvent[]
+    events: AbstractSpecialEvent[]
 
     // Delay between checking for special events
     private readonly SPECIAL_EVENT_CHECK_TIME: number = 1.0;
     private _checkCounter: number = 0;
 
-    private _onEventStart = new SimpleEventDispatcher<SpecialEvent>();
+    private _onEventStart = new SimpleEventDispatcher<AbstractSpecialEvent>();
 
-    private _onEventEnd = new SimpleEventDispatcher<SpecialEvent>();
+    private _onEventEnd = new SimpleEventDispatcher<AbstractSpecialEvent>();
 
 
     constructor() {
@@ -26,7 +27,7 @@ export class SpecialEvents extends Feature {
     }
 
     initialize(features: Features) {
-        this.events.push(
+        this.addEvent(
             new SpecialEvent(
                 SpecialEventId.AllowButton,
                 'Example Event',
@@ -41,13 +42,13 @@ export class SpecialEvents extends Feature {
                 },
             )
         );
-        this.events.push(
+        this.addEvent(
             new WeeklySpecialEvent(
                 SpecialEventId.Weekly,
                 'Weekly Event',
                 'Weekly',
-                DateHelper.addSeconds(new Date(), 5),
-                DateHelper.addSeconds(new Date(), 10),
+                new Date(2021, 2, 9),
+                new Date(2021, 2, 10),
                 () => {
                     features.example.weeklyEventActive = true;
                 },
@@ -56,6 +57,18 @@ export class SpecialEvents extends Feature {
                 },
             )
         );
+    }
+
+    addEvent(event: AbstractSpecialEvent) {
+        if (event instanceof WeeklySpecialEvent) {
+            const now = Date.now()
+            while (+event.endTime < now) {
+                console.log("increasing")
+                event.increaseWeek();
+            }
+        }
+
+        this.events.push(event);
     }
 
 
@@ -91,14 +104,14 @@ export class SpecialEvents extends Feature {
     /**
      * Emitted whenever an event starts
      */
-    public get onEventStart(): ISimpleEvent<SpecialEvent> {
+    public get onEventStart(): ISimpleEvent<AbstractSpecialEvent> {
         return this._onEventStart.asEvent();
     }
 
     /**
      * Emitted whenever an event end
      */
-    public get onEventEnd(): ISimpleEvent<SpecialEvent> {
+    public get onEventEnd(): ISimpleEvent<AbstractSpecialEvent> {
         return this._onEventEnd.asEvent();
     }
 
