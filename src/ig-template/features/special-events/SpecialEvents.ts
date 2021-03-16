@@ -46,7 +46,7 @@ export class SpecialEvents extends Feature {
             new WeeklySpecialEvent(
                 SpecialEventId.Weekly,
                 'Weekly Event',
-                'Weekly',
+                'Every week this is active',
                 new Date(2021, 2, 9),
                 new Date(2021, 2, 10),
                 () => {
@@ -63,7 +63,6 @@ export class SpecialEvents extends Feature {
         if (event instanceof WeeklySpecialEvent) {
             const now = Date.now()
             while (+event.endTime < now) {
-                console.log("increasing")
                 event.increaseWeek();
             }
         }
@@ -84,9 +83,11 @@ export class SpecialEvents extends Feature {
         const now = new Date();
         for (const event of this.events) {
             if (event.canStart(now)) {
+                this._onEventStart.dispatch(event);
                 event.start();
             }
             if (event.canEnd(now)) {
+                this._onEventEnd.dispatch(event);
                 event.end();
             }
         }

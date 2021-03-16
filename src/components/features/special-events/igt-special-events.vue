@@ -41,6 +41,30 @@ export default {
       })
     }
   },
+  mounted() {
+    this.eventsFeature.onEventStart.subscribe((event) => {
+      this.$notify(
+          {
+            title: `Event started: ${event.title}`,
+            text: event.description,
+            type: "success",
+            group: "top-left",
+          },
+          20000
+      );
+    });
+    this.eventsFeature.onEventEnd.subscribe((event) => {
+      this.$notify(
+          {
+            title: `Event ended: ${event.title}`,
+            text: event.description,
+            type: "warning",
+            group: "top-left",
+          },
+          20000
+      );
+    });
+  }
 }
 </script>
 
