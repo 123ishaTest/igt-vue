@@ -2,7 +2,7 @@ import {Feature} from "@/ig-template/features/Feature";
 import {SaveData} from "@/ig-template/tools/saving/SaveData";
 import {SpecialEvent} from "@/ig-template/features/special-events/SpecialEvent";
 import {Features} from "@/ig-template/Features";
-import {SimpleEventDispatcher} from "strongly-typed-events";
+import {ISimpleEvent, SimpleEventDispatcher} from "strongly-typed-events";
 import {SpecialEventId} from "@/ig-template/features/special-events/SpecialEventId";
 import {DateHelper} from "@/ig-template/util/DateHelper";
 
@@ -14,14 +14,8 @@ export class SpecialEvents extends Feature {
     private readonly SPECIAL_EVENT_CHECK_TIME: number = 10.0;
     private _checkCounter: number = 0;
 
-    /**
-     * Emitted whenever an event starts
-     */
     private _onEventStart = new SimpleEventDispatcher<SpecialEvent>();
 
-    /**
-     * Emitted whenever an event end
-     */
     private _onEventEnd = new SimpleEventDispatcher<SpecialEvent>();
 
 
@@ -77,5 +71,20 @@ export class SpecialEvents extends Feature {
     save(): SaveData {
         return {};
     }
+
+    /**
+     * Emitted whenever an event starts
+     */
+    public get onEventStart(): ISimpleEvent<SpecialEvent> {
+        return this._onEventStart.asEvent();
+    }
+
+    /**
+     * Emitted whenever an event end
+     */
+    public get onEventEnd(): ISimpleEvent<SpecialEvent> {
+        return this._onEventEnd.asEvent();
+    }
+
 
 }
