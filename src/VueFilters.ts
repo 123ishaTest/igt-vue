@@ -16,9 +16,12 @@ Vue.filter('dateFormat', function (date: Date) {
     const month = new Intl.DateTimeFormat('en', {month: 'long'}).format(date);
     const day = new Intl.DateTimeFormat('en', {day: '2-digit'}).format(date);
 
+    const hours = date.getHours();
+    const hoursString = hours < 10 ? `0${hours}` : `${hours}`;
+    const minutes = date.getMinutes();
+    const minutesString = minutes < 10 ? `0${minutes}` : `${minutes}`;
 
-
-    return `${day} ${month} ${year} ${date.getHours()}:${date.getMinutes()}`;
+    return `${day} ${month} ${year} ${hoursString}:${minutesString}`;
 
 })
 

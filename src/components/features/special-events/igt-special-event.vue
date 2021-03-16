@@ -33,8 +33,8 @@ export default {
   mounted() {
     setInterval(() => {
       const date = new Date();
-      this.startsIn = this.event.getTimeUntilStart(date);
-      this.endsIn = this.event.getTimeUntilEnd(date);
+      this.startsIn = +this.event.getTimeUntilStart(date);
+      this.endsIn = +this.event.getTimeUntilEnd(date);
     }, 1000);
   }
 }
