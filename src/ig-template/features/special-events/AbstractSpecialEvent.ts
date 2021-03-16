@@ -28,6 +28,9 @@ export abstract class AbstractSpecialEvent {
         if (this.isActive) {
             return false;
         }
+        if (!this.requirement.isCompleted) {
+            return false;
+        }
         return this.getDateState(date) === SpecialEventDateState.During;
     }
 
