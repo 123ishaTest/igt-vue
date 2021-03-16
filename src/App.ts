@@ -6,6 +6,7 @@ import {Statistics} from "@/ig-template/features/statistics/Statistics";
 import {Achievements} from "@/ig-template/features/achievements/Achievements";
 import {RedeemableCodes} from "@/ig-template/features/codes/RedeemableCodes";
 import {ExampleFeature} from "@/ig-template/features/example/ExampleFeature";
+import {SpecialEvents} from "@/ig-template/features/special-events/SpecialEvents";
 
 export class App {
     static inProduction: boolean = (process.env.NODE_ENV === "production");
@@ -29,6 +30,7 @@ export class App {
                 settings: new Settings(),
                 codes: new RedeemableCodes(),
                 example: new ExampleFeature(),
+                specialEvents: new SpecialEvents(),
                 statistics: new Statistics(),
                 achievements: new Achievements(),
             }
