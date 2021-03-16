@@ -17,6 +17,11 @@ export class ExampleFeature extends UpgradesFeature {
     moneyMultiplicativeUpgrade: ContinuousUpgrade;
     singleLevelUpgrade: SingleLevelUpgrade;
 
+    /**
+     * This boolean is set by a SpecialEvent
+     */
+    showEventButton: boolean = false;
+
     exampleSkill: ContinuousExpLevel;
 
     constructor() {

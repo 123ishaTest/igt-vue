@@ -33,10 +33,10 @@ export class SpecialEvents extends Feature {
                 DateHelper.addMinutes(new Date(), 1),
                 DateHelper.addMinutes(new Date(), 2),
                 () => {
-                    console.log("start");
+                    features.example.showEventButton = true;
                 },
                 () => {
-                    console.log("end");
+                    features.example.showEventButton = false;
                 },
             )
         );
