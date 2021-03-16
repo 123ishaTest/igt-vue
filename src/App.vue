@@ -5,12 +5,16 @@
 
       <igt-sidebar-category name="Features"></igt-sidebar-category>
 
-      <igt-tab name="Example" :selected="true">
+      <igt-tab name="Example">
         <igt-example-feature></igt-example-feature>
       </igt-tab>
 
       <igt-tab name="Wallet">
         <igt-wallet></igt-wallet>
+      </igt-tab>
+
+      <igt-tab name="Special Events" :selected="true">
+        <igt-special-events></igt-special-events>
       </igt-tab>
 
       <igt-tab name="Achievements">
@@ -58,9 +62,11 @@ import IgtSidebarExternalLink from "@/components/util/sidebar/igt-sidebar-extern
 import IgtSettings from "@/components/features/settings/igt-settings";
 import IgtRedeemableCodes from "@/components/features/codes/igt-redeemable-codes";
 import IgtExampleFeature from "@/components/features/example/igt-example-feature";
+import IgtSpecialEvents from "@/components/features/special-events/igt-special-events";
 
 export default {
   components: {
+    IgtSpecialEvents,
     IgtExampleFeature,
     IgtRedeemableCodes,
     IgtSettings,

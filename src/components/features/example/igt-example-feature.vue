@@ -4,6 +4,12 @@
     <p>You have {{ example._wallet.money | numberFormat }} Money</p>
     <p>You are gaining {{ moneyPerSecond }} Money per second</p>
     <p>You have {{ singleLevelUpgrade.isBought() ? '' : 'not' }} bought the Single Level Upgrade</p>
+
+    <button v-if="showEventButton" class="btn btn-blue" @click="eventButton">
+      This button is managed by a Special Event.
+    </button>
+    <span v-if="example.weeklyEventActive">Weekly</span>
+
     <div class="flex flex-row">
       <div v-for="upgrade in example.upgrades" :key="upgrade.id">
         <igt-upgrade :upgrade="upgrade" @click.native="buyUpgrade(upgrade)"
@@ -32,6 +38,9 @@ export default {
   methods: {
     buyUpgrade(id) {
       this.example.buyUpgrade(id);
+    },
+    eventButton() {
+      alert("epic")
     }
   },
   computed: {
@@ -40,6 +49,9 @@ export default {
     },
     moneyPerSecond() {
       return this.example.moneyPerSecond();
+    },
+    showEventButton() {
+      return this.example.showEventButton;
     }
   },
 
