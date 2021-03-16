@@ -13,6 +13,10 @@
         <igt-wallet></igt-wallet>
       </igt-tab>
 
+      <igt-tab name="Special Events">
+        <igt-special-events></igt-special-events>
+      </igt-tab>
+
       <igt-tab name="Achievements">
         <igt-achievements :achievements-feature="game.features.achievements"></igt-achievements>
       </igt-tab>
@@ -58,9 +62,11 @@ import IgtSidebarExternalLink from "@/components/util/sidebar/igt-sidebar-extern
 import IgtSettings from "@/components/features/settings/igt-settings";
 import IgtRedeemableCodes from "@/components/features/codes/igt-redeemable-codes";
 import IgtExampleFeature from "@/components/features/example/igt-example-feature";
+import IgtSpecialEvents from "@/components/features/special-events/igt-special-events";
 
 export default {
   components: {
+    IgtSpecialEvents,
     IgtExampleFeature,
     IgtRedeemableCodes,
     IgtSettings,
