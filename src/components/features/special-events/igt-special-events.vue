@@ -8,11 +8,10 @@
       </div>
     </div>
 
-    <p>All Events</p>
+    <p>Other Events</p>
     <div class="flex flex-col">
-      <igt-special-event v-for="event in events" :key="event.id" :event="event"></igt-special-event>
+      <igt-special-event v-for="event in futureEvents" :key="event.id" :event="event"></igt-special-event>
     </div>
-
 
   </igt-feature>
 </template>
@@ -30,8 +29,11 @@ export default {
     }
   },
   computed: {
-    events() {
-      return [...this.eventsFeature.events].sort((a, b) => {
+    futureEvents() {
+      const events = this.eventsFeature.events.filter(specialEvent => {
+        return !specialEvent.isActive;
+      })
+      return [...events].sort((a, b) => {
         return a.startTime - b.startTime;
       });
     },
@@ -58,7 +60,7 @@ export default {
           {
             title: `Event ended: ${event.title}`,
             text: event.description,
-            type: "warning",
+            type: "error",
             group: "top-left",
           },
           20000

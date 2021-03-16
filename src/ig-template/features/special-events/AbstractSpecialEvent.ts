@@ -56,7 +56,6 @@ export abstract class AbstractSpecialEvent {
     }
 
     end(): void {
-        console.log("abstract end")
         if (!this.isActive) {
             console.warn(`Cannot end. Special Event ${this.title} is not active.`);
             return;

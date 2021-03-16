@@ -1,20 +1,27 @@
 <template>
-  <div class="bg-red-500 p-2 m-2">
+  <div class="bg-gray-600 p-4 m-2 shadow-lg">
     <div class="flex flex-col">
-      <div>{{ event.title }}</div>
-      <div class="flex flex-row justify-between">
-        <span>{{ event.description }}</span>
-        <span>{{ event.startTime | dateFormat }}</span>
+      <div class="flex flex-row justify-start items-baseline">
+        <span class="mr-4 font-semibold">{{ event.title }}</span>
+        <span class="text-sm">{{ event.description }}</span>
+
+      </div>
+      <!--      <div class="flex flex-row justify-between">-->
+      <!--         </div>-->
+      <div class="flex flex-row justify-start">
+        <span class="mr-12">{{ event.startTime | dateFormat }}</span>
         <span>{{ event.endTime | dateFormat }}</span>
-        <span>{{ startsIn }}</span>
-        <span>{{ endsIn }}</span>
-        <span>State {{ state }}</span>
+      </div>
+      <div class="flex flex-row">
+        <span>{{ timerDescription }}</span>
       </div>
     </div>
   </div>
 </template>
 <script>
 import {SpecialEvent} from "@/ig-template/features/special-events/SpecialEvent";
+import {SpecialEventDateState} from "@/ig-template/features/special-events/SpecialEventDateState";
+import {DateHelper} from "@/ig-template/util/DateHelper";
 
 export default {
   name: "igt-special-event",
@@ -31,14 +38,37 @@ export default {
       state: 'unknown'
     }
   },
+  computed: {
+    timerDescription() {
+      switch (this.state) {
+        case SpecialEventDateState.Before: {
+          return `Starts in ${DateHelper.toTimeLeftString(this.startsIn)}`;
+        }
+        case SpecialEventDateState.During: {
+          return `Ends in ${DateHelper.toTimeLeftString(this.endsIn)}`
+        }
+        case SpecialEventDateState.After: {
+          return 'This event is over';
+        }
+        default:
+          return 'Unknown';
+      }
+    },
 
-  mounted() {
-    setInterval(() => {
+  },
+  methods: {
+    updateValues() {
       const date = new Date();
       this.startsIn = +this.event.getTimeUntilStart(date);
       this.endsIn = +this.event.getTimeUntilEnd(date);
       this.state = this.event.getDateState(date);
+    }
+  },
+  mounted() {
+    setInterval(() => {
+      this.updateValues()
     }, 1000);
+    this.updateValues();
   }
 }
 </script>
