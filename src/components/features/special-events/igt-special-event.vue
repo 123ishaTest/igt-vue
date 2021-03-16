@@ -6,6 +6,8 @@
         <span>{{ event.description }}</span>
         <span>{{ event.startTime | dateFormat }}</span>
         <span>{{ event.endTime | dateFormat }}</span>
+        <span>{{ startsIn }}</span>
+        <span>{{ endsIn }}</span>
       </div>
     </div>
   </div>
@@ -21,11 +23,20 @@ export default {
       required: true,
     },
   },
-  methods: {
-    startsIn() {
-      return Math.max(0, new Date() - this.event.startTime);
+  data() {
+    return {
+      startsIn: 0,
+      endsIn: 0,
     }
   },
+
+  mounted() {
+    setInterval(() => {
+      const date = new Date();
+      this.startsIn = this.event.getTimeUntilStart(date);
+      this.endsIn = this.event.getTimeUntilEnd(date);
+    }, 1000);
+  }
 }
 </script>
 

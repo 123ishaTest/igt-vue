@@ -5,7 +5,7 @@
     <p>You are gaining {{ moneyPerSecond }} Money per second</p>
     <p>You have {{ singleLevelUpgrade.isBought() ? '' : 'not' }} bought the Single Level Upgrade</p>
 
-    <button v-if="showEventButton" class="btn btn-blue">
+    <button v-if="showEventButton" class="btn btn-blue" @click="eventButton">
       This button is managed by a Special Event.
     </button>
     <div class="flex flex-row">
@@ -36,6 +36,9 @@ export default {
   methods: {
     buyUpgrade(id) {
       this.example.buyUpgrade(id);
+    },
+    eventButton() {
+      alert("epic")
     }
   },
   computed: {

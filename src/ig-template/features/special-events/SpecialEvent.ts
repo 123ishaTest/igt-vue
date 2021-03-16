@@ -1,6 +1,7 @@
 import {SpecialEventId} from "@/ig-template/features/special-events/SpecialEventId";
 import {Requirement} from "@/ig-template/tools/requirements/Requirement";
 import {NoRequirement} from "@/ig-template/tools/requirements/NoRequirement";
+import {SpecialEventDateState} from "@/ig-template/features/special-events/SpecialEventDateState";
 
 export class SpecialEvent {
     id: SpecialEventId;
@@ -24,22 +25,43 @@ export class SpecialEvent {
         this.requirement = requirement;
     }
 
-    canStart(date: Date) {
+    canStart(date: Date): boolean {
         if (this.isActive) {
             return false;
         }
         if (date > this.endTime) {
             return false;
         }
-        return date > this.startTime;
+        return this.getDateState(date) === SpecialEventDateState.During;
+    }
+
+    public getTimeUntilStart(date: Date) {
+        return +this.startTime - +date;
+    }
+
+    public getTimeUntilEnd(date: Date) {
+        return +this.endTime - +date;
+    }
+
+    /**
+     * Override if you need custom date behaviour
+     */
+    public getDateState(date: Date) {
+        if (date < this.startTime) {
+            return SpecialEventDateState.Before;
+        } else if (date > this.endTime) {
+            return SpecialEventDateState.After;
+        }
+        return SpecialEventDateState.During;
     }
 
     canEnd(date: Date) {
         if (!this.isActive) {
             return false;
         }
-        return date > this.endTime;
+        return this.getDateState(date) === SpecialEventDateState.After;
     }
+
 
     start(): void {
         if (this.isActive) {
