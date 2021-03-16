@@ -4,10 +4,10 @@
     <div class="flex flex-col">
       <igt-special-event v-for="event in activeEvents" :key="event.id" :event="event"></igt-special-event>
       <div v-if="activeEvents.length === 0">
-        <p>There are no active events.</p>
+        <p class="p-2 text-sm">There are no active events.</p>
       </div>
     </div>
-
+    <br>
     <p>Other Events</p>
     <div class="flex flex-col">
       <igt-special-event v-for="event in futureEvents" :key="event.id" :event="event"></igt-special-event>
