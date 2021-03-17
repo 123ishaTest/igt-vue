@@ -1,8 +1,13 @@
 <template>
-  <div class="h-24 bg-gray-500 flex flex-row items-center p-2">
-    {{ selectedItem.name }}
-    <button v-if="isConsumable" class="btn btn-blue" @click="consume">{{ selectedItem.label }}</button>
-
+  <div class="bg-gray-500 flex flex-col p-4">
+    <div>
+      {{ selectedItem.name }}
+    </div>
+    <div>{{ selectedItem.description }}</div>
+    <div class="flex flex-row items-center">
+      <button v-if="isConsumable" class="btn btn-blue" @click="$emit('consume')">{{ selectedItem.label }}</button>
+      <button class="btn btn-red" @click="$emit('drop')">Drop</button>
+    </div>
   </div>
 </template>
 
@@ -32,12 +37,6 @@ export default {
         return false;
       }
       return this.selectedItem.canConsume();
-    }
-  },
-
-  methods: {
-    consume() {
-      this.$emit('consume')
     }
   },
 

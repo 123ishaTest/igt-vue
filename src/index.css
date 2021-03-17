@@ -10,7 +10,7 @@
 }
 
 .has-tooltip:hover .tooltip {
-    @apply block z-50 border-4 rounded-md
+    @apply block z-50 border-4 rounded-md bg-gray-900 p-2
 }
 
 

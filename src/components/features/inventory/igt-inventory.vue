@@ -1,7 +1,7 @@
 <template>
   <igt-feature>
     <button class="btn btn-blue" @click="gainItem">Gain a money pouch</button>
-    <button class="btn btn-blue" @click="gainItem2">Gain a money pouch 2</button>
+    <button class="btn btn-blue" @click="gainItem2">Gain another item</button>
     <div class="flex flex-row flex-wrap">
       <div v-for="(inventoryItem, index) in inventoryItems" :key="index + '-' + inventoryItem.item.id">
         <igt-inventory-slot :inventory-item="inventoryItem"
@@ -14,9 +14,10 @@
     </div>
 
     <igt-inventory-item-highlight
-        v-if="!!selectedItem"
+        v-if="showHighlight"
         :selected-inventory-item="selectedItem"
         @consume="consumeItem"
+        @drop="dropStack"
     ></igt-inventory-item-highlight>
   </igt-feature>
 </template>
@@ -43,6 +44,9 @@ export default {
     },
     selectedItem() {
       return this.inventoryItems[this.selectedIndex];
+    },
+    showHighlight() {
+      return this.selectedItem && !this.selectedItem.isEmpty();
     }
   },
 
@@ -52,6 +56,9 @@ export default {
     },
     consumeItem() {
       this.inventory.consumeItem(this.selectedIndex)
+    },
+    dropStack() {
+      this.inventory.dropStack(this.selectedIndex)
     },
     gainItem() {
       this.inventory.gainItem(this.itemList.moneyPouch);
