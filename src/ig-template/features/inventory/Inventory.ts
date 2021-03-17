@@ -18,7 +18,7 @@ export class Inventory extends Feature {
     constructor() {
         super('inventory');
         this.slots = 10;
-        this.inventoryItems = new Array(this.slots).fill(new EmptyItem());
+        this.inventoryItems = new Array(this.slots).fill(new InventoryItem(new EmptyItem(), 0));
     }
 
 
