@@ -1,10 +1,13 @@
 <template>
   <igt-feature>
     <button class="btn btn-blue" @click="gainItem">Gain a money pouch</button>
+    <button class="btn btn-blue" @click="gainItem2">Gain a money pouch 2</button>
     <div class="flex flex-row flex-wrap">
-      <div v-for="(inventoryItem, index) in inventoryItems" :key="index + '-'">
+      <div v-for="(inventoryItem, index) in inventoryItems" :key="index + '-' + inventoryItem.item.id">
         <igt-inventory-slot :inventory-item="inventoryItem"
                             :is-selected="index === selectedIndex"
+                            :index="index"
+                            @interact="interact"
                             @click.native="selectItem(index)"
         ></igt-inventory-slot>
       </div>
@@ -44,11 +47,17 @@ export default {
   },
 
   methods: {
+    interact(data) {
+      this.inventory.inventoryInteraction(data.from, data.to)
+    },
     consumeItem() {
       this.inventory.consumeItem(this.selectedIndex)
     },
     gainItem() {
       this.inventory.gainItem(this.itemList.moneyPouch);
+    },
+    gainItem2() {
+      this.inventory.gainItem(this.itemList.moneyPouch2);
     },
     selectItem(index) {
       this.selectedIndex = index;

@@ -27,6 +27,46 @@ export class Inventory extends Feature {
         this._itemList = features.itemList;
     }
 
+    inventoryInteraction(indexFrom: number, indexTo: number) {
+        if (indexFrom === indexTo) {
+            return;
+        }
+
+        const itemFrom = this.inventoryItems[indexFrom];
+
+        if (itemFrom.isEmpty()) {
+            console.warn("Cannot interact with empty item");
+            return;
+        }
+        const itemTo = this.inventoryItems[indexTo];
+
+        if (itemFrom.item.id === itemTo.item.id) {
+            this.mergeItems(itemFrom, itemTo);
+            return;
+        }
+
+        this.swapItems(indexFrom, indexTo);
+        return;
+    }
+
+    mergeItems(itemFrom: InventoryItem, itemTo: InventoryItem) {
+
+        if (itemFrom.item.id !== itemTo.item.id) {
+            throw new Error(`Cannot merge items of types ${itemFrom.item.id} and ${itemTo.item.id}`);
+        }
+
+        const amount = Math.min(itemFrom.amount, itemTo.spaceLeft());
+        itemFrom.loseItems(amount);
+        itemTo.gainItems(amount);
+    }
+
+    swapItems(indexFrom: number, indexTo: number) {
+        const temp = this.inventoryItems[indexFrom];
+        this.inventoryItems.splice(indexFrom, 1, this.inventoryItems[indexTo]);
+        this.inventoryItems.splice(indexTo, 1, temp);
+
+    }
+
     consumeItem(index: number): boolean {
         const inventoryItem = this.inventoryItems[index];
         const item = inventoryItem.item;
