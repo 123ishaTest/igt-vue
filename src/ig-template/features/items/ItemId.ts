@@ -1,4 +1,4 @@
 export enum ItemId {
     Empty = "empty",
-    Consumable = "consumable",
+    MoneyPouch = "money-pouch",
 }

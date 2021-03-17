@@ -7,11 +7,10 @@ export abstract class AbstractConsumable extends AbstractItem {
     /**
      * What will be shown on the consume
      */
-    label: string;
+    abstract label: string;
 
-    protected constructor(name: string, description: string, id: ItemId, type: ItemType, maxStack: number, label: string) {
+    protected constructor(name: string, description: string, id: ItemId, type: ItemType, maxStack: number = Infinity) {
         super(name, description, id, type, maxStack);
-        this.label = label;
     }
 
     /**

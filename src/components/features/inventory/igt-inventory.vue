@@ -1,5 +1,6 @@
 <template>
   <igt-feature>
+    <button class="btn btn-blue" @click="gainItem">Gain a money pouch</button>
     <div class="flex flex-row flex-wrap">
       <div v-for="(inventoryItem, index) in inventoryItems" :key="index + '-'">
         <igt-inventory-slot :inventory-item="inventoryItem"></igt-inventory-slot>
@@ -19,15 +20,20 @@ export default {
   data() {
     return {
       inventory: App.game.features.inventory,
+      itemList: App.game.features.itemList,
     }
   },
-
   computed: {
     inventoryItems() {
       return this.inventory.inventoryItems;
     }
   },
 
+  methods: {
+    gainItem() {
+      this.inventory.gainItem(this.itemList.moneyPouch);
+    }
+  },
 }
 </script>
 

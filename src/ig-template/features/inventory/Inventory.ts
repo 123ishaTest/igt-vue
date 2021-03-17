@@ -167,7 +167,7 @@ export class Inventory extends Feature {
     loseItemAtIndex(index: number, amount: number = 1) {
         this.inventoryItems[index].amount -= amount;
         if (this.inventoryItems[index].amount <= 0) {
-            this.inventoryItems.splice(index, 1, new InventoryItem(this._itemList.emptyItem, 0));
+            this.inventoryItems.splice(index, 1, new InventoryItem(this._itemList.getEmpty, 0));
         }
     }
 
