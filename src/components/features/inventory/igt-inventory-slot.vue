@@ -52,7 +52,6 @@ export default {
       evt.dataTransfer.setData('index', index);
     },
     onDrop(evt, indexTo) {
-      console.log("drop")
       const indexFrom = parseInt(evt.dataTransfer.getData('index'));
       this.$emit('interact', {'from': indexFrom, 'to': indexTo})
     }
