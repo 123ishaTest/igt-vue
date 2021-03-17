@@ -3,7 +3,6 @@ import {SaveData} from "@/ig-template/tools/saving/SaveData";
 import {EmptyItem} from "@/ig-template/features/items/instances/EmptyItem";
 import {MoneyPouch} from "@/ig-template/features/items/instances/MoneyPouch";
 import {Features} from "@/ig-template/Features";
-import {MoneyPouch2} from "@/ig-template/features/items/instances/MoneyPouch2";
 
 export class ItemList extends Feature {
 
@@ -25,9 +24,6 @@ export class ItemList extends Feature {
 
     get moneyPouch(): MoneyPouch {
         return new MoneyPouch(this._features.wallet)
-    }
-    get moneyPouch2(): MoneyPouch2 {
-        return new MoneyPouch2(this._features.wallet)
     }
 
     load(): void {
