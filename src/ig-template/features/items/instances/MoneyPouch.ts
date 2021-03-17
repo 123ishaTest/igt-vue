@@ -9,10 +9,11 @@ export class MoneyPouch extends AbstractConsumable {
     label: string = "Open";
     _wallet: Wallet;
 
+    moneyToGain: number = 10;
+
     constructor(wallet: Wallet) {
         super('Money Pouch', 'Open for some coins', ItemId.MoneyPouch, ItemType.Consumable);
         this._wallet = wallet;
-
     }
 
     canConsume(): boolean {
@@ -20,8 +21,10 @@ export class MoneyPouch extends AbstractConsumable {
     }
 
     consume(): void {
-        this._wallet.gainCurrency(new Currency(10, CurrencyType.Money))
+        this._wallet.gainCurrency(new Currency(this.moneyToGain, CurrencyType.Money));
     }
 
-
+    consumeMultiple(amount: number) {
+        this._wallet.gainCurrency(new Currency(this.moneyToGain * amount, CurrencyType.Money));
+    }
 }

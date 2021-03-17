@@ -19,6 +19,16 @@ export abstract class AbstractConsumable extends AbstractItem {
     abstract consume(): void;
 
     /**
+     * NOTE: your consumables can probably do something more clever here.
+     * Make sure to override this method as needed.
+     */
+    consumeMultiple(amount: number): void {
+        for (let i = 0; i < amount; i++) {
+            this.consume()
+        }
+    }
+
+    /**
      * Whether or not this item can be consumed.
      */
     abstract canConsume(): boolean;

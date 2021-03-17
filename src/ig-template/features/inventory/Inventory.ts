@@ -67,7 +67,7 @@ export class Inventory extends Feature {
 
     }
 
-    consumeItem(index: number): boolean {
+    consumeItem(index: number, amount: number = 1): boolean {
         const inventoryItem = this.inventoryItems[index];
         const item = inventoryItem.item;
 
@@ -76,8 +76,8 @@ export class Inventory extends Feature {
             console.warn(`Item ${item} is not a consumable`);
             return false;
         }
-        if (inventoryItem.amount <= 0) {
-            console.warn(`Amount of ${inventoryItem} is not greater than 0`);
+        if (inventoryItem.amount < amount) {
+            console.warn(`Amount of ${inventoryItem} is not greater than ${amount}`);
             return false;
         }
         if (!item.canConsume()) {
@@ -85,8 +85,12 @@ export class Inventory extends Feature {
             return false;
         }
 
-        item.consume();
-        this.loseItemAtIndex(index, 1);
+        if (amount === 1) {
+            item.consume();
+        } else {
+            item.consumeMultiple(amount);
+        }
+        this.loseItemAtIndex(index, amount);
         return true;
     }
 

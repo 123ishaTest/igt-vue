@@ -54,8 +54,8 @@ export default {
       this.inventory.interactIndices(data.from, data.to)
       this.selectedIndex = data.to
     },
-    consumeItem() {
-      this.inventory.consumeItem(this.selectedIndex)
+    consumeItem(data) {
+      this.inventory.consumeItem(this.selectedIndex, data.amount)
     },
     dropStack() {
       this.inventory.dropStack(this.selectedIndex)
