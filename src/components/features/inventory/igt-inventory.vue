@@ -51,7 +51,7 @@ export default {
 
   methods: {
     interact(data) {
-      this.inventory.inventoryInteraction(data.from, data.to)
+      this.inventory.interactIndices(data.from, data.to)
       this.selectedIndex = data.to
     },
     consumeItem() {

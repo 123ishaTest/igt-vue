@@ -12,6 +12,7 @@ export class MoneyPouch extends AbstractConsumable {
     constructor(wallet: Wallet) {
         super('Money Pouch', 'Open for some coins', ItemId.MoneyPouch, ItemType.Consumable);
         this._wallet = wallet;
+
     }
 
     canConsume(): boolean {

@@ -15,9 +15,9 @@ export class Inventory extends Feature {
     // Overridden in initialize;
     _itemList: ItemList = undefined as unknown as ItemList;
 
-    constructor() {
+    constructor(slots: number = 10) {
         super('inventory');
-        this.slots = 10;
+        this.slots = slots;
         this.inventoryItems = new Array(this.slots).fill(new InventoryItem(new EmptyItem(), 0));
     }
 
@@ -27,7 +27,7 @@ export class Inventory extends Feature {
         this._itemList = features.itemList;
     }
 
-    inventoryInteraction(indexFrom: number, indexTo: number) {
+    interactIndices(indexFrom: number, indexTo: number) {
         if (indexFrom === indexTo) {
             return;
         }
@@ -205,9 +205,9 @@ export class Inventory extends Feature {
 
 
     loseItemAtIndex(index: number, amount: number = 1) {
-        this.inventoryItems[index].amount -= amount;
+        this.inventoryItems[index].loseItems(amount);
         if (this.inventoryItems[index].amount <= 0) {
-            this.inventoryItems.splice(index, 1, new InventoryItem(this._itemList.getEmpty, 0));
+            this.inventoryItems.splice(index, 1, new InventoryItem(new EmptyItem(), 0));
         }
     }
 

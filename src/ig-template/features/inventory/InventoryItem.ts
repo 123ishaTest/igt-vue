@@ -21,7 +21,7 @@ export class InventoryItem {
         return this.item.maxStack - this.amount;
     }
 
-    gainItems(amount: number = 1) {
+    gainItems(amount: number) {
         this.amount += amount;
         if (this.amount > this.item.maxStack) {
             console.error(`Tried to have more than ${this.item.maxStack} of ${this.item.id} in one stack`);
@@ -29,7 +29,7 @@ export class InventoryItem {
         }
     }
 
-    loseItems(amount: number = 1) {
+    loseItems(amount: number) {
         this.amount -= amount;
         if (this.amount < 0) {
             console.error(`Tried to have less than 0 of ${this.item.id} in one stack`);
