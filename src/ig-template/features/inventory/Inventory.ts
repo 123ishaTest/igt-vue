@@ -5,8 +5,9 @@ import {ItemList} from "@/ig-template/features/items/ItemList";
 import {Features} from "@/ig-template/Features";
 import {AbstractConsumable} from "@/ig-template/features/items/Consumable";
 import {AbstractItem} from "@/ig-template/features/items/AbstractItem";
-import {SaveData} from "@/ig-template/tools/saving/SaveData";
 import {EmptyItem} from "@/ig-template/features/items/instances/EmptyItem";
+import {InventorySaveData} from "@/ig-template/features/inventory/InventorySaveData";
+import {InventorySlotSaveData} from "@/ig-template/features/inventory/InventorySlotSaveData";
 
 export class Inventory extends Feature {
     slotCount: number;
@@ -254,12 +255,40 @@ export class Inventory extends Feature {
         return true;
     }
 
-    load(): void {
-        // Empty
+    load(data: InventorySaveData): void {
+        if (!data.slots) {
+            return;
+        }
+        for (let i = 0; i < data.slots.length; i++) {
+            const slotData: InventorySlotSaveData = data.slots[i];
+            if (slotData.id === ItemId.Empty) {
+                continue;
+            }
+
+            try {
+                const item = this._itemList[slotData.id] as AbstractItem;
+                item.load(slotData.data);
+                this.slots[i] = new InventorySlot(item, slotData.amount);
+            }
+            catch (e) {
+                console.error(`Could not load item ${slotData}`);
+            }
+
+        }
     }
 
-    save(): SaveData {
-        return {};
+    save(): InventorySaveData {
+        const slots = this.slots.map(slot => {
+            return {
+                id: slot.item.id,
+                amount: slot.amount,
+                data: slot.item.save()
+            };
+        });
+        return {
+            slots: slots
+        }
     }
+
 
 }
