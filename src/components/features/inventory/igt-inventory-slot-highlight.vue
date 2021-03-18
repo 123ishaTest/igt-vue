@@ -10,7 +10,7 @@
     </div>
     <div class="flex flex-row">
       <input type="range" class="rounded-lg bg-gray-400 h-4 w-full" v-model="selectedAmount" min="0"
-             :max="selectedInventoryItem.amount"/>
+             :max="selectedInventorySlot.amount"/>
     </div>
     <div class="flex flex-row">
       <input type="text" class="input-primary" v-model="selectedAmount"/>
@@ -18,7 +18,7 @@
       <button class="btn btn-blue" @click="selectedAmount=maxAmount">All</button>
     </div>
     <div class="flex flex-row items-center">
-      <button v-if="isConsumable" class="btn btn-blue" @click="consumeItem">{{ selectedItem.label }}
+      <button v-if="isConsumable" class="btn btn-blue" @click="consumeItem">{{ selectedItem.consumeLabel }}
         ({{ selectedAmount }})
       </button>
       <button class="btn btn-red" @click="dropItem">Drop Stack</button>
@@ -28,14 +28,14 @@
 
 <script>
 
-import {InventoryItem} from "@/ig-template/features/inventory/InventoryItem";
+import {InventorySlot} from "@/ig-template/features/inventory/InventorySlot";
 import {AbstractConsumable} from "@/ig-template/features/items/Consumable";
 
 export default {
-  name: "igt-inventory-item-highlight",
+  name: "igt-inventory-slot-highlight",
   props: {
-    selectedInventoryItem: {
-      type: InventoryItem,
+    selectedInventorySlot: {
+      type: InventorySlot,
       required: true,
     },
   },
@@ -62,10 +62,10 @@ export default {
   },
   computed: {
     maxAmount() {
-      return this.selectedInventoryItem.amount;
+      return this.selectedInventorySlot.amount;
     },
     selectedItem() {
-      return this.selectedInventoryItem.item;
+      return this.selectedInventorySlot.item;
     },
     isConsumable() {
       return this.selectedItem instanceof AbstractConsumable;

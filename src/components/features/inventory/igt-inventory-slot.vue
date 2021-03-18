@@ -6,10 +6,10 @@
        @dragover.prevent
        @dragenter.prevent
        :class="{'border-red-400': isSelected}">
-    <div v-if="!inventoryItem.isEmpty()">
+    <div v-if="!inventorySlot.isEmpty()">
       <div class="flex flex-col">
-        <div>{{ inventoryItem.item.name }}</div>
-        <div>{{ inventoryItem.amount }} / {{ inventoryItem.item.maxStack }}</div>
+        <div>{{ inventorySlot.item.name }}</div>
+        <div>{{ inventorySlot.amount }} / {{ inventorySlot.item.maxStack }}</div>
       </div>
     </div>
   </div>
@@ -17,14 +17,14 @@
 
 <script>
 
-import {InventoryItem} from "@/ig-template/features/inventory/InventoryItem";
+import {InventorySlot} from "@/ig-template/features/inventory/InventorySlot";
 
 export default {
   name: "igt-inventory-slot",
 
   props: {
-    inventoryItem: {
-      type: InventoryItem,
+    inventorySlot: {
+      type: InventorySlot,
       required: true,
     },
     isSelected: {
@@ -38,7 +38,7 @@ export default {
   },
   computed: {
     canDrag() {
-      return !this.inventoryItem.isEmpty();
+      return !this.inventorySlot.isEmpty();
     }
   },
   methods: {

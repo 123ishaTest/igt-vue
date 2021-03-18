@@ -3,7 +3,7 @@ import {AbstractItem} from "@/ig-template/features/items/AbstractItem";
 import {ItemId} from "@/ig-template/features/items/ItemId";
 import {ItemType} from "@/ig-template/features/items/ItemType";
 import {AbstractConsumable} from "@/ig-template/features/items/Consumable";
-import {InventoryItem} from "@/ig-template/features/inventory/InventoryItem";
+import {InventorySlot} from "@/ig-template/features/inventory/InventorySlot";
 
 
 export class ExampleItem extends AbstractItem {
@@ -199,8 +199,8 @@ describe('Inventory', () => {
     test('Inventory interactions merge', () => {
         // Arrange
         const inventory: Inventory = new Inventory(2);
-        inventory.inventoryItems[0] = new InventoryItem(item1, 1)
-        inventory.inventoryItems[1] = new InventoryItem(item1, 2)
+        inventory.slots[0] = new InventorySlot(item1, 1)
+        inventory.slots[1] = new InventorySlot(item1, 2)
 
         // Act
         inventory.interactIndices(0, 1);

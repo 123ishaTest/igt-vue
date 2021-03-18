@@ -1,6 +1,6 @@
 import {AbstractItem} from "@/ig-template/features/items/AbstractItem";
 
-export class InventoryItem {
+export class InventorySlot {
     item: AbstractItem;
     amount: number;
 

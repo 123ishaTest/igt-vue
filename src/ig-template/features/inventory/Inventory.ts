@@ -1,4 +1,4 @@
-import {InventoryItem} from "@/ig-template/features/inventory/InventoryItem";
+import {InventorySlot} from "@/ig-template/features/inventory/InventorySlot";
 import {ItemId} from "@/ig-template/features/items/ItemId";
 import {Feature} from "@/ig-template/features/Feature";
 import {ItemList} from "@/ig-template/features/items/ItemList";
@@ -9,16 +9,16 @@ import {SaveData} from "@/ig-template/tools/saving/SaveData";
 import {EmptyItem} from "@/ig-template/features/items/instances/EmptyItem";
 
 export class Inventory extends Feature {
-    slots: number;
-    inventoryItems: InventoryItem[];
+    slotCount: number;
+    slots: InventorySlot[];
 
     // Overridden in initialize;
     _itemList: ItemList = undefined as unknown as ItemList;
 
     constructor(slots: number = 10) {
         super('inventory');
-        this.slots = slots;
-        this.inventoryItems = new Array(this.slots).fill(new InventoryItem(new EmptyItem(), 0));
+        this.slotCount = slots;
+        this.slots = new Array(this.slotCount).fill(new InventorySlot(new EmptyItem(), 0));
     }
 
 
@@ -32,13 +32,13 @@ export class Inventory extends Feature {
             return;
         }
 
-        const itemFrom = this.inventoryItems[indexFrom];
+        const itemFrom = this.slots[indexFrom];
 
         if (itemFrom.isEmpty()) {
             console.warn("Cannot interact with empty item");
             return;
         }
-        const itemTo = this.inventoryItems[indexTo];
+        const itemTo = this.slots[indexTo];
 
         if (itemFrom.item.id === itemTo.item.id) {
             this.mergeItems(itemFrom, itemTo);
@@ -49,7 +49,7 @@ export class Inventory extends Feature {
         return;
     }
 
-    mergeItems(itemFrom: InventoryItem, itemTo: InventoryItem) {
+    mergeItems(itemFrom: InventorySlot, itemTo: InventorySlot) {
 
         if (itemFrom.item.id !== itemTo.item.id) {
             throw new Error(`Cannot merge items of types ${itemFrom.item.id} and ${itemTo.item.id}`);
@@ -61,14 +61,14 @@ export class Inventory extends Feature {
     }
 
     swapItems(indexFrom: number, indexTo: number) {
-        const temp = this.inventoryItems[indexFrom];
-        this.inventoryItems.splice(indexFrom, 1, this.inventoryItems[indexTo]);
-        this.inventoryItems.splice(indexTo, 1, temp);
+        const temp = this.slots[indexFrom];
+        this.slots.splice(indexFrom, 1, this.slots[indexTo]);
+        this.slots.splice(indexTo, 1, temp);
 
     }
 
     consumeItem(index: number, amount: number = 1): boolean {
-        const inventoryItem = this.inventoryItems[index];
+        const inventoryItem = this.slots[index];
         const item = inventoryItem.item;
 
 
@@ -109,7 +109,7 @@ export class Inventory extends Feature {
             if (indexToUse === -1) {
                 throw Error(`Index of item ${id} to lose is -1. This suggests an error in inventory management`);
             }
-            const amountToRemove = Math.min(amount, this.inventoryItems[indexToUse].amount);
+            const amountToRemove = Math.min(amount, this.slots[indexToUse].amount);
             amount -= amountToRemove;
             this.loseItemAtIndex(indexToUse, amountToRemove);
 
@@ -135,7 +135,7 @@ export class Inventory extends Feature {
                 return amount;
             }
             const amountToAdd = Math.min(amount, item.maxStack);
-            this.inventoryItems.splice(emptyIndex, 1, new InventoryItem(item, amountToAdd));
+            this.slots.splice(emptyIndex, 1, new InventorySlot(item, amountToAdd));
 
             const amountLeft = amount - amountToAdd;
             if (amountLeft <= 0) {
@@ -144,9 +144,9 @@ export class Inventory extends Feature {
             return this.gainItem(item, amountLeft);
         } else {
             // Add to existing stack
-            const amountToAdd = Math.min(amount, this.inventoryItems[nonFullStackIndex].spaceLeft());
+            const amountToAdd = Math.min(amount, this.slots[nonFullStackIndex].spaceLeft());
 
-            this.inventoryItems[nonFullStackIndex].gainItems(amountToAdd);
+            this.slots[nonFullStackIndex].gainItems(amountToAdd);
             const amountLeft = amount - amountToAdd;
             if (amountLeft <= 0) {
                 return 0;
@@ -158,7 +158,7 @@ export class Inventory extends Feature {
     getSpotsLeftForItem(item: AbstractItem) {
 
         let total = 0;
-        for (const inventoryItem of this.inventoryItems) {
+        for (const inventoryItem of this.slots) {
             if (inventoryItem.isEmpty()) {
                 total += item.maxStack;
             } else if (inventoryItem.item.id === item.id) {
@@ -173,8 +173,8 @@ export class Inventory extends Feature {
     }
 
     getIndexOfNonFullStack(id: ItemId) {
-        for (let i = 0; i < this.inventoryItems.length; i++) {
-            if (this.inventoryItems[i].item.id === id && !this.inventoryItems[i].isFull()) {
+        for (let i = 0; i < this.slots.length; i++) {
+            if (this.slots[i].item.id === id && !this.slots[i].isFull()) {
                 return i;
             }
         }
@@ -182,8 +182,8 @@ export class Inventory extends Feature {
     }
 
     getIndexOfItem(id: ItemId) {
-        for (let i = 0; i < this.inventoryItems.length; i++) {
-            if (this.inventoryItems[i].item.id === id) {
+        for (let i = 0; i < this.slots.length; i++) {
+            if (this.slots[i].item.id === id) {
                 return i;
             }
         }
@@ -191,8 +191,8 @@ export class Inventory extends Feature {
     }
 
     getIndexOfFirstEmptySlot(): number {
-        for (let i = 0; i < this.inventoryItems.length; i++) {
-            if (this.inventoryItems[i].isEmpty()) {
+        for (let i = 0; i < this.slots.length; i++) {
+            if (this.slots[i].isEmpty()) {
                 return i;
             }
         }
@@ -209,19 +209,19 @@ export class Inventory extends Feature {
 
 
     loseItemAtIndex(index: number, amount: number = 1) {
-        this.inventoryItems[index].loseItems(amount);
-        if (this.inventoryItems[index].amount <= 0) {
-            this.inventoryItems.splice(index, 1, new InventoryItem(new EmptyItem(), 0));
+        this.slots[index].loseItems(amount);
+        if (this.slots[index].amount <= 0) {
+            this.slots.splice(index, 1, new InventorySlot(new EmptyItem(), 0));
         }
     }
 
     dropStack(index: number) {
-        this.loseItemAtIndex(index, this.inventoryItems[index].amount);
+        this.loseItemAtIndex(index, this.slots[index].amount);
     }
 
     getEmptySlotCount(): number {
         let count = 0;
-        for (const inventoryItem of this.inventoryItems) {
+        for (const inventoryItem of this.slots) {
             if (inventoryItem.isEmpty()) {
                 count++;
             }
@@ -232,7 +232,7 @@ export class Inventory extends Feature {
 
     getTotalAmount(id: ItemId): number {
         let total = 0;
-        for (const inventoryItem of this.inventoryItems) {
+        for (const inventoryItem of this.slots) {
             if (inventoryItem.item.id === id) {
                 total += inventoryItem.amount;
             }
@@ -241,12 +241,12 @@ export class Inventory extends Feature {
     }
 
     getAmount(index: number): number {
-        return this.inventoryItems[index].amount;
+        return this.slots[index].amount;
     }
 
 
     isEmpty(): boolean {
-        for (const item of this.inventoryItems) {
+        for (const item of this.slots) {
             if (item.amount != 0) {
                 return false;
             }

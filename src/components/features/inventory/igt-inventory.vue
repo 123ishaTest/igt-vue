@@ -2,8 +2,8 @@
   <igt-feature>
     <button class="btn btn-blue" @click="gainItem">Gain a money pouch</button>
     <div class="flex flex-row flex-wrap">
-      <div v-for="(inventoryItem, index) in inventoryItems" :key="index + '-' + inventoryItem.item.id">
-        <igt-inventory-slot :inventory-item="inventoryItem"
+      <div v-for="(slot, index) in slots" :key="index + '-' + slot.item.id">
+        <igt-inventory-slot :inventorySlot="slot"
                             :is-selected="index === selectedIndex"
                             :index="index"
                             @interact="interact"
@@ -12,12 +12,12 @@
       </div>
     </div>
 
-    <igt-inventory-item-highlight
+    <igt-inventory-slot-highlight
         v-if="showHighlight"
-        :selected-inventory-item="selectedItem"
+        :selected-inventory-slot="selectedSlot"
         @consume="consumeItem"
         @drop="dropStack"
-    ></igt-inventory-item-highlight>
+    ></igt-inventory-slot-highlight>
   </igt-feature>
 </template>
 
@@ -25,11 +25,11 @@
 import {App} from "@/App.ts"
 import IgtFeature from "@/components/util/igt-feature";
 import IgtInventorySlot from "@/components/features/inventory/igt-inventory-slot";
-import IgtInventoryItemHighlight from "@/components/features/inventory/igt-inventory-item-highlight";
+import IgtInventorySlotHighlight from "@/components/features/inventory/igt-inventory-slot-highlight";
 
 export default {
   name: "igt-inventory",
-  components: {IgtInventoryItemHighlight, IgtInventorySlot, IgtFeature},
+  components: {IgtInventorySlotHighlight, IgtInventorySlot, IgtFeature},
   data() {
     return {
       inventory: App.game.features.inventory,
@@ -38,14 +38,14 @@ export default {
     }
   },
   computed: {
-    inventoryItems() {
-      return this.inventory.inventoryItems;
+    slots() {
+      return this.inventory.slots;
     },
-    selectedItem() {
-      return this.inventoryItems[this.selectedIndex];
+    selectedSlot() {
+      return this.slots[this.selectedIndex];
     },
     showHighlight() {
-      return this.selectedItem && !this.selectedItem.isEmpty();
+      return this.selectedSlot && !this.selectedSlot.isEmpty();
     }
   },
 
