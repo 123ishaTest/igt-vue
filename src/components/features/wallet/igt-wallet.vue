@@ -1,6 +1,6 @@
 <template>
   <igt-feature>
-    <table>
+    <table class="text-sm sm:text-lg">
       <tr>
         <th>Currency</th>
         <th>Amount</th>
@@ -22,22 +22,24 @@
       </tr>
     </table>
 
-    <button class="btn btn-green" @click="gainMoney(10)">
-      Gain 10 Money<br>
-      App.game.wallet.gainCurrency(new Currency(50, CurrencyType.Money));
-    </button>
-    <button class="btn btn-green" @click="gainSecondary(10)">
-      Gain 10 Secondary<br>
-      App.game.wallet.gainCurrency(new Currency(50, CurrencyType.Money));
-    </button>
-    <button class="btn btn-green" @click="loseMoney(9)">
-      Lose 9 Money (if you have it) <br>
-      App.game.wallet.payIfPossible(new Currency(50, CurrencyType.Money));
-    </button>
+    <div class="flex flex-row flex-wrap justify-center sm:justify-start">
+      <button class="btn btn-green" @click="gainMoney(10)">
+        Gain 10 Money<br>
+        App.game.wallet.gainCurrency(new Currency(50, CurrencyType.Money));
+      </button>
+      <button class="btn btn-green" @click="gainSecondary(10)">
+        Gain 10 Secondary<br>
+        App.game.wallet.gainCurrency(new Currency(50, CurrencyType.Money));
+      </button>
+      <button class="btn btn-green" @click="loseMoney(9)">
+        Lose 9 Money (if you have it) <br>
+        App.game.wallet.payIfPossible(new Currency(50, CurrencyType.Money));
+      </button>
 
-    <button class="btn btn-green" :disabled="!hasMoney(50)">
-      App.game.wallet.hasCurrency(new Currency(50, CurrencyType.Money));
-    </button>
+      <button class="btn btn-green" :disabled="!hasMoney(50)">
+        App.game.wallet.hasCurrency(new Currency(50, CurrencyType.Money));
+      </button>
+    </div>
   </igt-feature>
 </template>
 
