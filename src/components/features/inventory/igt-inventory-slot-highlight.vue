@@ -12,12 +12,12 @@
       <input type="range" class="rounded-lg bg-gray-400 h-4 w-full" v-model="selectedAmount" min="0"
              :max="selectedInventorySlot.amount"/>
     </div>
-    <div class="flex flex-row">
-      <input type="text" class="input-primary" v-model="selectedAmount"/>
+    <div class="flex flex-row flex-wrap -m-1">
+      <input type="text" class="input-primary w-48" v-model="selectedAmount"/>
       <button class="btn btn-blue" @click="selectedAmount=maxAmount - 1">All but one</button>
       <button class="btn btn-blue" @click="selectedAmount=maxAmount">All</button>
     </div>
-    <div class="flex flex-row items-center">
+    <div class="flex flex-row flex-wrap items-center">
       <button v-if="isConsumable" class="btn btn-blue" @click="consumeItem">{{ selectedItem.consumeLabel }}
         ({{ selectedAmount }})
       </button>
