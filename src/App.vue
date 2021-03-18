@@ -9,11 +9,15 @@
         <igt-example-feature></igt-example-feature>
       </igt-tab>
 
+      <igt-tab name="Inventory" :selected="true">
+        <igt-inventory></igt-inventory>
+      </igt-tab>
+
       <igt-tab name="Wallet">
         <igt-wallet></igt-wallet>
       </igt-tab>
 
-      <igt-tab name="Special Events" :selected="true">
+      <igt-tab name="Special Events">
         <igt-special-events></igt-special-events>
       </igt-tab>
 
@@ -63,9 +67,11 @@ import IgtSettings from "@/components/features/settings/igt-settings";
 import IgtRedeemableCodes from "@/components/features/codes/igt-redeemable-codes";
 import IgtExampleFeature from "@/components/features/example/igt-example-feature";
 import IgtSpecialEvents from "@/components/features/special-events/igt-special-events";
+import IgtInventory from "@/components/features/inventory/igt-inventory";
 
 export default {
   components: {
+    IgtInventory,
     IgtSpecialEvents,
     IgtExampleFeature,
     IgtRedeemableCodes,
