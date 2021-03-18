@@ -1,13 +1,11 @@
 <template>
-  <div class="bg-gray-600 p-4 m-2 shadow-lg">
+  <div class="bg-gray-600 p-4 m-2 shadow-lg text-white">
     <div class="flex flex-col">
       <div class="flex flex-row justify-start items-baseline">
         <span class="mr-4 font-semibold">{{ event.title }}</span>
         <span class="text-sm">{{ event.description }}</span>
 
       </div>
-      <!--      <div class="flex flex-row justify-between">-->
-      <!--         </div>-->
       <div class="flex flex-row justify-start">
         <span class="mr-12">{{ event.startTime | dateFormat }}</span>
         <span>{{ event.endTime | dateFormat }}</span>
