@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-gray-500 flex flex-col p-4">
+  <div class="bg-gray-500 flex flex-col p-4 text-white">
     <div>
       {{ selectedItem.name }}
     </div>
