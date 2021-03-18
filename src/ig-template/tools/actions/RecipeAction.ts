@@ -14,7 +14,7 @@ export class RecipeAction extends AbstractAction {
     _inventory: Inventory;
     _itemList: ItemList;
 
-    constructor(description: string, duration: number, repeat: number, input: ItemAmount[], output: ItemAmount[], inventory: Inventory, itemList: ItemList, requirement: Requirement = new NoRequirement()) {
+    constructor(description: string, duration: number, input: ItemAmount[], output: ItemAmount[], inventory: Inventory, itemList: ItemList, requirement: Requirement = new NoRequirement(), repeat: number = Infinity) {
         super(description, duration, repeat);
         this.duration = duration;
         this.input = input;

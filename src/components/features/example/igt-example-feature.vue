@@ -18,7 +18,10 @@
     </div>
     <igt-exp-level :exp-level="example.exampleSkill"></igt-exp-level>
 
-    <igt-action :action="example.moneyPouchAction"></igt-action>
+    <div class="flex flex-row flex-wrap">
+      <igt-action :action="example.fishAction"></igt-action>
+      <igt-action :action="example.recipeAction"></igt-action>
+    </div>
   </igt-feature>
 </template>
 
