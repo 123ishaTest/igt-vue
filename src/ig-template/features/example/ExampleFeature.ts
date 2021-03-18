@@ -10,12 +10,16 @@ import {Currency} from "@/ig-template/features/wallet/Currency";
 import {ContinuousUpgrade} from "@/ig-template/tools/upgrades/ContinuousUpgrade";
 import {SingleLevelUpgrade} from "@/ig-template/tools/upgrades/SingleLevelUpgrade";
 import {ContinuousExpLevel} from "@/ig-template/tools/exp-level/ContinuousExpLevel";
+import {GainMoneyPouchAction} from "@/ig-template/tools/actions/GainMoneyPouchAction";
 
 export class ExampleFeature extends UpgradesFeature {
 
     moneyAdditiveUpgrade: DiscreteUpgrade;
     moneyMultiplicativeUpgrade: ContinuousUpgrade;
     singleLevelUpgrade: SingleLevelUpgrade;
+
+    // Overridden in initialize
+    moneyPouchAction = undefined as unknown as GainMoneyPouchAction;
 
     /**
      * This boolean is set by a SpecialEvent
@@ -61,11 +65,13 @@ export class ExampleFeature extends UpgradesFeature {
 
     initialize(features: Features) {
         this._wallet = features.wallet;
+        this.moneyPouchAction = new GainMoneyPouchAction("Gain a money pouch", 3, features.inventory, features.itemList);
     }
 
     update(delta: number) {
         this._wallet.gainCurrency(new Currency(this.moneyPerSecond() * delta, CurrencyType.Money));
         this.exampleSkill.gainExperience(this.moneyPerSecond() * delta / 10);
+        this.moneyPouchAction.perform(delta);
     }
 
     moneyPerSecond(): number {
