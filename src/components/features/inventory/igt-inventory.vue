@@ -1,6 +1,7 @@
 <template>
   <igt-feature>
     <button class="btn btn-blue" @click="gainItem">Gain a money pouch</button>
+    <button class="btn btn-blue" @click="gainItemWithData">Gain item with data</button>
     <div class="flex flex-row flex-wrap">
       <div v-for="(slot, index) in slots" :key="index + '-' + slot.item.id">
         <igt-inventory-slot :inventorySlot="slot"
@@ -62,6 +63,9 @@ export default {
     },
     gainItem() {
       this.inventory.gainItem(this.itemList.moneyPouch);
+    },
+    gainItemWithData() {
+      this.inventory.gainItem(this.itemList.itemWithData);
     },
     selectItem(index) {
       this.selectedIndex = index;
