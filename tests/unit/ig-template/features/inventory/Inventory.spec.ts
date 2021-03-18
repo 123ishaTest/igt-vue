@@ -13,7 +13,7 @@ export class ExampleItem extends AbstractItem {
 }
 
 class ExampleConsumable extends AbstractConsumable {
-    label = 'consume';
+    consumeLabel = 'consume';
     isConsumed = false;
 
     constructor(id: ItemId, maxStack: number) {

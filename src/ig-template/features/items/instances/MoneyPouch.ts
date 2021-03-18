@@ -6,7 +6,7 @@ import {Currency} from "@/ig-template/features/wallet/Currency";
 import {Wallet} from "@/ig-template/features/wallet/Wallet";
 
 export class MoneyPouch extends AbstractConsumable {
-    label: string = "Open";
+    consumeLabel: string = "Open";
     _wallet: Wallet;
 
     moneyToGain: number = 10;

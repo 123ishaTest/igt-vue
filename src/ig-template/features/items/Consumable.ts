@@ -5,9 +5,9 @@ import {ItemType} from "@/ig-template/features/items/ItemType";
 export abstract class AbstractConsumable extends AbstractItem {
 
     /**
-     * What will be shown on the consume
+     * What will be shown on the consume button
      */
-    abstract label: string;
+    abstract consumeLabel: string;
 
     protected constructor(name: string, description: string, id: ItemId, type: ItemType, maxStack: number = Infinity) {
         super(name, description, id, type, maxStack);
