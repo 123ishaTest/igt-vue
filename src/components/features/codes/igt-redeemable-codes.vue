@@ -1,9 +1,9 @@
 <template>
   <igt-feature>
     <p>Enter code DUMMY to gain 100 money</p>
-    <div class="flex flex-row">
+    <div class="flex flex-row flex-wrap ">
       <label>
-        <input class="input-primary" v-model="code">
+        <input class="input-primary w-full" v-model="code">
       </label>
       <button class="btn btn-blue" @click="submitCode">Submit</button>
     </div>
