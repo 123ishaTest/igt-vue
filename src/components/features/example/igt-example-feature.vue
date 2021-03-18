@@ -10,7 +10,7 @@
     </button>
     <span v-if="example.weeklyEventActive">Weekly</span>
 
-    <div class="flex flex-row">
+    <div class="flex flex-row flex-wrap justify-center sm:justify-start">
       <div v-for="upgrade in example.upgrades" :key="upgrade.id">
         <igt-upgrade :upgrade="upgrade" @click.native="buyUpgrade(upgrade)"
                      :can-buy="example.canAfford(upgrade)"></igt-upgrade>
