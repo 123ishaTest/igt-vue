@@ -269,8 +269,7 @@ export class Inventory extends Feature {
                 const item = this._itemList[slotData.id] as AbstractItem;
                 item.load(slotData.data);
                 this.slots[i] = new InventorySlot(item, slotData.amount);
-            }
-            catch (e) {
+            } catch (e) {
                 console.error(`Could not load Item ${slotData.id}. Make sure it has a getter in ItemList`);
             }
 
