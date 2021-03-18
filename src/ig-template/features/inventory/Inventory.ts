@@ -8,6 +8,7 @@ import {AbstractItem} from "@/ig-template/features/items/AbstractItem";
 import {EmptyItem} from "@/ig-template/features/items/instances/EmptyItem";
 import {InventorySaveData} from "@/ig-template/features/inventory/InventorySaveData";
 import {InventorySlotSaveData} from "@/ig-template/features/inventory/InventorySlotSaveData";
+import {EventDispatcher} from "strongly-typed-events";
 
 export class Inventory extends Feature {
     slotCount: number;
@@ -15,6 +16,9 @@ export class Inventory extends Feature {
 
     // Overridden in initialize;
     _itemList: ItemList = undefined as unknown as ItemList;
+
+    private _onItemGain = new EventDispatcher<AbstractItem, number>();
+
 
     constructor(slots: number = 10) {
         super('inventory');
@@ -119,12 +123,17 @@ export class Inventory extends Feature {
         return amount;
     }
 
+    public gainItem(item: AbstractItem, amount: number = 1): void {
+        this._gainItem(item, amount);
+        this._onItemGain.dispatch(item, amount);
+    }
+
     /**
      * Add items to this inventory, prefer an existing stack
      * Recursively calls itself if stacks are overflowing
      * Returns the number of items that need to be added
      */
-    gainItem(item: AbstractItem, amount: number = 1): number {
+    private _gainItem(item: AbstractItem, amount: number = 1): number {
 
         // Find stack and add to it or create a new one
         const nonFullStackIndex = this.getIndexOfNonFullStack(item.id);
@@ -142,7 +151,7 @@ export class Inventory extends Feature {
             if (amountLeft <= 0) {
                 return 0;
             }
-            return this.gainItem(item, amountLeft);
+            return this._gainItem(item, amountLeft);
         } else {
             // Add to existing stack
             const amountToAdd = Math.min(amount, this.slots[nonFullStackIndex].spaceLeft());
@@ -152,7 +161,7 @@ export class Inventory extends Feature {
             if (amountLeft <= 0) {
                 return 0;
             }
-            return this.gainItem(item, amountLeft);
+            return this._gainItem(item, amountLeft);
         }
     }
 
@@ -253,6 +262,13 @@ export class Inventory extends Feature {
             }
         }
         return true;
+    }
+
+    /**
+     * Emitted whenever this inventory gains items (even if it can't take them).
+     */
+    public get onItemGain() {
+        return this._onItemGain.asEvent();
     }
 
     load(data: InventorySaveData): void {
