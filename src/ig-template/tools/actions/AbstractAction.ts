@@ -1,5 +1,7 @@
 import {ISimpleEvent, SimpleEventDispatcher} from "strongly-typed-events";
 import {Progress} from "@/ig-template/tools/requirements/Progress";
+import {Requirement} from "@/ig-template/tools/requirements/Requirement";
+import {NoRequirement} from "@/ig-template/tools/requirements/NoRequirement";
 
 export abstract class AbstractAction {
     description: string;
@@ -11,16 +13,19 @@ export abstract class AbstractAction {
 
     isFinished: boolean = false;
 
+    requirement: Requirement;
+
     // One iteration done
     private _onCompletion = new SimpleEventDispatcher<AbstractAction>();
     // Entire action done
     private _onFinished = new SimpleEventDispatcher<AbstractAction>();
 
 
-    protected constructor(description: string, duration: number, repeat: number = Infinity) {
+    protected constructor(description: string, duration: number, repeat: number = Infinity, requirement: Requirement = new NoRequirement()) {
         this.description = description;
         this.duration = duration;
         this.repeat = repeat;
+        this.requirement = requirement
     }
 
     perform(delta: number): void {
@@ -72,7 +77,7 @@ export abstract class AbstractAction {
      * Override if more permissions exist.
      */
     canPerform(): boolean {
-        return true;
+        return this.requirement.isCompleted;
     }
 
     toggle() {
