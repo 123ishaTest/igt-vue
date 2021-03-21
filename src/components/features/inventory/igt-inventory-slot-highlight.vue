@@ -56,7 +56,7 @@ export default {
       if (!really) {
         return;
       }
-      this.$emit('consume', {amount: this.selectedAmount});
+      this.$emit('drop', {amount: this.selectedAmount});
       this.selectedAmount = Math.min(this.selectedAmount, this.maxAmount);
     }
   },
