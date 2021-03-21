@@ -11,8 +11,6 @@ export abstract class AbstractAction {
     isStarted: boolean = false;
     currentProgress: number = 0;
 
-    isFinished: boolean = false;
-
     requirement: Requirement;
 
     // One iteration done
@@ -29,7 +27,7 @@ export abstract class AbstractAction {
     }
 
     perform(delta: number): void {
-        if (!this.isStarted || this.isFinished) {
+        if (!this.isStarted) {
             return;
         }
 
@@ -45,27 +43,17 @@ export abstract class AbstractAction {
     }
 
     complete(): void {
-        if (this.isFinished) {
-            console.warn("Cannot complete action that is already finished");
-            return;
-        }
         this._onCompletion.dispatch(this);
         const canRepeat: boolean = this.gainReward();
         if (canRepeat && this.repeat > 0) {
             this.repeatAction();
         } else {
-            this.finish();
+            this.stop();
         }
     }
 
     getProgress(): Progress {
         return new Progress(this.currentProgress, this.duration);
-    }
-
-
-    finish(): void {
-        this.isFinished = true;
-        this._onFinished.dispatch(this);
     }
 
     repeatAction() {
@@ -98,8 +86,8 @@ export abstract class AbstractAction {
     }
 
     stop() {
-        this.isStarted = false;
         this.currentProgress = 0;
+        this.isStarted = false;
     }
 
     /**
