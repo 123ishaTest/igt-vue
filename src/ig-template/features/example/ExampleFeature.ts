@@ -12,9 +12,9 @@ import {SingleLevelUpgrade} from "@/ig-template/tools/upgrades/SingleLevelUpgrad
 import {ContinuousExpLevel} from "@/ig-template/tools/exp-level/ContinuousExpLevel";
 import {GainMoneyPouchAction} from "@/ig-template/tools/actions/GainMoneyPouchAction";
 import {RecipeAction} from "@/ig-template/tools/actions/RecipeAction";
-import {FishAction} from "@/ig-template/tools/actions/FishAction";
 import {ItemAmount} from "@/ig-template/features/items/ItemAmount";
 import {ItemId} from "@/ig-template/features/items/ItemId";
+import {GainItemAction} from "@/ig-template/tools/actions/GainItemAction";
 
 export class ExampleFeature extends UpgradesFeature {
 
@@ -70,7 +70,7 @@ export class ExampleFeature extends UpgradesFeature {
 
     initialize(features: Features) {
         this._wallet = features.wallet;
-        this.fishAction = new FishAction('Fish', 3, features.inventory, features.itemList);
+        this.fishAction = new GainItemAction(ItemId.RawFish, 'Fish', 3, features.inventory, features.itemList);
         this.recipeAction = new RecipeAction('Cook the fish', 5, [new ItemAmount(ItemId.RawFish, 1)], [new ItemAmount(ItemId.CookedFish, 1)], features.inventory, features.itemList)
     }
 
