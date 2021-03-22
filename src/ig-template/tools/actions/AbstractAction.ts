@@ -15,9 +15,6 @@ export abstract class AbstractAction {
 
     // One iteration done
     private _onCompletion = new SimpleEventDispatcher<AbstractAction>();
-    // Entire action done
-    private _onFinished = new SimpleEventDispatcher<AbstractAction>();
-
 
     protected constructor(description: string, duration: number, repeat: number = Infinity, requirement: Requirement = new NoRequirement()) {
         this.description = description;
@@ -96,12 +93,7 @@ export abstract class AbstractAction {
      */
     abstract gainReward(): boolean;
 
-
     public get onCompletion(): ISimpleEvent<AbstractAction> {
         return this._onCompletion.asEvent();
-    }
-
-    public get onFinished(): ISimpleEvent<AbstractAction> {
-        return this._onFinished.asEvent();
     }
 }
