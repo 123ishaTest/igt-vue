@@ -10,12 +10,21 @@ import {Currency} from "@/ig-template/features/wallet/Currency";
 import {ContinuousUpgrade} from "@/ig-template/tools/upgrades/ContinuousUpgrade";
 import {SingleLevelUpgrade} from "@/ig-template/tools/upgrades/SingleLevelUpgrade";
 import {ContinuousExpLevel} from "@/ig-template/tools/exp-level/ContinuousExpLevel";
+import {GainMoneyPouchAction} from "@/ig-template/tools/actions/GainMoneyPouchAction";
+import {RecipeAction} from "@/ig-template/tools/actions/RecipeAction";
+import {ItemAmount} from "@/ig-template/features/items/ItemAmount";
+import {ItemId} from "@/ig-template/features/items/ItemId";
+import {GainItemAction} from "@/ig-template/tools/actions/GainItemAction";
 
 export class ExampleFeature extends UpgradesFeature {
 
     moneyAdditiveUpgrade: DiscreteUpgrade;
     moneyMultiplicativeUpgrade: ContinuousUpgrade;
     singleLevelUpgrade: SingleLevelUpgrade;
+
+    // Overridden in initialize
+    fishAction = undefined as unknown as GainMoneyPouchAction;
+    recipeAction = undefined as unknown as RecipeAction;
 
     /**
      * This boolean is set by a SpecialEvent
@@ -61,11 +70,15 @@ export class ExampleFeature extends UpgradesFeature {
 
     initialize(features: Features) {
         this._wallet = features.wallet;
+        this.fishAction = new GainItemAction(ItemId.RawFish, 'Fish', 3, features.inventory, features.itemList);
+        this.recipeAction = new RecipeAction('Cook the fish', 5, [new ItemAmount(ItemId.RawFish, 1)], [new ItemAmount(ItemId.CookedFish, 1)], features.inventory, features.itemList)
     }
 
     update(delta: number) {
         this._wallet.gainCurrency(new Currency(this.moneyPerSecond() * delta, CurrencyType.Money));
         this.exampleSkill.gainExperience(this.moneyPerSecond() * delta / 10);
+        this.fishAction.perform(delta);
+        this.recipeAction.perform(delta);
     }
 
     moneyPerSecond(): number {

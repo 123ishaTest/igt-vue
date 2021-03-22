@@ -1,3 +1,5 @@
+import {cloneDeep} from 'lodash-es';
+
 import {InventorySlot} from "@/ig-template/features/inventory/InventorySlot";
 import {ItemId} from "@/ig-template/features/items/ItemId";
 import {Feature} from "@/ig-template/features/Feature";
@@ -9,6 +11,7 @@ import {EmptyItem} from "@/ig-template/features/items/instances/EmptyItem";
 import {InventorySaveData} from "@/ig-template/features/inventory/InventorySaveData";
 import {InventorySlotSaveData} from "@/ig-template/features/inventory/InventorySlotSaveData";
 import {EventDispatcher} from "strongly-typed-events";
+import {ItemAmount} from "@/ig-template/features/items/ItemAmount";
 
 export class Inventory extends Feature {
     slotCount: number;
@@ -123,9 +126,10 @@ export class Inventory extends Feature {
         return amount;
     }
 
-    public gainItem(item: AbstractItem, amount: number = 1): void {
-        this._gainItem(item, amount);
+    public gainItem(item: AbstractItem, amount: number = 1): number {
+        const amountLeft = this._gainItem(item, amount);
         this._onItemGain.dispatch(item, amount);
+        return amountLeft;
     }
 
     /**
@@ -166,7 +170,6 @@ export class Inventory extends Feature {
     }
 
     getSpotsLeftForItem(item: AbstractItem) {
-
         let total = 0;
         for (const inventoryItem of this.slots) {
             if (inventoryItem.isEmpty()) {
@@ -176,6 +179,35 @@ export class Inventory extends Feature {
             }
         }
         return total;
+    }
+
+    /**
+     * This method very inefficiently clones the inventory, and simulates adding the items see if they can be taken.
+     * It's also the only reason we're using lodash...
+     * TODO do this in a smart way.
+     */
+    canTakeItemAmounts(itemAmounts: ItemAmount[]) {
+        const clonedInventory = cloneDeep(this);
+        for (const item of itemAmounts) {
+            const amountLeft = clonedInventory.gainItem(this._itemList[item.id], item.amount);
+            if (amountLeft !== 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    hasItemAmounts(amounts: ItemAmount[]) {
+        for (const amount of amounts) {
+            if (!this.hasItemAmount(amount)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    hasItemAmount(amount: ItemAmount) {
+        return this.getTotalAmount(amount.id) >= amount.amount;
     }
 
     canTakeItem(item: AbstractItem, amount: number) {
@@ -282,7 +314,7 @@ export class Inventory extends Feature {
             }
 
             try {
-                const item = this._itemList[slotData.id] as AbstractItem;
+                const item = this._itemList[slotData.id];
                 item.load(slotData.data);
                 this.slots[i] = new InventorySlot(item, slotData.amount);
             } catch (e) {
@@ -304,6 +336,5 @@ export class Inventory extends Feature {
             slots: slots
         }
     }
-
 
 }

@@ -17,6 +17,11 @@
       </div>
     </div>
     <igt-exp-level :exp-level="example.exampleSkill"></igt-exp-level>
+
+    <div class="flex flex-row flex-wrap">
+      <igt-action :action="example.fishAction"></igt-action>
+      <igt-action :action="example.recipeAction"></igt-action>
+    </div>
   </igt-feature>
 </template>
 
@@ -26,10 +31,11 @@ import IgtFeature from "@/components/util/igt-feature";
 import IgtUpgrade from "@/components/tools/upgrades/igt-discrete-upgrade";
 import {UpgradeId} from "@/ig-template/tools/upgrades/UpgradeId";
 import IgtExpLevel from "@/components/tools/exp-level/igt-exp-level";
+import IgtAction from "@/components/tools/actions/igt-action";
 
 export default {
   name: "igt-example-feature",
-  components: {IgtExpLevel, IgtUpgrade, IgtFeature},
+  components: {IgtAction, IgtExpLevel, IgtUpgrade, IgtFeature},
   data() {
     return {
       example: App.game.features.example,

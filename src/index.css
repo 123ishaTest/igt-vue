@@ -4,6 +4,10 @@
 @tailwind components;
 @tailwind utilities;
 
+.hover-highlight {
+    @apply transition duration-300 ease-out transform hover:-translate-y-1 hover:scale-105;
+}
+
 /* Tooltips */
 .tooltip {
     @apply hidden absolute;
