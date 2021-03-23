@@ -8,7 +8,7 @@
     <button v-if="showEventButton" class="btn btn-blue" @click="eventButton">
       This button is managed by a Special Event.
     </button>
-    <span v-if="example.weeklyEventActive">Weekly</span>
+    <span v-if="example.weeklyEventActive">Weekly event is active</span>
 
     <div class="flex flex-row flex-wrap justify-center sm:justify-start">
       <div v-for="upgrade in example.upgrades" :key="upgrade.id">
@@ -46,7 +46,8 @@ export default {
       this.example.buyUpgrade(id);
     },
     eventButton() {
-      alert("epic")
+      alert("You've found the hidden achievement")
+      this.example.unlockHiddenAchievement();
     }
   },
   computed: {

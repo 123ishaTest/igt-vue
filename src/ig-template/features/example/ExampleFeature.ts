@@ -15,6 +15,9 @@ import {RecipeAction} from "@/ig-template/tools/actions/RecipeAction";
 import {ItemAmount} from "@/ig-template/features/items/ItemAmount";
 import {ItemId} from "@/ig-template/features/items/ItemId";
 import {GainItemAction} from "@/ig-template/tools/actions/GainItemAction";
+import {Achievements} from "@/ig-template/features/achievements/Achievements";
+import {AchievementId} from "@/ig-template/features/achievements/AchievementId";
+import {CustomAchievement} from "@/ig-template/features/achievements/CustomAchievement";
 
 export class ExampleFeature extends UpgradesFeature {
 
@@ -25,6 +28,8 @@ export class ExampleFeature extends UpgradesFeature {
     // Overridden in initialize
     fishAction = undefined as unknown as GainMoneyPouchAction;
     recipeAction = undefined as unknown as RecipeAction;
+
+    _achievements: Achievements = undefined as unknown as Achievements
 
     /**
      * This boolean is set by a SpecialEvent
@@ -70,8 +75,15 @@ export class ExampleFeature extends UpgradesFeature {
 
     initialize(features: Features) {
         this._wallet = features.wallet;
+        this._achievements = features.achievements;
+
         this.fishAction = new GainItemAction(ItemId.RawFish, 'Fish', 3, features.inventory, features.itemList);
         this.recipeAction = new RecipeAction('Cook the fish', 5, [new ItemAmount(ItemId.RawFish, 1)], [new ItemAmount(ItemId.CookedFish, 1)], features.inventory, features.itemList)
+    }
+
+    unlockHiddenAchievement(): void {
+        const hiddenAchievement = this._achievements.getAchievement(AchievementId.ExampleAchievement) as CustomAchievement;
+        hiddenAchievement.forceComplete();
     }
 
     update(delta: number) {
