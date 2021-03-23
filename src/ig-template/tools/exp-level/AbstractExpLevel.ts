@@ -18,7 +18,7 @@ export abstract class AbstractExpLevel {
     }
 
     getLevel(): number {
-        for (let i = 1; i < this.maxLevel; i++) {
+        for (let i = 1; i <= this.maxLevel; i++) {
             if (this.exp < this.getExpNeededForLevel(i)) {
                 return i - 1;
             }
