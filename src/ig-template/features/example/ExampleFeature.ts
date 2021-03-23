@@ -18,6 +18,7 @@ import {GainItemAction} from "@/ig-template/tools/actions/GainItemAction";
 import {Achievements} from "@/ig-template/features/achievements/Achievements";
 import {AchievementId} from "@/ig-template/features/achievements/AchievementId";
 import {CustomAchievement} from "@/ig-template/features/achievements/CustomAchievement";
+import {ExampleFeatureSaveData} from "@/ig-template/features/example/ExampleFeatureSaveData";
 
 export class ExampleFeature extends UpgradesFeature {
 
@@ -97,4 +98,16 @@ export class ExampleFeature extends UpgradesFeature {
         return this.moneyAdditiveUpgrade.getBonus() * this.moneyMultiplicativeUpgrade.getBonus();
     }
 
+
+    save(): ExampleFeatureSaveData {
+        return {
+            ...super.save(),
+            exp: this.exampleSkill.exp,
+        };
+    }
+
+    load(data: ExampleFeatureSaveData) {
+        super.load(data);
+        this.exampleSkill.exp = data.exp ?? this.exampleSkill.exp;
+    }
 }
