@@ -6,7 +6,7 @@
 [Please visit the actual Docs here](https://123ishatest.github.io/incremental-game-template-website)
 
 ## Requirements
-- [NodeJS](https://nodejs.org/en/) >= v12.13.0.
+- [Nodejs](https://nodejs.org/en/) >= v12.13.0.
 
 ## Project setup
 ```
@@ -35,4 +35,4 @@ If you get the following error
 ```
 Syntax Error: TypeError: [(...variantsValue),(...extensions)].flat is not a function
 ```
-This is caused by not having NodeJS >= v12.13.0. Please update your node version
+This is caused by not having Nodejs >= v12.13.0. Please update your node version.
