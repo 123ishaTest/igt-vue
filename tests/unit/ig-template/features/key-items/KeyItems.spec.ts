@@ -9,7 +9,7 @@ describe('Key Items', () => {
 
     test('normal usage', () => {
         const keyItems = new KeyItems();
-        const keyItem = keyItems.registerKeyItem(
+        keyItems.registerKeyItem(
             new KeyItem(
                 id, 'title', '')
         );
@@ -17,7 +17,7 @@ describe('Key Items', () => {
 
         keyItems.gainKeyItem(id);
 
-        expect(keyItem.isUnlocked).toBe(true);
+        expect(keyItems.hasKeyItem(id)).toBe(true);
     });
 
     test('dont unlock impossible', () => {

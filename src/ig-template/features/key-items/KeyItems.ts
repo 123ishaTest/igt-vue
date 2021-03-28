@@ -25,7 +25,11 @@ export class KeyItems extends Feature {
         return keyItem;
     }
 
-    getKeyItem(id: KeyItemId) {
+    hasKeyItem(id: KeyItemId): boolean {
+        return this.getKeyItem(id)?.isUnlocked;
+    }
+
+    getKeyItem(id: KeyItemId): KeyItem {
         return this.list[id];
     }
 
