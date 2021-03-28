@@ -7,6 +7,7 @@ import {ExampleFeature} from "@/ig-template/features/example/ExampleFeature";
 import {SpecialEvents} from "@/ig-template/features/special-events/SpecialEvents";
 import {Inventory} from "@/ig-template/features/inventory/Inventory";
 import {ItemList} from "@/ig-template/features/items/ItemList";
+import {KeyItems} from "@/ig-template/features/key-items/KeyItems";
 
 export interface Features {
     wallet: Wallet;
@@ -15,6 +16,7 @@ export interface Features {
     example: ExampleFeature;
     inventory: Inventory;
     itemList: ItemList;
+    keyItems: KeyItems;
     specialEvents: SpecialEvents;
     statistics: Statistics;
     achievements: Achievements;
