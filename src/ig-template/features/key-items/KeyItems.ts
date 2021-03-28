@@ -12,7 +12,7 @@ export class KeyItems extends Feature {
     constructor() {
         super('key-items');
         this.list = [
-            new KeyItem(KeyItemId.Item1, "Item 1", "Grants access to something", "Maybe look over there?"),
+            new KeyItem(KeyItemId.Item1, "Item 1", "Grants access to something", "Maybe look over there?", "logo.png"),
             new KeyItem(KeyItemId.Item2, "Item 2", "Now you can do something"),
         ]
     }

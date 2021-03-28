@@ -5,14 +5,16 @@ export class KeyItem {
     name: string;
     description: string;
     unlockHint: string;
+    image: string
     isUnlocked: boolean = false;
 
 
-    constructor(id: KeyItemId, name: string, description: string, unlockHint: string = "") {
+    constructor(id: KeyItemId, name: string, description: string, unlockHint: string = "", image: string = "") {
         this.id = id;
         this.name = name;
         this.description = description;
         this.unlockHint = unlockHint;
+        this.image = image;
     }
 
     unlock(): void {
