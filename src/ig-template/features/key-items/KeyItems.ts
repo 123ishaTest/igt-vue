@@ -5,22 +5,28 @@ import {KeyItemId} from "@/ig-template/features/key-items/KeyItemId";
 import {KeyItemSaveData} from "@/ig-template/features/key-items/KeyItemSaveData";
 
 export class KeyItems extends Feature {
-    list: KeyItem[];
+    list: Record<KeyItemId, KeyItem>
 
     private _onKeyItemGain = new SimpleEventDispatcher<KeyItem>();
 
     constructor() {
         super('key-items');
-        this.list = [
-            new KeyItem(KeyItemId.Item1, "Item 1", "Grants access to something", "Maybe look over there?", "logo.png"),
-            new KeyItem(KeyItemId.Item2, "Item 2", "Now you can do something"),
-        ]
+        this.list = {} as Record<KeyItemId, KeyItem>;
+    }
+
+
+    initialize() {
+        this.registerKeyItem(new KeyItem(KeyItemId.Item1, "Item 1", "Grants access to something", "Maybe look over there?", "logo.png"));
+        this.registerKeyItem(new KeyItem(KeyItemId.Item2, "Item 2", "Now you can do something"));
+    }
+
+    public registerKeyItem<T extends KeyItem>(keyItem: T): T {
+        this.list[keyItem.id] = keyItem;
+        return keyItem;
     }
 
     getKeyItem(id: KeyItemId) {
-        return this.list.find(item => {
-            return item.id === id;
-        })
+        return this.list[id];
     }
 
     gainKeyItem(id: KeyItemId) {
@@ -29,8 +35,10 @@ export class KeyItems extends Feature {
             console.warn(`Key Item with id ${id} could not be found`);
             return;
         }
-        item.unlock();
-        this._onKeyItemGain.dispatch(item);
+        const didUnlock = item.unlock();
+        if (didUnlock) {
+            this._onKeyItemGain.dispatch(item);
+        }
     }
 
     /**
@@ -51,12 +59,14 @@ export class KeyItems extends Feature {
     }
 
     save(): KeyItemSaveData {
+        const list = [];
+        for (const key in this.list) {
+            if (this.list[key as KeyItemId].isUnlocked) {
+                list.push(key as KeyItemId)
+            }
+        }
         return {
-            list: this.list.filter(item => {
-                return item.isUnlocked;
-            }).map(item => {
-                return item.id;
-            }),
+            list: list,
         };
     }
 }
