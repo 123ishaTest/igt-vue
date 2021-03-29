@@ -21,7 +21,7 @@ export class KeyItem {
     }
 
     unlock(): boolean {
-        if (this.requirement.isCompleted) {
+        if (this.requirement.isCompleted && !this.isUnlocked) {
             this.isUnlocked = true;
             return true;
         }
