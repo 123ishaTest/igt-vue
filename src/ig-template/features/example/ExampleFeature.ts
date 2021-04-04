@@ -21,6 +21,7 @@ import {CustomAchievement} from "@/ig-template/features/achievements/CustomAchie
 import {ExampleFeatureSaveData} from "@/ig-template/features/example/ExampleFeatureSaveData";
 import {Booster} from "@/ig-template/tools/boosters/Booster";
 import {BoosterTier} from "@/ig-template/tools/boosters/BoosterTier";
+import {ImpossibleRequirement} from "@/ig-template/tools/requirements/ImpossibleRequirement";
 
 export class ExampleFeature extends UpgradesFeature {
 
@@ -87,7 +88,7 @@ export class ExampleFeature extends UpgradesFeature {
 
         this.booster = new Booster("Boost your experience gain by spending money every second", [
             new BoosterTier([new Currency(10, CurrencyType.Money)], 1.5, "1.5x"),
-            new BoosterTier([new Currency(100, CurrencyType.Money)], 2, "2x"),
+            new BoosterTier([new Currency(100, CurrencyType.Money)], 2, "2x", new ImpossibleRequirement()),
             new BoosterTier([new Currency(1000, CurrencyType.Money)], 3, "3x"),
         ], this._wallet, 1);
     }

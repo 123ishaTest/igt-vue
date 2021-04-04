@@ -1,6 +1,6 @@
 <template>
   <div>
-    <span>{{booster.description}}</span>
+    <span>{{ booster.description }}</span>
 
     <div class="flex flex-row flex-wrap">
       <button class="btn" :class="booster.currentTierIndex === -1 ? 'btn-green' : 'btn-blue'" @click="select(-1)">
@@ -8,6 +8,8 @@
       </button>
       <button class="btn" :class="index === booster.currentTierIndex ? 'btn-green' : 'btn-blue'"
               @click="select(index)"
+              :disabled="!tier.canUse()"
+              :title="tier.requirement.hint"
               v-for="(tier, index) in booster.tiers" :key="tier.output"> {{ tier.displayName }}
         <igt-currency v-for="currency in tier.costs" :key="currency.type" :currency="currency"></igt-currency>
       </button>
@@ -31,7 +33,7 @@ export default {
   },
   methods: {
     select(index) {
-      this.booster.currentTierIndex = index;
+      this.booster.selectTier(index);
     }
   },
 

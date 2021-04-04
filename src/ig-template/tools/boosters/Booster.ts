@@ -38,12 +38,18 @@ export class Booster {
 
         const costs = currentTier.getCostPerDelta(delta);
 
-        if (!this._wallet.payMultipleIfPossible(costs)) {
+        if (!this._wallet.payMultipleIfPossible(costs) || !currentTier.canUse()) {
             this.currentTierIndex--;
             return this.defaultOutput
         }
 
         return currentTier.output
+    }
+
+    selectTier(index: number) {
+        if (this.tiers[index]?.canUse()) {
+            this.currentTierIndex = index;
+        }
     }
 
     get bonus() {
