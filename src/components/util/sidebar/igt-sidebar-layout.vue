@@ -10,13 +10,13 @@
           <div class="flex items-center p-2 mx-2">
             <img class="h-12 w-12" :src="require(`@/assets/logo.png`)" alt="logo">
             <span
-                class="text-gray-800 dark:text-white text-xl font-semibold text-center">Incremental Game Template</span>
+                class="text-gray-800 dark:text-white text-xl font-semibold text-center">{{ title }}</span>
           </div>
         </div>
 
         <nav class="flex flex-col mt-10 px-4 text-left">
 
-          <a class="flex flex-row w-full justify-between items-center tab-entry dark:text-white" :key="'tabasd'+index"
+          <a class="flex flex-row w-full justify-between items-center tab-entry dark:text-white" :key="'tab-'+index"
              v-for="(tab, index) in tabs"
              :class="{ 'bg-gray-200 dark:text-gray-700': tab.isActive,
              'hover:text-gray-700 hover:bg-gray-200 cursor-pointer dark:hover:text-gray-700': !tab.isCategory }"
@@ -81,6 +81,12 @@ export default {
       dropdownOpen: true,
       tabs: [],
     };
+  },
+  props: {
+    title: {
+      type: String,
+      required: true,
+    },
   },
 
   computed: {
