@@ -16,6 +16,9 @@
                      :can-buy="example.canAfford(upgrade)"></igt-upgrade>
       </div>
     </div>
+
+    <igt-booster :booster="example.booster"></igt-booster>
+
     <igt-exp-level :exp-level="example.exampleSkill"></igt-exp-level>
 
     <div class="flex flex-row flex-wrap">
@@ -32,10 +35,11 @@ import IgtUpgrade from "@/components/tools/upgrades/igt-discrete-upgrade";
 import {UpgradeId} from "@/ig-template/tools/upgrades/UpgradeId";
 import IgtExpLevel from "@/components/tools/exp-level/igt-exp-level";
 import IgtAction from "@/components/tools/actions/igt-action";
+import IgtBooster from "@/components/tools/boosters/igt-booster";
 
 export default {
   name: "igt-example-feature",
-  components: {IgtAction, IgtExpLevel, IgtUpgrade, IgtFeature},
+  components: {IgtBooster, IgtAction, IgtExpLevel, IgtUpgrade, IgtFeature},
   data() {
     return {
       example: App.game.features.example,
