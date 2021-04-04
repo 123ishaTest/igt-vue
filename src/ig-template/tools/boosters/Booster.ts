@@ -52,6 +52,9 @@ export class Booster {
         }
     }
 
+    /**
+     * NOTE: Only use for display purposes, use perform(delta) for actual calculations
+     */
     get bonus() {
         return this.currentTier ? this.currentTier.output : this.defaultOutput;
     }
