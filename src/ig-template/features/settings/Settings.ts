@@ -55,7 +55,6 @@ export class Settings extends Feature {
                 return this.list[i] as T;
             }
         }
-        console.warn(`Setting ${id} does not exist`);
         return null;
     }
 
