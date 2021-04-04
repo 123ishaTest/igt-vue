@@ -19,6 +19,8 @@ import {Achievements} from "@/ig-template/features/achievements/Achievements";
 import {AchievementId} from "@/ig-template/features/achievements/AchievementId";
 import {CustomAchievement} from "@/ig-template/features/achievements/CustomAchievement";
 import {ExampleFeatureSaveData} from "@/ig-template/features/example/ExampleFeatureSaveData";
+import {Booster} from "@/ig-template/tools/boosters/Booster";
+import {BoosterTier} from "@/ig-template/tools/boosters/BoosterTier";
 
 export class ExampleFeature extends UpgradesFeature {
 
@@ -39,6 +41,8 @@ export class ExampleFeature extends UpgradesFeature {
     weeklyEventActive: boolean = false;
 
     exampleSkill: ContinuousExpLevel;
+
+    booster: Booster = undefined as unknown as Booster;
 
     constructor() {
         super('example-feature');
@@ -80,6 +84,12 @@ export class ExampleFeature extends UpgradesFeature {
 
         this.fishAction = new GainItemAction(ItemId.RawFish, 'Fish', 3, features.inventory, features.itemList);
         this.recipeAction = new RecipeAction('Cook the fish', 5, [new ItemAmount(ItemId.RawFish, 1)], [new ItemAmount(ItemId.CookedFish, 1)], features.inventory, features.itemList)
+
+        this.booster = new Booster("Boost your experience gain by spending money every second", [
+            new BoosterTier([new Currency(10, CurrencyType.Money)], 1.5, "1.5x"),
+            new BoosterTier([new Currency(100, CurrencyType.Money)], 2, "2x"),
+            new BoosterTier([new Currency(1000, CurrencyType.Money)], 3, "3x"),
+        ], this._wallet, 1);
     }
 
     unlockHiddenAchievement(): void {
@@ -89,7 +99,8 @@ export class ExampleFeature extends UpgradesFeature {
 
     update(delta: number) {
         this._wallet.gainCurrency(new Currency(this.moneyPerSecond() * delta, CurrencyType.Money));
-        this.exampleSkill.gainExperience(this.moneyPerSecond() * delta / 10);
+        const xpToGain = this.moneyPerSecond() * delta / 10 * this.booster.perform(delta);
+        this.exampleSkill.gainExperience(xpToGain);
         this.fishAction.perform(delta);
         this.recipeAction.perform(delta);
     }

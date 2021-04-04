@@ -1,13 +1,15 @@
 <template>
   <div class="flex flex-row justify-center">
-    <span v-if="!textFirst" class="mr-1">{{ currency.amount }}</span>
+    <span v-if="!textFirst" class="mr-1"><span v-if="negative">-</span>{{ currency.amount }}</span>
     <div v-if="showImage" class="w-8 h-8">
-      <img v-if="currency.type === CurrencyType.Money" :src="require('@/assets/images/currencies/money.svg')" :alt="currency.type">
-      <img v-else-if="currency.type === CurrencyType.Secondary" :src="require('@/assets/images/currencies/secondary.svg')" :alt="currency.type">
+      <img v-if="currency.type === CurrencyType.Money" :src="require('@/assets/images/currencies/money.svg')"
+           :alt="currency.type">
+      <img v-else-if="currency.type === CurrencyType.Secondary"
+           :src="require('@/assets/images/currencies/secondary.svg')" :alt="currency.type">
     </div>
     <span v-else>{{ currency.type }}</span>
 
-    <span v-if="textFirst" class="ml-1">{{ currency.amount }}</span>
+    <span v-if="textFirst" class="ml-1"><span v-if="negative">-</span>{{ currency.amount }}</span>
 
   </div>
 </template>
@@ -27,6 +29,10 @@ export default {
     currency: {
       type: Currency,
       required: true,
+    },
+    negative: {
+      type: Boolean,
+      default: false
     },
     // Show image or text
     showImage: {
