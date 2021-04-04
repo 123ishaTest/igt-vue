@@ -166,11 +166,11 @@ export class Wallet extends Feature {
     }
 
     public get money(): number {
-        return this._currencies.Money;
+        return this._currencies.money;
     }
 
     public set money(value: number) {
-        this._currencies.Money = value;
+        this._currencies.money = value;
     }
 
 
