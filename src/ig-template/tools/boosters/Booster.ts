@@ -47,7 +47,7 @@ export class Booster {
     }
 
     selectTier(index: number) {
-        if (this.tiers[index]?.canUse()) {
+        if (index === -1 || this.tiers[index]?.canUse()) {
             this.currentTierIndex = index;
         }
     }
