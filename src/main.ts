@@ -26,11 +26,10 @@ window.onload = function () {
     App.start();
 
     // Expose the App class to the window (and the console)
-    // if (process.env.DEBUG && typeof window !== undefined) {
-
-    console.log('Exposing App to console');
-    window.App = App;
-    // }
+    if (!App.inProduction && typeof window !== undefined) {
+        console.log('Exposing App to console');
+        window.App = App;
+    }
 
 
     console.log("Launched");
