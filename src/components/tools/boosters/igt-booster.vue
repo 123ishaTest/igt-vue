@@ -12,7 +12,7 @@
               :title="tier.requirement.hint"
               v-for="(tier, index) in booster.tiers" :key="tier.output"> {{ tier.displayName }}
         <span class="flex flex-row" v-for="currency in tier.costs" :key="currency.type">
-          <igt-currency :currency="currency"></igt-currency>
+          <igt-currency :negative="true" :currency="currency"></igt-currency>
           <span>/s</span>
         </span>
       </button>
