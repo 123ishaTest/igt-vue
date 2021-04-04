@@ -1,13 +1,16 @@
-export class Progress {
-    actual: number;
-    target: number;
+import Decimal from "@/lib/break_eternity.min";
+import {DecimalValue} from "@/lib/DecimalValueType";
 
-    constructor(actual: number, target: number) {
-        this.actual = actual;
-        this.target = target;
+export class Progress {
+    actual: Decimal;
+    target: Decimal;
+
+    constructor(actual: DecimalValue, target: DecimalValue) {
+        this.actual = new Decimal(actual);
+        this.target = new Decimal(target);
     }
 
     getPercentage(): number {
-        return Math.min(1, Math.max(0, this.actual / this.target));
+        return this.actual.div(this.target).clamp(0, 1).toNumber();
     }
 }

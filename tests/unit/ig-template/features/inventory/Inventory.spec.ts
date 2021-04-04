@@ -4,10 +4,12 @@ import {ItemId} from "@/ig-template/features/items/ItemId";
 import {ItemType} from "@/ig-template/features/items/ItemType";
 import {AbstractConsumable} from "@/ig-template/features/items/Consumable";
 import {InventorySlot} from "@/ig-template/features/inventory/InventorySlot";
+import Decimal from "@/lib/break_eternity.min";
+import {DecimalValue} from "@/lib/DecimalValueType";
 
 
 export class ExampleItem extends AbstractItem {
-    constructor(id: ItemId, maxStack: number) {
+    constructor(id: ItemId, maxStack: DecimalValue) {
         super('', '', id, '' as ItemType, maxStack);
     }
 }
@@ -16,7 +18,7 @@ class ExampleConsumable extends AbstractConsumable {
     consumeLabel = 'consume';
     isConsumed = false;
 
-    constructor(id: ItemId, maxStack: number) {
+    constructor(id: ItemId, maxStack: DecimalValue) {
         super('', '', id, '' as ItemType, maxStack);
     }
 
@@ -30,7 +32,7 @@ class ExampleConsumable extends AbstractConsumable {
 }
 
 describe('Inventory', () => {
-    const maxExampleStack = 5;
+    const maxExampleStack = new Decimal(5);
     const item1 = new ExampleItem('item-1' as ItemId, maxExampleStack);
     const item2 = new ExampleItem('item-2' as ItemId, maxExampleStack);
     let consumable: ExampleConsumable;
@@ -61,7 +63,7 @@ describe('Inventory', () => {
         // Assert
         expect(inventory.isEmpty()).toBe(false);
         expect(inventory.hasEmptySlot()).toBe(false);
-        expect(inventory.getTotalAmount(item1.id)).toBe(1);
+        expect(inventory.getTotalAmount(item1.id)).toEqual(new Decimal(1));
     });
 
     test('We can add more of the same item to a stack', () => {
@@ -95,10 +97,10 @@ describe('Inventory', () => {
 
         // Act
         inventory.gainItem(item1, 1);
-        inventory.gainItem(item1, maxExampleStack * 2 - 1);
+        inventory.gainItem(item1, maxExampleStack.times(2).sub(1));
 
         // Assert
-        expect(inventory.getTotalAmount(item1.id)).toBe(10);
+        expect(inventory.getTotalAmount(item1.id)).toEqual(new Decimal(10));
 
     });
 
@@ -107,12 +109,12 @@ describe('Inventory', () => {
         const inventory: Inventory = new Inventory(2);
 
         // Act
-        inventory.gainItem(item1, maxExampleStack * 2);
+        inventory.gainItem(item1, maxExampleStack.times(2));
         inventory.dropStack(1);
 
         // Assert
-        expect(inventory.getTotalAmount(item1.id)).toBe(5);
-        expect(inventory.getAmount(1)).toBe(0);
+        expect(inventory.getTotalAmount(item1.id)).toEqual(new Decimal(5));
+        expect(inventory.getAmount(1)).toEqual(new Decimal(0));
     });
 
     test('Lose items', () => {
@@ -120,11 +122,11 @@ describe('Inventory', () => {
         const inventory: Inventory = new Inventory(2);
 
         // Act
-        inventory.gainItem(item1, maxExampleStack * 2);
+        inventory.gainItem(item1, maxExampleStack.times(2));
         inventory.loseItemAmount(item1.id, 3);
 
         // Assert
-        expect(inventory.getTotalAmount(item1.id)).toBe(7);
+        expect(inventory.getTotalAmount(item1.id)).toEqual(new Decimal(7));
 
     });
 
@@ -133,10 +135,10 @@ describe('Inventory', () => {
         const inventory: Inventory = new Inventory(1);
 
         // Act
-        inventory.gainItem(item1, maxExampleStack + 1);
+        inventory.gainItem(item1, maxExampleStack.add(1));
 
         // Assert
-        expect(inventory.getTotalAmount(item1.id)).toBe(maxExampleStack);
+        expect(inventory.getTotalAmount(item1.id)).toEqual(maxExampleStack);
 
     });
 
@@ -145,24 +147,24 @@ describe('Inventory', () => {
         const inventory: Inventory = new Inventory(2);
 
         // Act
-        inventory.gainItem(item1, maxExampleStack + 1);
+        inventory.gainItem(item1, maxExampleStack.add(1));
 
         // Assert
-        expect(inventory.getTotalAmount(item1.id)).toBe(maxExampleStack + 1);
+        expect(inventory.getTotalAmount(item1.id)).toEqual(maxExampleStack.add(1));
 
     });
 
     test('Correct spots left', () => {
         // Arrange
         const inventory: Inventory = new Inventory(2);
-        expect(inventory.getSpotsLeftForItem(item1)).toBe(2 * maxExampleStack);
+        expect(inventory.getSpotsLeftForItem(item1)).toEqual(maxExampleStack.times(2));
 
         // Act
-        inventory.gainItem(item1, maxExampleStack + 1);
+        inventory.gainItem(item1, maxExampleStack.add(1));
 
         // Assert
-        expect(inventory.getSpotsLeftForItem(item1)).toBe(maxExampleStack - 1);
-        expect(inventory.canTakeItem(item1, maxExampleStack - 1)).toBe(true);
+        expect(inventory.getSpotsLeftForItem(item1)).toEqual(maxExampleStack.sub(1));
+        expect(inventory.canTakeItem(item1, maxExampleStack.sub(1))).toBe(true);
         expect(inventory.canTakeItem(item1, maxExampleStack)).toBe(false);
     });
 
@@ -175,8 +177,8 @@ describe('Inventory', () => {
         inventory.gainItem(item2);
 
         // Assert
-        expect(inventory.getSpotsLeftForItem(item1)).toBe(maxExampleStack - 1);
-        expect(inventory.getSpotsLeftForItem(item2)).toBe(maxExampleStack - 1);
+        expect(inventory.getSpotsLeftForItem(item1)).toEqual(maxExampleStack.sub(1));
+        expect(inventory.getSpotsLeftForItem(item2)).toEqual(maxExampleStack.sub(1));
     });
 
     test('Inventory interactions swap', () => {
@@ -206,9 +208,9 @@ describe('Inventory', () => {
         inventory.interactIndices(0, 1);
 
         // Assert
-        expect(inventory.getAmount(0)).toBe(0);
-        expect(inventory.getAmount(1)).toBe(3);
-        expect(inventory.getTotalAmount(item1.id)).toBe(3);
+        expect(inventory.getAmount(0)).toEqual(new Decimal(0));
+        expect(inventory.getAmount(1)).toEqual(new Decimal(3));
+        expect(inventory.getTotalAmount(item1.id)).toEqual(new Decimal(3));
     });
 
     test('Consumables', () => {

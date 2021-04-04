@@ -8,11 +8,12 @@ import {Progress} from "@/ig-template/tools/requirements/Progress";
 import {ArrayStatistic} from "@/ig-template/features/statistics/ArrayStatistic";
 import {StatisticId} from "@/ig-template/features/statistics/StatisticId";
 import {ArrayStatisticRequirement} from "@/ig-template/features/statistics/requirements/ArrayStatisticRequirement";
+import Decimal from "@/lib/break_eternity.min";
 
 
 describe('Achievements', () => {
     const id = "dummy" as AchievementId;
-    const array = new ArrayStatistic("array" as StatisticId, 'array stat', [0, 0, 0]);
+    const array = new ArrayStatistic("array" as StatisticId, 'array stat', [new Decimal(0), new Decimal(0), new Decimal(0)]);
 
     test('array stat achievement', () => {
         const achievements = new Achievements();
@@ -23,7 +24,7 @@ describe('Achievements', () => {
             )
         );
 
-        array.value[1] = 3;
+        array.value[1] = new Decimal(3);
         achievements.update(3);
         expect(achievement.unlocked).toBeTruthy();
         expect(achievement.getProgress()).toStrictEqual(new Progress(3, 3));

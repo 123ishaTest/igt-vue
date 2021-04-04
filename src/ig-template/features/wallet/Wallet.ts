@@ -1,18 +1,20 @@
-import {Currency} from "./Currency";
-import {CurrencyType} from "./CurrencyType";
-
-import {ISimpleEvent, SimpleEventDispatcher} from "strongly-typed-events";
-import {Feature} from "@/ig-template/features/Feature";
+import {Currency} from "@/ig-template/features/wallet/Currency";
+import Decimal from "@/lib/break_eternity.min";
 import {WalletSaveData} from "@/ig-template/features/wallet/WalletSaveData";
+import {Feature} from "@/ig-template/features/Feature";
+import {CurrencyType} from "@/ig-template/features/wallet/CurrencyType";
+import {ISimpleEvent, SimpleEventDispatcher} from "strongly-typed-events";
 import {AbstractField} from "@/ig-template/developer-panel/fields/AbstractField";
 import {NumberField} from "@/ig-template/developer-panel/fields/NumberField";
 import {FunctionField} from "@/ig-template/developer-panel/fields/FunctionField";
 import {RangeField} from "@/ig-template/developer-panel/fields/RangeField";
+import {DecimalValue} from "@/lib/DecimalValueType";
 
 
 export class Wallet extends Feature {
-    private _currencies: Record<CurrencyType, number> = {} as Record<CurrencyType, number>
-    private _multipliers: Record<CurrencyType, number> = {} as Record<CurrencyType, number>
+    // We now store a dictionary of Decimals instead of numbers
+    private _currencies: Record<CurrencyType, Decimal> = {} as Record<CurrencyType, Decimal>;
+    private _multipliers: Record<CurrencyType, Decimal> = {} as Record<CurrencyType, Decimal>;
 
     private _onCurrencyGain = new SimpleEventDispatcher<Currency>();
 
@@ -25,14 +27,14 @@ export class Wallet extends Feature {
 
         // Initialize currencies and multipliers
         for (const type of this._supportedCurrencies) {
-            this._currencies[type as CurrencyType] = 0;
-            this._multipliers[type as CurrencyType] = 1;
+            this._currencies[type as CurrencyType] = new Decimal(0);
+            this._multipliers[type as CurrencyType] = new Decimal(1);
         }
     }
 
-    public getAmount(type: CurrencyType): number {
+    public getAmount(type: CurrencyType): Decimal {
         if (!this.supportsCurrencyType(type)) {
-            return 0;
+            return new Decimal(0);
         }
         return this._currencies[type];
     }
@@ -41,7 +43,7 @@ export class Wallet extends Feature {
      * Gain the specified currency and apply the global multiplier
      */
     public gainCurrency(currency: Currency): void {
-        currency.multiply(this.getCurrencyMultiplier(currency.type));
+        currency.amount = currency.amount.multiply(this.getCurrencyMultiplier(currency.type));
 
         if (!currency.isValid() || !this.supportsCurrencyType(currency.type)) {
             console.warn(`Could not add currency ${currency.toString()}`);
@@ -49,7 +51,7 @@ export class Wallet extends Feature {
         }
 
         this._onCurrencyGain.dispatch(currency);
-        this._currencies[currency.type] += currency.amount;
+        this._currencies[currency.type] = this._currencies[currency.type].add(currency.amount);
     }
 
     /**
@@ -71,7 +73,7 @@ export class Wallet extends Feature {
         if (!this.supportsCurrencyType(currency.type)) {
             return false;
         }
-        return this._currencies[currency.type] >= currency.amount;
+        return this._currencies[currency.type].gte(currency.amount);
     }
 
     /**
@@ -84,7 +86,7 @@ export class Wallet extends Feature {
             console.warn(`Could not lose currency ${currency.toString()}`);
             return;
         }
-        this._currencies[currency.type] -= currency.amount;
+        this._currencies[currency.type] = this._currencies[currency.type].sub(currency.amount);
     }
 
     /**
@@ -126,12 +128,13 @@ export class Wallet extends Feature {
     /**
      * Return 1 if the multiplier is not set
      */
-    public getCurrencyMultiplier(type: CurrencyType): number {
-        return this._multipliers[type] ?? 1;
+    public getCurrencyMultiplier(type: CurrencyType): Decimal {
+        return this._multipliers[type] ?? new Decimal(1);
     }
 
-    public setCurrencyMultiplier(multiplier: number, type: CurrencyType): void {
-        if (multiplier <= 0 || isNaN(multiplier) || !this.supportsCurrencyType(type)) {
+    public setCurrencyMultiplier(multiplier: DecimalValue, type: CurrencyType): void {
+        multiplier = new Decimal(multiplier);
+        if (multiplier.lte(0) || isNaN(multiplier.sign) || isNaN(multiplier.layer) || isNaN(multiplier.mag) || !this.supportsCurrencyType(type)) {
             return;
         }
         this._multipliers[type] = multiplier;
@@ -147,14 +150,14 @@ export class Wallet extends Feature {
 
     public save(): WalletSaveData {
         return {
-            money: this._currencies[CurrencyType.Money],
-            secondary: this._currencies[CurrencyType.Secondary],
+            money: this._currencies[CurrencyType.Money].toString(),
+            secondary: this._currencies[CurrencyType.Secondary].toString(),
         }
     }
 
     public load(data: WalletSaveData): void {
-        this._currencies[CurrencyType.Money] = data.money ?? this._currencies[CurrencyType.Money];
-        this._currencies[CurrencyType.Secondary] = data.secondary ?? this._currencies[CurrencyType.Secondary];
+        this._currencies[CurrencyType.Money] = new Decimal(data.money);
+        this._currencies[CurrencyType.Secondary] = new Decimal(data.secondary);
     }
 
     /**
@@ -165,11 +168,11 @@ export class Wallet extends Feature {
         return this._onCurrencyGain.asEvent();
     }
 
-    public get money(): number {
+    public get money(): Decimal {
         return this._currencies.Money;
     }
 
-    public set money(value: number) {
+    public set money(value: Decimal) {
         this._currencies.Money = value;
     }
 
@@ -178,7 +181,7 @@ export class Wallet extends Feature {
         return [
             new NumberField('money', 'Money'),
             new FunctionField(() => {
-                this.money = 10
+                this.money = new Decimal(10);
             }, 'Set money to 10').setCssClass('btn-blue'),
             new RangeField('money', 0, 100, 2, 'Money Slider'),
         ]

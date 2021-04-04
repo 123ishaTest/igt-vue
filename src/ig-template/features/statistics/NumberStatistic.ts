@@ -1,12 +1,19 @@
 import {AbstractStatistic} from "@/ig-template/features/statistics/AbstractStatistic";
 import {StatisticId} from "@/ig-template/features/statistics/StatisticId";
+import Decimal from "@/lib/break_eternity.min";
+import {DecimalValue} from "@/lib/DecimalValueType";
+import {StatisticsValue} from "@/ig-template/features/statistics/StatisticsValueType";
 
 export class NumberStatistic extends AbstractStatistic {
-    value: number;
+    value: Decimal;
 
-    constructor(id: StatisticId, description: string, value: number = 0) {
+    constructor(id: StatisticId, description: string, value: DecimalValue = 0) {
         super(id, description);
-        this.value = value;
+        this.value = new Decimal(value);
+    }
+
+    load(value: StatisticsValue) {
+        this.value = new Decimal(value as DecimalValue);
     }
 
 }

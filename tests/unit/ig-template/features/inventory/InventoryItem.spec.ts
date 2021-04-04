@@ -2,6 +2,7 @@ import {AbstractItem} from "@/ig-template/features/items/AbstractItem";
 import {ItemId} from "@/ig-template/features/items/ItemId";
 import {ItemType} from "@/ig-template/features/items/ItemType";
 import {InventorySlot} from "@/ig-template/features/inventory/InventorySlot";
+import Decimal from "@/lib/break_eternity.min";
 
 
 export class ExampleItem extends AbstractItem {
@@ -22,7 +23,7 @@ describe('Inventory Item', () => {
         inventoryItem.gainItems(10);
 
         // Assert
-        expect(inventoryItem.amount).toBe(item1.maxStack);
+        expect(inventoryItem.amount).toEqual(item1.maxStack);
     });
 
     test('Inventory Item does go negative', () => {
@@ -33,7 +34,7 @@ describe('Inventory Item', () => {
         inventoryItem.loseItems(10);
 
         // Assert
-        expect(inventoryItem.amount).toBe(0);
+        expect(inventoryItem.amount).toEqual(new Decimal(0));
     });
 
 })

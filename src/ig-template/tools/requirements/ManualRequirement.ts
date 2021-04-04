@@ -1,4 +1,5 @@
 import {Requirement} from "@/ig-template/tools/requirements/Requirement";
+import {DecimalValue} from "@/lib/DecimalValueType";
 
 /**
  * A requirement that can be manually set to be completed
@@ -19,7 +20,7 @@ export class ManualRequirement extends Requirement {
         return this.isSet;
     }
 
-    get actualValue(): number {
+    get actualValue(): DecimalValue {
         return this.isSet ? this.targetValue : 0;
     }
 

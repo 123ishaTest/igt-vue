@@ -9,7 +9,7 @@
     <div v-if="!inventorySlot.isEmpty()">
       <div class="flex flex-col">
         <div>{{ inventorySlot.item.name }}</div>
-        <div>{{ inventorySlot.amount }} / {{ inventorySlot.item.maxStack }}</div>
+        <div>{{ inventorySlot.amount }} / {{ inventorySlot.item.maxStack.eq(dInf) ? "Infinity" : inventorySlot.item.maxStack }}</div>
       </div>
     </div>
   </div>
@@ -18,6 +18,7 @@
 <script>
 
 import {InventorySlot} from "@/ig-template/features/inventory/InventorySlot";
+import Decimal from "@/lib/break_eternity.min";
 
 export default {
   name: "igt-inventory-slot",
@@ -39,7 +40,8 @@ export default {
   computed: {
     canDrag() {
       return !this.inventorySlot.isEmpty();
-    }
+    },
+    dInf: () => Decimal.dInf
   },
   methods: {
     startDrag(evt, index) {

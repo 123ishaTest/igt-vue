@@ -10,6 +10,7 @@ import {Features} from "@/ig-template/Features";
 import {Currency} from "@/ig-template/features/wallet/Currency";
 import {CurrencyType} from "@/ig-template/features/wallet/CurrencyType";
 import {ArrayStatistic} from "@/ig-template/features/statistics/ArrayStatistic";
+import {DecimalValue} from "@/lib/DecimalValueType";
 
 export class Statistics extends Feature {
 
@@ -33,7 +34,7 @@ export class Statistics extends Feature {
         });
     }
 
-    incrementNumberStatistic(id: StatisticId, amount = 1): void {
+    incrementNumberStatistic(id: StatisticId, amount: DecimalValue = 1): void {
         if (!this.hasStatistic(id)) {
             console.warn(`Could not find statistic with id ${id}`)
             return;
@@ -43,10 +44,10 @@ export class Statistics extends Feature {
             console.warn(`Trying to treat ${id} as NumberStatistic but it's not.`);
             return;
         }
-        statistic.value += amount;
+        statistic.value = statistic.value.add(amount);
     }
 
-    incrementArrayStatistic(id: StatisticId, index: number, amount = 1): void {
+    incrementArrayStatistic(id: StatisticId, index: number, amount: DecimalValue = 1): void {
         if (!this.hasStatistic(id)) {
             console.warn(`Could not find statistic with id ${id}`)
             return;
@@ -56,7 +57,7 @@ export class Statistics extends Feature {
             console.warn(`Trying to treat ${id} as ArrayStatistic but it's not.`);
             return;
         }
-        const newValue = statistic.value[index] + amount;
+        const newValue = statistic.value[index].add(amount);
         statistic.value.splice(index, 1, newValue);
     }
 
@@ -82,7 +83,8 @@ export class Statistics extends Feature {
         for (const id in data.list) {
             if (Object.prototype.hasOwnProperty.call(data.list, id)) {
                 if (this.hasStatistic(id as StatisticId)) {
-                    this.list[id as StatisticId].value = data.list[id as StatisticId];
+                    console.log(id, data.list[id as StatisticId]);
+                    this.list[id as StatisticId].load(data.list[id as StatisticId]);
                 } else {
                     console.warn(`Could not load statistic ${id}`)
                 }

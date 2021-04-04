@@ -1,4 +1,5 @@
 import {NoRequirement} from "@/ig-template/tools/requirements/NoRequirement";
+import Decimal from "@/lib/break_eternity.min";
 
 describe('No Requirement', () => {
 
@@ -12,8 +13,8 @@ describe('No Requirement', () => {
 
         // Assert
         expect(isCompleted).toBeTruthy();
-        expect(progress.actual).toBe(0);
-        expect(progress.target).toBe(0);
+        expect(progress.actual).toEqual(new Decimal(0));
+        expect(progress.target).toEqual(new Decimal(0));
         expect(alwaysTrue.hint).toBe("");
     });
 

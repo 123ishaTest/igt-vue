@@ -2,6 +2,7 @@ import {Wallet} from "@/ig-template/features/wallet/Wallet.ts";
 import {CurrencyType} from "@/ig-template/features/wallet/CurrencyType";
 import {Currency} from "@/ig-template/features/wallet/Currency";
 import {WalletSaveData} from "@/ig-template/features/wallet/WalletSaveData";
+import Decimal from "@/lib/break_eternity.min";
 
 
 describe('Wallet', () => {
@@ -17,19 +18,19 @@ describe('Wallet', () => {
 
         wallet.gainCurrency(new Currency(10, CurrencyType.Money));
 
-        expect(wallet.money).toBe(10);
+        expect(wallet.money).toEqual(new Decimal(10));
 
         wallet.setCurrencyMultiplier(2, CurrencyType.Money);
         wallet.gainCurrency(new Currency(10, CurrencyType.Money));
-        expect(wallet.money).toBe(30);
+        expect(wallet.money).toEqual(new Decimal(30));
 
         const couldAffordFalse = wallet.payIfPossible(new Currency(31, CurrencyType.Money));
         expect(couldAffordFalse).toBeFalsy();
         const couldAffordTrue = wallet.payIfPossible(new Currency(25, CurrencyType.Money));
         expect(couldAffordTrue).toBeTruthy();
 
-        expect(wallet.getCurrencyMultiplier(CurrencyType.Secondary)).toBe(1);
-        expect(wallet.money).toBe(5);
+        expect(wallet.getCurrencyMultiplier(CurrencyType.Secondary)).toEqual(new Decimal(1));
+        expect(wallet.money).toEqual(new Decimal(5));
 
     });
 
@@ -37,7 +38,7 @@ describe('Wallet', () => {
         // Act
 
         // Assert
-        expect(moneyWallet.getAmount(CurrencyType.Money)).toBe(0)
+        expect(moneyWallet.getAmount(CurrencyType.Money)).toEqual(new Decimal(0))
     });
 
     test('supported currencies', () => {
@@ -57,7 +58,7 @@ describe('Wallet', () => {
         const money = moneyWallet.getAmount(CurrencyType.Money);
 
         // Assert
-        expect(money).toBe(1);
+        expect(money).toEqual(new Decimal(1));
     });
 
     test('gaining negative amount not possible', () => {
@@ -66,7 +67,7 @@ describe('Wallet', () => {
         const money = moneyWallet.getAmount(CurrencyType.Money);
 
         // Assert
-        expect(money).toBe(0);
+        expect(money).toEqual(new Decimal(0));
     });
 
     test('gaining NaN not possible', () => {
@@ -75,7 +76,7 @@ describe('Wallet', () => {
         const money = moneyWallet.getAmount(CurrencyType.Money);
 
         // Assert
-        expect(money).toBe(0);
+        expect(money).toEqual(new Decimal(0));
     });
 
     test('multiplier', () => {
@@ -85,7 +86,7 @@ describe('Wallet', () => {
         const money = moneyWallet.getAmount(CurrencyType.Money);
 
         // Assert
-        expect(money).toBe(2);
+        expect(money).toEqual(new Decimal(2));
     });
 
     test('negative multiplier not possible', () => {
@@ -95,7 +96,7 @@ describe('Wallet', () => {
         const money = moneyWallet.getAmount(CurrencyType.Money);
 
         // Assert
-        expect(money).toBe(1);
+        expect(money).toEqual(new Decimal(1));
     });
 
     test('has currency', () => {
@@ -113,7 +114,7 @@ describe('Wallet', () => {
         moneyWallet.loseCurrency(new Currency(4, CurrencyType.Money))
 
         // Assert
-        expect(moneyWallet.getAmount(CurrencyType.Money)).toBe(6);
+        expect(moneyWallet.getAmount(CurrencyType.Money)).toEqual(new Decimal(6));
     });
 
     test('cannot lose invalid currency', () => {
@@ -122,7 +123,7 @@ describe('Wallet', () => {
         moneyWallet.loseCurrency(new Currency(-1, CurrencyType.Money))
 
         // Assert
-        expect(moneyWallet.getAmount(CurrencyType.Money)).toBe(10);
+        expect(moneyWallet.getAmount(CurrencyType.Money)).toEqual(new Decimal(10));
     });
 
     test('pay if possible', () => {
@@ -131,7 +132,7 @@ describe('Wallet', () => {
         const paid = moneyWallet.payIfPossible(new Currency(5, CurrencyType.Money))
 
         // Assert
-        expect(moneyWallet.getAmount(CurrencyType.Money)).toBe(5);
+        expect(moneyWallet.getAmount(CurrencyType.Money)).toEqual(new Decimal(5));
         expect(paid).toBeTruthy();
     });
 
@@ -141,18 +142,18 @@ describe('Wallet', () => {
         const paid = moneyWallet.payIfPossible(new Currency(15, CurrencyType.Money))
 
         // Assert
-        expect(moneyWallet.getAmount(CurrencyType.Money)).toBe(10);
+        expect(moneyWallet.getAmount(CurrencyType.Money)).toEqual(new Decimal(10));
         expect(paid).toBeFalsy();
     });
 
     test('get amount for unsupported currency', () => {
         // Assert
-        expect(moneyWallet.getAmount(CurrencyType.Secondary)).toBe(0);
+        expect(moneyWallet.getAmount(CurrencyType.Secondary)).toEqual(new Decimal(0));
     });
 
     test('get currency multiplier for unsupported currency', () => {
         // Assert
-        expect(moneyWallet.getCurrencyMultiplier(CurrencyType.Secondary)).toBe(1);
+        expect(moneyWallet.getCurrencyMultiplier(CurrencyType.Secondary)).toEqual(new Decimal(1));
     });
 
     test('has currency for unsupported currency', () => {
@@ -168,8 +169,8 @@ describe('Wallet', () => {
     test('save', () => {
         // Arrange
         const expectedSaveData: WalletSaveData = {
-            money: 10,
-            secondary: 8
+            money: "10",
+            secondary: "8"
         };
         const wallet = new Wallet([CurrencyType.Money, CurrencyType.Secondary]);
 
@@ -186,8 +187,8 @@ describe('Wallet', () => {
     test('load', () => {
         // Arrange
         const saveData: WalletSaveData = {
-            money: 10,
-            secondary: 8
+            money: "10",
+            secondary: "8"
         };
         const wallet = new Wallet([CurrencyType.Money, CurrencyType.Secondary]);
 
@@ -195,8 +196,8 @@ describe('Wallet', () => {
         wallet.load(saveData);
 
         // Assert
-        expect(wallet.getAmount(CurrencyType.Money)).toEqual(10);
-        expect(wallet.getAmount(CurrencyType.Secondary)).toEqual(8);
+        expect(wallet.getAmount(CurrencyType.Money)).toEqual(new Decimal(10));
+        expect(wallet.getAmount(CurrencyType.Secondary)).toEqual(new Decimal(8));
     });
 
     test('load empty data', () => {
@@ -207,8 +208,8 @@ describe('Wallet', () => {
         wallet.load({} as WalletSaveData);
 
         // Assert
-        expect(wallet.getAmount(CurrencyType.Money)).toEqual(0);
-        expect(wallet.getAmount(CurrencyType.Secondary)).toEqual(0);
+        expect(wallet.getAmount(CurrencyType.Money)).toEqual(new Decimal(0));
+        expect(wallet.getAmount(CurrencyType.Secondary)).toEqual(new Decimal(0));
     });
 
     test('on currency gain', () => {
@@ -216,7 +217,7 @@ describe('Wallet', () => {
         expect.assertions(2);
 
         moneyWallet.onCurrencyGain.subscribe(currency => {
-            expect(currency.amount).toBe(10);
+            expect(currency.amount).toEqual(new Decimal(10));
             expect(currency.type).toBe(CurrencyType.Money);
         });
 

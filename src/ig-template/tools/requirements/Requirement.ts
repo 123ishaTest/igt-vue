@@ -1,4 +1,6 @@
 import {Progress} from "./Progress";
+import Decimal from "@/lib/break_eternity.min";
+import {DecimalValue} from "@/lib/DecimalValueType";
 
 /**
  * Abstract class that can be configured to whatever requirements you like.
@@ -12,12 +14,12 @@ export abstract class Requirement {
     }
 
     get progress(): Progress {
-        return new Progress(Math.min(this.actualValue, this.targetValue), this.targetValue);
+        return new Progress(Decimal.min(this.actualValue, this.targetValue), this.targetValue);
     }
 
     abstract get hint(): string;
 
-    abstract get actualValue(): number;
+    abstract get actualValue(): DecimalValue;
 
-    abstract get targetValue(): number;
+    abstract get targetValue(): DecimalValue;
 }

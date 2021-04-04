@@ -1,4 +1,5 @@
 import {DiscreteExpLevel} from "@/ig-template/tools/exp-level/DiscreteExpLevel";
+import Decimal from "@/lib/break_eternity.min";
 
 describe('Discrete Exp Level', () => {
 
@@ -46,8 +47,8 @@ describe('Discrete Exp Level', () => {
         const progress = level.getLevelProgress();
 
         // Assert
-        expect(progress.actual).toBe(5);
-        expect(progress.target).toBe(20);
+        expect(progress.actual).toEqual(new Decimal(5));
+        expect(progress.target).toEqual(new Decimal(20));
     })
 
 });

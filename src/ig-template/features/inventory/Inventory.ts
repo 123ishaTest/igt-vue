@@ -12,6 +12,8 @@ import {InventorySaveData} from "@/ig-template/features/inventory/InventorySaveD
 import {InventorySlotSaveData} from "@/ig-template/features/inventory/InventorySlotSaveData";
 import {EventDispatcher} from "strongly-typed-events";
 import {ItemAmount} from "@/ig-template/features/items/ItemAmount";
+import {DecimalValue} from "@/lib/DecimalValueType";
+import Decimal from "@/lib/break_eternity.min";
 
 export class Inventory extends Feature {
     slotCount: number;
@@ -20,7 +22,7 @@ export class Inventory extends Feature {
     // Overridden in initialize;
     _itemList: ItemList = undefined as unknown as ItemList;
 
-    private _onItemGain = new EventDispatcher<AbstractItem, number>();
+    private _onItemGain = new EventDispatcher<AbstractItem, Decimal>();
 
 
     constructor(slots: number = 10) {
@@ -58,12 +60,11 @@ export class Inventory extends Feature {
     }
 
     mergeItems(itemFrom: InventorySlot, itemTo: InventorySlot) {
-
         if (itemFrom.item.id !== itemTo.item.id) {
             throw new Error(`Cannot merge items of types ${itemFrom.item.id} and ${itemTo.item.id}`);
         }
 
-        const amount = Math.min(itemFrom.amount, itemTo.spaceLeft());
+        const amount = itemFrom.amount.min(itemTo.spaceLeft());
         itemFrom.loseItems(amount);
         itemTo.gainItems(amount);
     }
@@ -75,16 +76,16 @@ export class Inventory extends Feature {
 
     }
 
-    consumeItem(index: number, amount: number = 1): boolean {
+    consumeItem(index: number, amount: DecimalValue = 1): boolean {
         const inventoryItem = this.slots[index];
         const item = inventoryItem.item;
-
+        amount = new Decimal(amount);
 
         if (!(item instanceof AbstractConsumable)) {
             console.warn(`Item ${item} is not a consumable`);
             return false;
         }
-        if (inventoryItem.amount < amount) {
+        if (inventoryItem.amount.lt(amount)) {
             console.warn(`Amount of ${inventoryItem} is not greater than ${amount}`);
             return false;
         }
@@ -93,7 +94,7 @@ export class Inventory extends Feature {
             return false;
         }
 
-        if (amount === 1) {
+        if (amount.eq(1)) {
             item.consume();
         } else {
             item.consumeMultiple(amount);
@@ -109,16 +110,17 @@ export class Inventory extends Feature {
      * @param id
      * @param amount
      */
-    loseItemAmount(id: ItemId, amount: number = 1): number {
+    loseItemAmount(id: ItemId, amount: DecimalValue = 1): Decimal {
+        amount = new Decimal(amount);
         // While we still need to remove and have items left
-        while (amount > 0 && this.getTotalAmount(id) > 0) {
+        while (amount.gt(0) && this.getTotalAmount(id).gt(0)) {
             const nonFullStackIndex = this.getIndexOfNonFullStack(id)
             const indexToUse = nonFullStackIndex !== -1 ? nonFullStackIndex : this.getIndexOfItem(id);
             if (indexToUse === -1) {
                 throw Error(`Index of item ${id} to lose is -1. This suggests an error in inventory management`);
             }
-            const amountToRemove = Math.min(amount, this.slots[indexToUse].amount);
-            amount -= amountToRemove;
+            const amountToRemove = amount.min(this.slots[indexToUse].amount);
+            amount = amount.sub(amountToRemove);
             this.loseItemAtIndex(indexToUse, amountToRemove);
 
         }
@@ -126,9 +128,9 @@ export class Inventory extends Feature {
         return amount;
     }
 
-    public gainItem(item: AbstractItem, amount: number = 1): number {
+    public gainItem(item: AbstractItem, amount: DecimalValue = 1): Decimal {
         const amountLeft = this._gainItem(item, amount);
-        this._onItemGain.dispatch(item, amount);
+        this._onItemGain.dispatch(item, new Decimal(amount));
         return amountLeft;
     }
 
@@ -137,7 +139,8 @@ export class Inventory extends Feature {
      * Recursively calls itself if stacks are overflowing
      * Returns the number of items that need to be added
      */
-    private _gainItem(item: AbstractItem, amount: number = 1): number {
+    private _gainItem(item: AbstractItem, amount: DecimalValue = 1): Decimal {
+        amount = new Decimal(amount);
 
         // Find stack and add to it or create a new one
         const nonFullStackIndex = this.getIndexOfNonFullStack(item.id);
@@ -148,34 +151,34 @@ export class Inventory extends Feature {
                 console.log(`Cannot add ${amount} of ${item.id}, no empty slots left`);
                 return amount;
             }
-            const amountToAdd = Math.min(amount, item.maxStack);
+            const amountToAdd = amount.min(item.maxStack);
             this.slots.splice(emptyIndex, 1, new InventorySlot(item, amountToAdd));
 
-            const amountLeft = amount - amountToAdd;
-            if (amountLeft <= 0) {
-                return 0;
+            const amountLeft = amount.sub(amountToAdd);
+            if (amountLeft.lte(0)) {
+                return new Decimal(0);
             }
             return this._gainItem(item, amountLeft);
         } else {
             // Add to existing stack
-            const amountToAdd = Math.min(amount, this.slots[nonFullStackIndex].spaceLeft());
+            const amountToAdd = amount.min(this.slots[nonFullStackIndex].spaceLeft());
 
             this.slots[nonFullStackIndex].gainItems(amountToAdd);
-            const amountLeft = amount - amountToAdd;
-            if (amountLeft <= 0) {
-                return 0;
+            const amountLeft = amount.sub(amountToAdd);
+            if (amountLeft.lte(0)) {
+                return new Decimal(0);
             }
             return this._gainItem(item, amountLeft);
         }
     }
 
     getSpotsLeftForItem(item: AbstractItem) {
-        let total = 0;
+        let total = new Decimal(0);
         for (const inventoryItem of this.slots) {
             if (inventoryItem.isEmpty()) {
-                total += item.maxStack;
+                total = total.add(item.maxStack);
             } else if (inventoryItem.item.id === item.id) {
-                total += inventoryItem.spaceLeft();
+                total = total.add(inventoryItem.spaceLeft());
             }
         }
         return total;
@@ -190,7 +193,7 @@ export class Inventory extends Feature {
         const clonedInventory = cloneDeep(this);
         for (const item of itemAmounts) {
             const amountLeft = clonedInventory.gainItem(this._itemList[item.id], item.amount);
-            if (amountLeft !== 0) {
+            if (amountLeft.neq(0)) {
                 return false;
             }
         }
@@ -207,11 +210,11 @@ export class Inventory extends Feature {
     }
 
     hasItemAmount(amount: ItemAmount) {
-        return this.getTotalAmount(amount.id) >= amount.amount;
+        return this.getTotalAmount(amount.id).gte(amount.amount);
     }
 
-    canTakeItem(item: AbstractItem, amount: number) {
-        return this.getSpotsLeftForItem(item) >= amount;
+    canTakeItem(item: AbstractItem, amount: DecimalValue) {
+        return this.getSpotsLeftForItem(item).gte(amount);
     }
 
     getIndexOfNonFullStack(id: ItemId) {
@@ -250,9 +253,9 @@ export class Inventory extends Feature {
     }
 
 
-    loseItemAtIndex(index: number, amount: number = 1) {
+    loseItemAtIndex(index: number, amount: DecimalValue = 1) {
         this.slots[index].loseItems(amount);
-        if (this.slots[index].amount <= 0) {
+        if (this.slots[index].amount.lte(0)) {
             this.slots.splice(index, 1, new InventorySlot(new EmptyItem(), 0));
         }
     }
@@ -272,24 +275,24 @@ export class Inventory extends Feature {
     }
 
 
-    getTotalAmount(id: ItemId): number {
-        let total = 0;
+    getTotalAmount(id: ItemId): Decimal {
+        let total = new Decimal(0);
         for (const inventoryItem of this.slots) {
             if (inventoryItem.item.id === id) {
-                total += inventoryItem.amount;
+                total = total.add(inventoryItem.amount);
             }
         }
         return total;
     }
 
-    getAmount(index: number): number {
+    getAmount(index: number): Decimal {
         return this.slots[index].amount;
     }
 
 
     isEmpty(): boolean {
         for (const item of this.slots) {
-            if (item.amount != 0) {
+            if (item.amount.neq(0)) {
                 return false;
             }
         }

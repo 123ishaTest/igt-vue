@@ -1,18 +1,20 @@
 import {Requirement} from "@/ig-template/tools/requirements/Requirement";
 import {NumberStatistic} from "@/ig-template/features/statistics/NumberStatistic";
+import Decimal from "@/lib/break_eternity.min";
+import {DecimalValue} from "@/lib/DecimalValueType";
 
 export class NumberStatisticRequirement extends Requirement {
     statistic: NumberStatistic;
-    targetValue: number;
+    targetValue: Decimal;
 
 
-    constructor(statistic: NumberStatistic, targetValue: number) {
+    constructor(statistic: NumberStatistic, targetValue: DecimalValue) {
         super();
         this.statistic = statistic;
-        this.targetValue = targetValue;
+        this.targetValue = new Decimal(targetValue);
     }
 
-    get actualValue(): number {
+    get actualValue(): Decimal {
         return this.statistic.value;
     }
 

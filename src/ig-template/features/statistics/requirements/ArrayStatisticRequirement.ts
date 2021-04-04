@@ -1,20 +1,22 @@
 import {Requirement} from "@/ig-template/tools/requirements/Requirement";
 import {ArrayStatistic} from "@/ig-template/features/statistics/ArrayStatistic";
+import Decimal from "@/lib/break_eternity.min";
+import {DecimalValue} from "@/lib/DecimalValueType";
 
 export class ArrayStatisticRequirement extends Requirement {
     statistic: ArrayStatistic;
     index: number
-    targetValue: number;
+    targetValue: Decimal;
 
 
-    constructor(statistic: ArrayStatistic, index: number, targetValue: number) {
+    constructor(statistic: ArrayStatistic, index: number, targetValue: DecimalValue) {
         super();
         this.statistic = statistic;
         this.index = index;
-        this.targetValue = targetValue;
+        this.targetValue = new Decimal(targetValue);
     }
 
-    get actualValue(): number {
+    get actualValue(): Decimal {
         return this.statistic.value[this.index];
     }
 

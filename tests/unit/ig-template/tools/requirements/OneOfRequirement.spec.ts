@@ -1,5 +1,6 @@
 import {CustomRequirement} from "@/ig-template/tools/requirements/CustomRequirement";
 import {OneOfRequirement} from "@/ig-template/tools/requirements/OneOfRequirement";
+import Decimal from "@/lib/break_eternity.min";
 
 
 describe('One Of Requirement', () => {
@@ -17,8 +18,8 @@ describe('One Of Requirement', () => {
 
         // Assert
         expect(isCompleted).toBeFalsy();
-        expect(progress.actual).toBe(0);
-        expect(progress.target).toBe(1);
+        expect(progress.actual).toEqual(new Decimal(0));
+        expect(progress.target).toEqual(new Decimal(1));
         expect(oneOf.hint).toBe("Complete one of the following requirements:\nAlways false\nAlways false\n");
     });
 
@@ -35,8 +36,8 @@ describe('One Of Requirement', () => {
 
         // Assert
         expect(isCompleted).toBeTruthy();
-        expect(progress.actual).toBe(1);
-        expect(progress.target).toBe(1);
+        expect(progress.actual).toEqual(new Decimal(1));
+        expect(progress.target).toEqual(new Decimal(1));
     });
 
     test('both true', () => {
@@ -52,8 +53,8 @@ describe('One Of Requirement', () => {
 
         // Assert
         expect(isCompleted).toBeTruthy();
-        expect(progress.actual).toBe(1);
-        expect(progress.target).toBe(1);
+        expect(progress.actual).toEqual(new Decimal(1));
+        expect(progress.target).toEqual(new Decimal(1));
     });
 
 

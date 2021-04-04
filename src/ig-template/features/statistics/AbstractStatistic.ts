@@ -11,4 +11,8 @@ export abstract class AbstractStatistic {
         this.description = description;
     }
 
+    load(value: StatisticsValue) {
+        this.value = value;
+    }
+
 }

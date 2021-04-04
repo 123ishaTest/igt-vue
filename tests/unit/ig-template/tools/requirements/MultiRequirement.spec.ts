@@ -1,5 +1,6 @@
 import {CustomRequirement} from "@/ig-template/tools/requirements/CustomRequirement";
 import {MultiRequirement} from "@/ig-template/tools/requirements/MultiRequirement";
+import Decimal from "@/lib/break_eternity.min";
 
 
 describe('Multi Requirement', () => {
@@ -17,8 +18,8 @@ describe('Multi Requirement', () => {
 
         // Assert
         expect(isCompleted).toBeFalsy();
-        expect(progress.actual).toBe(1);
-        expect(progress.target).toBe(2);
+        expect(progress.actual).toEqual(new Decimal(1));
+        expect(progress.target).toEqual(new Decimal(2));
         expect(multi.hint).toBe("Complete the following requirements:\nAlways true\nAlways false\n");
     });
 
@@ -35,8 +36,8 @@ describe('Multi Requirement', () => {
 
         // Assert
         expect(isCompleted).toBeTruthy();
-        expect(progress.actual).toBe(2);
-        expect(progress.target).toBe(2);
+        expect(progress.actual).toEqual(new Decimal(2));
+        expect(progress.target).toEqual(new Decimal(2));
     });
 
 

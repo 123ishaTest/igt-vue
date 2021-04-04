@@ -1,4 +1,5 @@
 import {BooleanRequirement} from "@/ig-template/tools/requirements/BooleanRequirement";
+import Decimal from "@/lib/break_eternity.min";
 
 
 describe('Boolean Requirement', () => {
@@ -13,8 +14,8 @@ describe('Boolean Requirement', () => {
 
         // Assert
         expect(isCompleted).toBeTruthy();
-        expect(progress.actual).toBe(1);
-        expect(progress.target).toBe(1);
+        expect(progress.actual).toEqual(new Decimal(1));
+        expect(progress.target).toEqual(new Decimal(1));
         expect(alwaysTrue.hint).toBe("Always true");
     });
 
@@ -28,8 +29,8 @@ describe('Boolean Requirement', () => {
 
         // Assert
         expect(isCompleted).toBeFalsy();
-        expect(progress.actual).toBe(0);
-        expect(progress.target).toBe(1);
+        expect(progress.actual).toEqual(new Decimal(0));
+        expect(progress.target).toEqual(new Decimal(1));
     });
 
 

@@ -1,6 +1,7 @@
 import {Requirement} from "@/ig-template/tools/requirements/Requirement";
 import {KeyItems} from "@/ig-template/features/key-items/KeyItems";
 import {KeyItemId} from "@/ig-template/features/key-items/KeyItemId";
+import {DecimalValue} from "@/lib/DecimalValueType";
 
 export class KeyItemRequirement extends Requirement {
     _keyItems: KeyItems;
@@ -12,7 +13,7 @@ export class KeyItemRequirement extends Requirement {
         this.itemId = itemId;
     }
 
-    get actualValue(): number {
+    get actualValue(): DecimalValue {
         return this._keyItems.hasKeyItem(this.itemId) ? 1 : 0;
     }
 
@@ -20,7 +21,7 @@ export class KeyItemRequirement extends Requirement {
         return `Unlock the ${this._keyItems.getKeyItem(this.itemId).name}`;
     }
 
-    get targetValue(): number {
+    get targetValue(): DecimalValue {
         return 1;
     }
 
