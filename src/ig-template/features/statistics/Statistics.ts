@@ -83,7 +83,6 @@ export class Statistics extends Feature {
         for (const id in data.list) {
             if (Object.prototype.hasOwnProperty.call(data.list, id)) {
                 if (this.hasStatistic(id as StatisticId)) {
-                    console.log(id, data.list[id as StatisticId]);
                     this.list[id as StatisticId].load(data.list[id as StatisticId]);
                 } else {
                     console.warn(`Could not load statistic ${id}`)
