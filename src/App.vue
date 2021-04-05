@@ -9,8 +9,12 @@
         <igt-example-feature></igt-example-feature>
       </igt-tab>
 
-      <igt-tab name="Inventory" :selected="true">
+      <igt-tab name="Inventory">
         <igt-inventory></igt-inventory>
+      </igt-tab>
+
+      <igt-tab name="Loot Tables" :selected="true">
+        <igt-loot-tables></igt-loot-tables>
       </igt-tab>
 
       <igt-tab name="Wallet">
@@ -73,9 +77,11 @@ import IgtExampleFeature from "@/components/features/example/igt-example-feature
 import IgtSpecialEvents from "@/components/features/special-events/igt-special-events";
 import IgtInventory from "@/components/features/inventory/igt-inventory";
 import IgtKeyItems from "@/components/features/key-items/igt-key-items";
+import IgtLootTables from "@/components/features/loot-tables/igt-loot-tables";
 
 export default {
   components: {
+    IgtLootTables,
     IgtKeyItems,
     IgtInventory,
     IgtSpecialEvents,
