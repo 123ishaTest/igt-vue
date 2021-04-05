@@ -3,7 +3,7 @@
     <div class="flex flex-row justify-between">
       <igt-currency v-if="isCurrency" :currency="loot.currency" :show-image="true"></igt-currency>
       <span v-if="isInventoryItem">{{ loot.amount }} {{ loot.loot.name }}</span>
-      <span v-if="isKeyItem">Key Item {{ loot.loot }}</span>
+      <igt-key-item-small v-if="isKeyItem" :item="loot.loot"></igt-key-item-small>
     </div>
   </div>
 
@@ -15,10 +15,11 @@ import {InventoryItemLoot} from "@/ig-template/features/loot-tables/rewards/Inve
 import {KeyItemLoot} from "@/ig-template/features/loot-tables/rewards/KeyItemLoot";
 import {CurrencyLoot} from "@/ig-template/features/loot-tables/rewards/CurrencyLoot";
 import IgtCurrency from "@/components/features/wallet/igt-currency";
+import IgtKeyItemSmall from "@/components/features/key-items/igt-key-item-small";
 
 export default {
   name: "igt-loot-reward",
-  components: {IgtCurrency},
+  components: {IgtKeyItemSmall, IgtCurrency},
   props: {
     loot: {
       type: AbstractLoot,

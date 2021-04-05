@@ -1,15 +1,14 @@
 <template>
   <div>
-    <div class="flex flex-row justify-between">
-      <span :title="entry.requirement.hint" :class="{'line-through': !entry.canGet()}">
-      <span v-if="entry.amount.min !== entry.amount.max">
-        {{ entry.amount.min }} -
-      </span> {{ entry.amount.max }}
-      <span v-if="isTable">A roll on the {{ entry.table }} table</span>
-      <span v-if="isCurrency">{{ entry.type }}</span>
-      <span v-if="isInventoryItem">{{ entry.item.name }}</span>
-      <span v-if="isKeyItem">Key Item {{ entry.item }}</span>
-</span>
+    <div class="flex flex-row justify-between" :title="entry.requirement.hint"
+         :class="{'line-through': !entry.canGet()}">
+      <div>
+        <span>{{ displayAmount }} </span>
+        <span v-if="isTable">A roll on the {{ entry.table }} table</span>
+        <span v-if="isCurrency">{{ entry.type }}</span>
+        <span v-if="isInventoryItem">{{ entry.item.name }}</span>
+        <igt-key-item-small v-if="isKeyItem" :item="entry.item"></igt-key-item-small>
+      </div>
 
       <span class="ml-4" v-if="showWeightAsPercentage">{{ entry.weight * 100 | numberFormat }}%</span>
     </div>
@@ -23,9 +22,11 @@ import {TableEntry} from "@/ig-template/features/loot-tables/entries/TableEntry"
 import {InventoryItemEntry} from "@/ig-template/features/loot-tables/entries/InventoryItemEntry";
 import {KeyItemEntry} from "@/ig-template/features/loot-tables/entries/KeyItemEntry";
 import {CurrencyEntry} from "@/ig-template/features/loot-tables/entries/CurrencyEntry";
+import IgtKeyItemSmall from "@/components/features/key-items/igt-key-item-small";
 
 export default {
   name: "igt-loot-entry",
+  components: {IgtKeyItemSmall},
   props: {
     entry: {
       type: AbstractLootEntry,
@@ -37,6 +38,12 @@ export default {
     }
   },
   computed: {
+    displayAmount() {
+      if (this.entry.amount.min === this.entry.amount.max) {
+        return this.entry.amount.min === 1 ? "" : this.entry.amount.min;
+      }
+      return `${this.entry.amount.min} - ${this.entry.amount.max}`;
+    },
     isTable() {
       return this.entry instanceof TableEntry;
     },

@@ -36,7 +36,6 @@ export default {
     roll() {
       const loot = this.lootTables[LootTableId.Example].roll();
       this.latestLoot = loot;
-      console.log(loot);
     }
   },
 }
