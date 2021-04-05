@@ -16,18 +16,15 @@ export class CurrencyLoot extends AbstractLoot {
     }
 
     apply(): void {
-        this._wallet.gainCurrency(new Currency(this.amount, this.loot));
+        this._wallet.gainCurrency(this.currency);
     }
 
-    toHtml(): string {
-        return `Currency ${this.loot}`;
+    get currency(): Currency {
+        return new Currency(this.amount, this.loot)
     }
 
     equals(other: AbstractLoot): boolean {
-        if (other instanceof CurrencyLoot && other.loot === this.loot) {
-            return true;
-        }
-        return false;
+        return other instanceof CurrencyLoot && other.loot === this.loot;
     }
 
 }

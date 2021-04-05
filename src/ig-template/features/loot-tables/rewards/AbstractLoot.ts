@@ -11,8 +11,6 @@ export abstract class AbstractLoot {
      */
     abstract apply(): void;
 
-    abstract toHtml(): string;
-
     /**
      * Override to implement comparisons. Used for simplifying the list of loot
      */

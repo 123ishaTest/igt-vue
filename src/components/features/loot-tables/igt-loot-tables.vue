@@ -5,7 +5,7 @@
     <button class="btn btn-green" @click="roll">Roll</button>
     <div class="flex flex-col flex-wrap">
       <div v-for="(loot, index) in latestLoot" :key="index">
-        <span>{{loot.amount}} {{loot.toHtml()}}</span>
+        <igt-loot-reward :loot="loot"></igt-loot-reward>
       </div>
     </div>
   </igt-feature>
@@ -16,10 +16,11 @@ import {App} from "@/App.ts"
 import IgtFeature from "@/components/util/igt-feature";
 import {LootTableId} from "@/ig-template/features/loot-tables/LootTableId";
 import IgtLootTable from "@/components/features/loot-tables/igt-loot-table";
+import IgtLootReward from "@/components/features/loot-tables/igt-loot-reward";
 
 export default {
   name: "igt-loot-tables",
-  components: {IgtLootTable, IgtFeature},
+  components: {IgtLootReward, IgtLootTable, IgtFeature},
   data() {
     return {
       latestLoot: [],
