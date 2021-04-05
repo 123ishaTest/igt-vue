@@ -6,11 +6,15 @@ import {MultipleChoiceSetting} from "@/ig-template/features/settings/MultipleCho
 import {SettingOption} from "@/ig-template/features/settings/SettingOption";
 import {BooleanSetting} from "@/ig-template/features/settings/BooleanSetting";
 import {SettingsValue} from "@/ig-template/features/settings/SettingsValueType";
+import { KeyBindSetting } from "./KeyBindSetting";
+import { KeyBind } from "@/ig-template/tools/hotkeys/KeyBind";
 
 export class Settings extends Feature {
     list: Setting[];
 
     darkMode: BooleanSetting;
+
+    keyBind: KeyBindSetting;
 
     constructor() {
         super("settings");
@@ -18,6 +22,8 @@ export class Settings extends Feature {
 
         // Empty, will be overwritten in initialize()
         this.darkMode = {} as BooleanSetting;
+
+        this.keyBind = {} as KeyBindSetting;
     }
 
     registerSetting<T extends Setting>(setting: T): T {
@@ -36,6 +42,13 @@ export class Settings extends Feature {
                 new SettingOption("Option 2", 2),
                 new SettingOption("Option 3", 3),
             ], 2)
+        )
+
+        this.keyBind = this.registerSetting(
+            new KeyBindSetting(SettingId.ExampleKeyBindSetting, "Example KeyBind setting",
+            new KeyBind('ctrl+p', 'Will print message to console', () => {
+                console.log('Example KeyBind triggered!');
+            }))
         )
     }
 

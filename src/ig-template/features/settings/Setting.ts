@@ -14,7 +14,9 @@ export abstract class Setting {
 
     requirement: Requirement;
 
-    protected constructor(id: SettingId, displayName: string, options: SettingOption[], defaultValue: SettingsValue, requirement: Requirement = new NoRequirement()) {
+    changeCallback?: (previousValue: SettingsValue, value: SettingsValue) => void;
+
+    protected constructor(id: SettingId, displayName: string, options: SettingOption[], defaultValue: SettingsValue, requirement: Requirement = new NoRequirement(), changeCallback?: (previousValue: SettingsValue, value: SettingsValue) => void) {
         this.id = id;
         this.displayName = displayName;
         this.options = options;
@@ -23,6 +25,8 @@ export abstract class Setting {
         this.value = defaultValue;
 
         this.requirement = requirement;
+
+        this.changeCallback = changeCallback;
     }
 
     set(value: SettingsValue): void {
@@ -30,7 +34,11 @@ export abstract class Setting {
             return;
         }
         if (this.validValue(value)) {
+            const previousValue = this.value;
             this.value = value;
+            if (this.changeCallback) {
+                this.changeCallback(previousValue, value);
+            }
         } else {
             console.warn(`${value} is not a valid value for setting ${this.id}. It could be that the option is not yet unlocked.`);
         }
