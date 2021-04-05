@@ -98,7 +98,7 @@ export class ExampleFeature extends UpgradesFeature {
     }
 
     update(delta: number) {
-        this._wallet.gainCurrency(new Currency(this.moneyPerSecond() * delta, CurrencyType.Money));
+        // this._wallet.gainCurrency(new Currency(this.moneyPerSecond() * delta, CurrencyType.Money));
         const xpToGain = this.moneyPerSecond() * delta / 10 * this.booster.perform(delta);
         this.exampleSkill.gainExperience(xpToGain);
         this.fishAction.perform(delta);
