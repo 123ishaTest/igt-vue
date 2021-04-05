@@ -29,7 +29,7 @@ export class LootTables extends Feature {
         return new LootTable(LootTableId.Example, [
             new CurrencyEntry(new IntRange(100, 200), CurrencyType.Money, this._features.wallet)
         ], [
-            new InventoryItemEntry(this._features.itemList[ItemId.RawFish], this._features.inventory),
+            new InventoryItemEntry(this._features.itemList[ItemId.RawFish], this._features.inventory, 1, new IntRange(2, 3)),
             new InventoryItemEntry(this._features.itemList[ItemId.CookedFish], this._features.inventory),
         ], [
             new KeyItemEntry(this._features.keyItems.getKeyItem(KeyItemId.Item1), this._features.keyItems, 0.5),
