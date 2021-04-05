@@ -8,6 +8,7 @@ import {SpecialEvents} from "@/ig-template/features/special-events/SpecialEvents
 import {Inventory} from "@/ig-template/features/inventory/Inventory";
 import {ItemList} from "@/ig-template/features/items/ItemList";
 import {KeyItems} from "@/ig-template/features/key-items/KeyItems";
+import {LootTables} from "@/ig-template/features/loot-tables/LootTables";
 
 export interface Features {
     wallet: Wallet;
@@ -17,6 +18,7 @@ export interface Features {
     inventory: Inventory;
     itemList: ItemList;
     keyItems: KeyItems;
+    lootTables: LootTables;
     specialEvents: SpecialEvents;
     statistics: Statistics;
     achievements: Achievements;
