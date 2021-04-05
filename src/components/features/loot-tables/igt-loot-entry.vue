@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="flex flex-row justify-between">
-      <span>
+      <span :title="entry.requirement.hint" :class="{'line-through': !entry.canGet()}">
       <span v-if="entry.amount.min !== entry.amount.max">
         {{ entry.amount.min }} -
       </span> {{ entry.amount.max }}

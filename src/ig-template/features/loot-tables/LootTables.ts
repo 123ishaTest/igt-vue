@@ -31,7 +31,6 @@ export class LootTables extends Feature {
         ], [
             new InventoryItemEntry(this._features.itemList[ItemId.RawFish], this._features.inventory),
             new InventoryItemEntry(this._features.itemList[ItemId.CookedFish], this._features.inventory),
-
         ], [
             new KeyItemEntry(KeyItemId.Item1, this._features.keyItems, 0.5),
             new TableEntry(LootTableId.Example, this, 0.05),
