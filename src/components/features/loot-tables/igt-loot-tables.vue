@@ -2,6 +2,11 @@
   <igt-feature>
     Loot Tables
     <button class="btn btn-green" @click="roll">Roll</button>
+    <div class="flex flex-col flex-wrap">
+      <div v-for="(loot, index) in latestLoot" :key="index">
+        <span>{{loot.amount}} {{loot.toHtml()}}</span>
+      </div>
+    </div>
   </igt-feature>
 </template>
 
@@ -15,12 +20,14 @@ export default {
   components: {IgtFeature},
   data() {
     return {
+      latestLoot: [],
       lootTables: App.game.features.lootTables,
     }
   },
   methods: {
     roll() {
       const loot = this.lootTables[LootTableId.Example].roll();
+      this.latestLoot = loot;
       console.log(loot);
     }
   },

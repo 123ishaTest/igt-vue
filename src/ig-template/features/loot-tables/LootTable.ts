@@ -105,7 +105,7 @@ export class LootTable {
         const ret: AbstractLoot[] = [];
         for (const key in loots) {
             const loot = loots[key];
-            const index = ret.findIndex(l => l.loot === loot.loot);
+            const index = ret.findIndex(l => l.equals(loot));
             if (index !== -1) {
                 ret[index].amount += loot.amount;
             } else {

@@ -6,5 +6,15 @@ export abstract class AbstractLoot {
         this.amount = amount;
     }
 
+    /**
+     * Actually award the loot
+     */
     abstract apply(): void;
+
+    abstract toHtml(): string;
+
+    /**
+     * Override to implement comparisons. Used for simplifying the list of loot
+     */
+    abstract equals(other: AbstractLoot): boolean;
 }

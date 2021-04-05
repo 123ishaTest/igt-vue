@@ -17,4 +17,16 @@ export class KeyItemLoot extends AbstractLoot {
         this._keyItems.gainKeyItem(this.loot);
     }
 
+    toHtml(): string {
+        const item = this._keyItems.getKeyItem(this.loot);
+        return `Key Item: ${item.name}`;
+    }
+
+    equals(other: AbstractLoot): boolean {
+        if (other instanceof KeyItemLoot && other.loot === this.loot) {
+            return true;
+        }
+        return false;
+    }
+
 }

@@ -17,4 +17,15 @@ export class InventoryItemLoot extends AbstractLoot {
         this._inventory.gainItem(this.loot, this.amount);
     }
 
+    toHtml(): string {
+        return this.loot.name;
+    }
+
+    equals(other: AbstractLoot): boolean {
+        if (other instanceof InventoryItemLoot && other.loot.id === this.loot.id) {
+            return true;
+        }
+        return false;
+    }
+
 }
