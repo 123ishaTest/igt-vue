@@ -18,7 +18,6 @@ export class KeyItemEntry extends AbstractLootEntry {
 
     getLoot(): KeyItemLoot[] {
         if (!this.canGet() || this._keyItems.hasKeyItem(this.item.id)) {
-            console.warn(`Tried to get loot ${this.item}, but the requirements were not met`);
             return [];
         }
         return [new KeyItemLoot(this.item, this._keyItems)];
