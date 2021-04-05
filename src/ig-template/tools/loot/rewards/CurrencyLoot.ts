@@ -1,4 +1,4 @@
-import {AbstractLoot} from "@/ig-template/features/loot-tables/rewards/AbstractLoot";
+import {AbstractLoot} from "@/ig-template/tools/loot/rewards/AbstractLoot";
 import {Currency} from "@/ig-template/features/wallet/Currency";
 import {Wallet} from "@/ig-template/features/wallet/Wallet";
 import {CurrencyType} from "@/ig-template/features/wallet/CurrencyType";

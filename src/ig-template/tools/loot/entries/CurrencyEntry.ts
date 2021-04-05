@@ -1,9 +1,9 @@
-import {AbstractLootEntry} from "@/ig-template/features/loot-tables/entries/AbstractLootEntry";
+import {AbstractLootEntry} from "@/ig-template/tools/loot/entries/AbstractLootEntry";
 import {Requirement} from "@/ig-template/tools/requirements/Requirement";
 import {NoRequirement} from "@/ig-template/tools/requirements/NoRequirement";
 import {IntRange} from "@/ig-template/tools/probability/IntRange";
 import {Wallet} from "@/ig-template/features/wallet/Wallet";
-import {CurrencyLoot} from "@/ig-template/features/loot-tables/rewards/CurrencyLoot";
+import {CurrencyLoot} from "@/ig-template/tools/loot/rewards/CurrencyLoot";
 import {CurrencyType} from "@/ig-template/features/wallet/CurrencyType";
 
 export class CurrencyEntry extends AbstractLootEntry {

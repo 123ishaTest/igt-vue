@@ -10,10 +10,10 @@
 </template>
 
 <script>
-import {AbstractLoot} from "@/ig-template/features/loot-tables/rewards/AbstractLoot";
-import {InventoryItemLoot} from "@/ig-template/features/loot-tables/rewards/InventoryItemLoot";
-import {KeyItemLoot} from "@/ig-template/features/loot-tables/rewards/KeyItemLoot";
-import {CurrencyLoot} from "@/ig-template/features/loot-tables/rewards/CurrencyLoot";
+import {AbstractLoot} from "@/ig-template/tools/loot/rewards/AbstractLoot";
+import {InventoryItemLoot} from "@/ig-template/tools/loot/rewards/InventoryItemLoot";
+import {KeyItemLoot} from "@/ig-template/tools/loot/rewards/KeyItemLoot";
+import {CurrencyLoot} from "@/ig-template/tools/loot/rewards/CurrencyLoot";
 import IgtCurrency from "@/components/features/wallet/igt-currency";
 import IgtKeyItemSmall from "@/components/features/key-items/igt-key-item-small";
 

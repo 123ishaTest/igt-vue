@@ -1,7 +1,7 @@
-import {LootTableId} from "@/ig-template/features/loot-tables/LootTableId";
-import {AbstractLootEntry} from "@/ig-template/features/loot-tables/entries/AbstractLootEntry";
+import {LootTableId} from "@/ig-template/tools/loot/LootTableId";
+import {AbstractLootEntry} from "@/ig-template/tools/loot/entries/AbstractLootEntry";
 import {Random} from "@/ig-template/tools/probability/Random";
-import {AbstractLoot} from "@/ig-template/features/loot-tables/rewards/AbstractLoot";
+import {AbstractLoot} from "@/ig-template/tools/loot/rewards/AbstractLoot";
 
 export class LootTable {
     id: LootTableId;

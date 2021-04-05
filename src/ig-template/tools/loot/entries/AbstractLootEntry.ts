@@ -1,7 +1,7 @@
 import {IntRange} from "@/ig-template/tools/probability/IntRange";
 import {Requirement} from "@/ig-template/tools/requirements/Requirement";
 import {NoRequirement} from "@/ig-template/tools/requirements/NoRequirement";
-import {AbstractLoot} from "@/ig-template/features/loot-tables/rewards/AbstractLoot";
+import {AbstractLoot} from "@/ig-template/tools/loot/rewards/AbstractLoot";
 
 export abstract class AbstractLootEntry {
     public weight: number;

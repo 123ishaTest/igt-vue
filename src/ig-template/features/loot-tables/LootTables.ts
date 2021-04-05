@@ -1,15 +1,15 @@
 import {Feature} from "@/ig-template/features/Feature";
 import {SaveData} from "@/ig-template/tools/saving/SaveData";
-import {LootTable} from "@/ig-template/features/loot-tables/LootTable";
-import {LootTableId} from "@/ig-template/features/loot-tables/LootTableId";
-import {InventoryItemEntry} from "@/ig-template/features/loot-tables/entries/InventoryItemEntry";
+import {LootTable} from "@/ig-template/tools/loot/LootTable";
+import {LootTableId} from "@/ig-template/tools/loot/LootTableId";
+import {InventoryItemEntry} from "@/ig-template/tools/loot/entries/InventoryItemEntry";
 import {Features} from "@/ig-template/Features";
 import {ItemId} from "@/ig-template/features/items/ItemId";
-import {KeyItemEntry} from "@/ig-template/features/loot-tables/entries/KeyItemEntry";
+import {KeyItemEntry} from "@/ig-template/tools/loot/entries/KeyItemEntry";
 import {KeyItemId} from "@/ig-template/features/key-items/KeyItemId";
-import {TableEntry} from "@/ig-template/features/loot-tables/entries/TableEntry";
+import {TableEntry} from "@/ig-template/tools/loot/entries/TableEntry";
 import {IntRange} from "@/ig-template/tools/probability/IntRange";
-import {CurrencyEntry} from "@/ig-template/features/loot-tables/entries/CurrencyEntry";
+import {CurrencyEntry} from "@/ig-template/tools/loot/entries/CurrencyEntry";
 import {CurrencyType} from "@/ig-template/features/wallet/CurrencyType";
 
 export class LootTables extends Feature {

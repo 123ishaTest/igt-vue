@@ -14,7 +14,7 @@
 <script>
 import {App} from "@/App.ts"
 import IgtFeature from "@/components/util/igt-feature";
-import {LootTableId} from "@/ig-template/features/loot-tables/LootTableId";
+import {LootTableId} from "@/ig-template/tools/loot/LootTableId";
 import IgtLootTable from "@/components/features/loot-tables/igt-loot-table";
 import IgtLootReward from "@/components/features/loot-tables/igt-loot-reward";
 
