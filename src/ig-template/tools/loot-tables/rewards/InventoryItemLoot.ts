@@ -1,4 +1,4 @@
-import {AbstractLoot} from "@/ig-template/tools/loot/rewards/AbstractLoot";
+import {AbstractLoot} from "@/ig-template/tools/loot-tables/rewards/AbstractLoot";
 import {Inventory} from "@/ig-template/features/inventory/Inventory";
 import {AbstractItem} from "@/ig-template/features/items/AbstractItem";
 

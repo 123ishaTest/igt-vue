@@ -1,13 +1,13 @@
-import {LootTableId} from "@/ig-template/tools/loot/LootTableId";
-import {AbstractLootEntry} from "@/ig-template/tools/loot/entries/AbstractLootEntry";
+import {LootTableId} from "@/ig-template/tools/loot-tables/LootTableId";
+import {AbstractLootEntry} from "@/ig-template/tools/loot-tables/entries/AbstractLootEntry";
 import {Random} from "@/ig-template/tools/probability/Random";
-import {AbstractLoot} from "@/ig-template/tools/loot/rewards/AbstractLoot";
+import {AbstractLoot} from "@/ig-template/tools/loot-tables/rewards/AbstractLoot";
 
 export class LootTable {
     id: LootTableId;
 
     /**
-     * All loot that is added on every roll
+     * All loot-tables that is added on every roll
      */
     public always: AbstractLootEntry[];
 

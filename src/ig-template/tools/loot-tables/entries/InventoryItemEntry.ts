@@ -1,5 +1,5 @@
-import {AbstractLootEntry} from "@/ig-template/tools/loot/entries/AbstractLootEntry";
-import {InventoryItemLoot} from "@/ig-template/tools/loot/rewards/InventoryItemLoot";
+import {AbstractLootEntry} from "@/ig-template/tools/loot-tables/entries/AbstractLootEntry";
+import {InventoryItemLoot} from "@/ig-template/tools/loot-tables/rewards/InventoryItemLoot";
 import {Requirement} from "@/ig-template/tools/requirements/Requirement";
 import {NoRequirement} from "@/ig-template/tools/requirements/NoRequirement";
 import {AbstractItem} from "@/ig-template/features/items/AbstractItem";

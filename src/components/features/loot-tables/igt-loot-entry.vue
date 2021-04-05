@@ -17,11 +17,11 @@
 </template>
 
 <script>
-import {AbstractLootEntry} from "@/ig-template/tools/loot/entries/AbstractLootEntry";
-import {TableEntry} from "@/ig-template/tools/loot/entries/TableEntry";
-import {InventoryItemEntry} from "@/ig-template/tools/loot/entries/InventoryItemEntry";
-import {KeyItemEntry} from "@/ig-template/tools/loot/entries/KeyItemEntry";
-import {CurrencyEntry} from "@/ig-template/tools/loot/entries/CurrencyEntry";
+import {AbstractLootEntry} from "@/ig-template/tools/loot-tables/entries/AbstractLootEntry";
+import {TableEntry} from "@/ig-template/tools/loot-tables/entries/TableEntry";
+import {InventoryItemEntry} from "@/ig-template/tools/loot-tables/entries/InventoryItemEntry";
+import {KeyItemEntry} from "@/ig-template/tools/loot-tables/entries/KeyItemEntry";
+import {CurrencyEntry} from "@/ig-template/tools/loot-tables/entries/CurrencyEntry";
 import IgtKeyItemSmall from "@/components/features/key-items/igt-key-item-small";
 
 export default {
