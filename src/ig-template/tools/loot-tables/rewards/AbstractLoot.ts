@@ -12,7 +12,7 @@ export abstract class AbstractLoot {
     abstract apply(): void;
 
     /**
-     * Override to implement comparisons. Used for simplifying the list of loot-tables
+     * Override to implement comparisons. Used for simplifying the list of loot
      */
     abstract equals(other: AbstractLoot): boolean;
 }
