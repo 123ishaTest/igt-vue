@@ -12,7 +12,7 @@ export class LootTable {
     public always: AbstractLootEntry[];
 
     /**
-     * Only one of these will be selected based on their relative weight
+     * Only one of these will be selected based on their relative weight, n times
      */
     public oneOf: AbstractLootEntry[];
 
@@ -28,20 +28,20 @@ export class LootTable {
         this.anyOf = anyOf
     }
 
-    public roll(): AbstractLoot[] {
-        const loot = this.getLoot();
+    public roll(n: number = 1): AbstractLoot[] {
+        const loot = this.getLoot(n);
         loot.forEach(l => {
             l.apply();
         })
         return loot;
     }
 
-    public getLoot(): AbstractLoot[] {
+    public getLoot(n: number = 1): AbstractLoot[] {
         const always = this.calculateAlwaysLoot();
-        const oneof = this.calculateOneOfLoot();
-        const anyof = this.calculateAnyOfLoot();
+        const oneof = this.calculateOneOfLoot(n);
+        const anyOf = this.calculateAnyOfLoot();
 
-        const total = always.concat(oneof).concat(anyof);
+        const total = always.concat(oneof).concat(anyOf);
 
         return this.simplifyLoot(total);
     }
@@ -56,8 +56,16 @@ export class LootTable {
         return alwaysLoot;
     }
 
-    public calculateOneOfLoot(): AbstractLoot[] {
+    public calculateOneOfLoot(n: number): AbstractLoot[] {
         const availableLoot = LootTable.filterOnRequirements(this.oneOf);
+        let res: AbstractLoot[] = [];
+        for (let i = 0; i < n; i++) {
+            res = res.concat(this.getOneFrom(availableLoot))
+        }
+        return res;
+    }
+
+    public getOneFrom(availableLoot: AbstractLootEntry[]): AbstractLoot[] {
         const sum = LootTable.calculateWeightSum(availableLoot);
         let draw = Random.floatBetween(0, sum)
         for (let i = 0; i < availableLoot.length; i++) {

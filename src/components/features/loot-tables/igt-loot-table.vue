@@ -33,7 +33,7 @@ export default {
   },
   methods: {
     hasAnyOf() {
-      return this.table.always.length > 0;
+      return this.table.anyOf.length > 0;
     },
     hasOneOf() {
       return this.table.oneOf.length > 0;
