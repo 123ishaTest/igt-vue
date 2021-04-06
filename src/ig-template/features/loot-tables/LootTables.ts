@@ -27,7 +27,7 @@ export class LootTables extends Feature {
 
     get example() {
         return new LootTable(LootTableId.Example, [
-            new CurrencyEntry(new IntRange(100, 200), CurrencyType.Money, this._features.wallet)
+            new CurrencyEntry(new IntRange(100, 300), CurrencyType.Money, this._features.wallet)
         ], [
             new InventoryItemEntry(this._features.itemList[ItemId.RawFish], this._features.inventory, 1, new IntRange(2, 3)),
             new InventoryItemEntry(this._features.itemList[ItemId.CookedFish], this._features.inventory),
