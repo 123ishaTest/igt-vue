@@ -12,7 +12,7 @@
 <script>
 import IgtCurrency from "@/components/features/wallet/igt-currency";
 import IgtKeyItemSmall from "@/components/features/key-items/igt-key-item-small";
-import {CurrencyLoot, IgtLoot, InventoryItemLoot, KeyItemLoot} from "igt-library";
+import {CurrencyLoot, IgtLoot, InventoryItemLoot, KeyItemLoot} from "incremental-game-template";
 
 export default {
   name: "igt-loot-reward",

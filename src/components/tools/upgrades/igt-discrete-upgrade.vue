@@ -11,7 +11,7 @@
 
 <script>
 import IgtCurrency from "@/components/features/wallet/igt-currency";
-import {IgtAbstractUpgrade} from "igt-library";
+import {IgtAbstractUpgrade} from "incremental-game-template";
 
 export default {
   name: "igt-upgrade",

@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import {ChoiceField} from "igt-library";
+import {ChoiceField} from "incremental-game-template";
 
 export default {
   name: "igt-choice-field",

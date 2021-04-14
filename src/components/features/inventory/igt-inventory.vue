@@ -27,7 +27,7 @@
 import IgtFeature from "@/components/util/igt-feature";
 import IgtInventorySlot from "@/components/features/inventory/igt-inventory-slot";
 import IgtInventorySlotHighlight from "@/components/features/inventory/igt-inventory-slot-highlight";
-import {IgtInventory} from "igt-library";
+import {IgtInventory} from "incremental-game-template";
 
 export default {
   name: "igt-inventory",

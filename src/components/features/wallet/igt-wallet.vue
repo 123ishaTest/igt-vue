@@ -6,7 +6,7 @@
 
 <script>
 import IgtFeature from "@/components/util/igt-feature";
-import {IgtWallet} from "igt-library";
+import {IgtWallet} from "incremental-game-template";
 
 export default {
   name: "igt-wallet",

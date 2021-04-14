@@ -21,7 +21,7 @@
 </template>
 <script>
 import IgtFeature from "@/components/util/igt-feature";
-import {IgtAchievements} from "igt-library";
+import {IgtAchievements} from "incremental-game-template";
 
 export default {
   name: "igt-achievements",

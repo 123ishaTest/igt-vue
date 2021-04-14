@@ -15,7 +15,7 @@
 
 <script>
 import IgtProgressBar from "@/components/util/igt-progress-bar";
-import {IgtExpLevel} from "igt-library";
+import {IgtExpLevel} from "incremental-game-template";
 
 export default {
   name: "igt-exp-level",

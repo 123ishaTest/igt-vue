@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import {RangeField} from "igt-library";
+import {RangeField} from "incremental-game-template";
 
 export default {
   name: "igt-range-field",

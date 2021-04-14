@@ -20,7 +20,7 @@
 
 <script>
 import IgtLootEntry from "@/components/features/loot-tables/igt-loot-entry";
-import {LootTable} from "igt-library";
+import {LootTable} from "incremental-game-template";
 
 export default {
   name: "igt-loot-table",

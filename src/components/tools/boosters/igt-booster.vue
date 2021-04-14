@@ -22,7 +22,7 @@
 
 <script>
 import IgtCurrency from "@/components/features/wallet/igt-currency";
-import {Booster} from "igt-library";
+import {Booster} from "incremental-game-template";
 
 export default {
   name: "igt-booster",

@@ -13,7 +13,7 @@
 
 
 import IgtProgressBar from "@/components/util/igt-progress-bar";
-import {IgtAction} from "igt-library";
+import {IgtAction} from "incremental-game-template";
 
 export default {
   name: "igt-action",

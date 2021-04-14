@@ -17,7 +17,7 @@
   </div>
 </template>
 <script>
-import {DateHelper, SpecialEvent, SpecialEventDateState} from "igt-library";
+import {DateHelper, SpecialEvent, SpecialEventDateState} from "incremental-game-template";
 
 export default {
   name: "igt-special-event",

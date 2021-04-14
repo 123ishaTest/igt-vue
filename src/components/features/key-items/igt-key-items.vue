@@ -9,7 +9,7 @@
 <script>
 import IgtFeature from "@/components/util/igt-feature";
 import IgtKeyItem from "@/components/features/key-items/igt-key-item";
-import {IgtKeyItems} from "igt-library";
+import {IgtKeyItems} from "incremental-game-template";
 
 export default {
   name: "igt-key-items",

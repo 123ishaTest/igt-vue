@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import {AbstractConsumable, InventorySlot} from "igt-library";
+import {AbstractConsumable, InventorySlot} from "incremental-game-template";
 
 export default {
   name: "igt-inventory-slot-highlight",

@@ -12,7 +12,7 @@
 
 <script>
 import IgtFeature from "@/components/util/igt-feature";
-import {IgtRedeemableCodes} from "igt-library";
+import {IgtRedeemableCodes} from "incremental-game-template";
 
 export default {
   name: "igt-redeemable-codes",

@@ -18,7 +18,7 @@
 
 <script>
 import IgtKeyItemSmall from "@/components/features/key-items/igt-key-item-small";
-import {CurrencyEntry, IgtLootEntry, InventoryItemEntry, KeyItemEntry, TableEntry} from "igt-library";
+import {CurrencyEntry, IgtLootEntry, InventoryItemEntry, KeyItemEntry, TableEntry} from "incremental-game-template";
 
 export default {
   name: "igt-loot-entry",

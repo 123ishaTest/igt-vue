@@ -1,5 +1,5 @@
 import {MyGame} from "./my-game/MyGame";
-import {IgtSettings} from "igt-library";
+import {IgtSettings} from "incremental-game-template";
 
 export class App {
     static inProduction: boolean = (process.env.NODE_ENV === "production");

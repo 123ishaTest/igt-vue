@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import {DisplayField} from "igt-library";
+import {DisplayField} from "incremental-game-template";
 
 export default {
   name: "igt-display-field",

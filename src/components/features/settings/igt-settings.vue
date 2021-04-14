@@ -6,7 +6,7 @@
 
 <script>
 import IgtFeature from "@/components/util/igt-feature";
-import {IgtSettings} from "igt-library";
+import {IgtSettings} from "incremental-game-template";
 import {App} from "@/App";
 
 export default {

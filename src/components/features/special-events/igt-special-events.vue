@@ -18,7 +18,7 @@
 <script>
 import IgtFeature from "@/components/util/igt-feature";
 import IgtSpecialEvent from "@/components/features/special-events/igt-special-event";
-import {IgtSpecialEvents} from "igt-library";
+import {IgtSpecialEvents} from "incremental-game-template";
 
 export default {
   name: "igt-special-events",

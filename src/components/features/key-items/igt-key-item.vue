@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import {KeyItem} from "igt-library";
+import {KeyItem} from "incremental-game-template";
 
 export default {
   name: "igt-key-item",
