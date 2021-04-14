@@ -44,7 +44,7 @@
       <igt-sidebar-category name="Other"></igt-sidebar-category>
 
       <igt-tab name="Developer Panel" v-if="showDevPanel">
-        <igt-developer-panel></igt-developer-panel>
+        <igt-developer-panel :developer-panel="game.getDeveloperPanel()"></igt-developer-panel>
       </igt-tab>
 
       <igt-sidebar-category name="Socials"></igt-sidebar-category>
@@ -89,7 +89,13 @@ export default {
     IgtRedeemableCodes,
     IgtSettings,
     IgtSidebarExternalLink,
-    IgtSidebarCategory, IgtDeveloperPanel, IgtNotifications, IgtWallet, IgtAchievements, IgtTab, IgtSidebar
+    IgtSidebarCategory,
+    IgtDeveloperPanel,
+    IgtNotifications,
+    IgtWallet,
+    IgtAchievements,
+    IgtTab,
+    IgtSidebar
   },
   data() {
     return {
