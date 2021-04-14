@@ -16,21 +16,22 @@
   </igt-feature>
 </template>
 <script>
-import {App} from "@/App.ts";
 import IgtFeature from "@/components/util/igt-feature";
 import IgtSpecialEvent from "@/components/features/special-events/igt-special-event";
+import {IgtSpecialEvents} from "igt-library";
 
 export default {
   name: "igt-special-events",
   components: {IgtSpecialEvent, IgtFeature},
-  data() {
-    return {
-      eventsFeature: App.game.features.specialEvents,
-    }
+  props: {
+    specialEventsFeature: {
+      type: IgtSpecialEvents,
+      required: true
+    },
   },
   computed: {
     futureEvents() {
-      const events = this.eventsFeature.events.filter(specialEvent => {
+      const events = this.specialEventsFeature.events.filter(specialEvent => {
         return !specialEvent.isActive;
       })
       return [...events].sort((a, b) => {
@@ -38,13 +39,13 @@ export default {
       });
     },
     activeEvents() {
-      return this.eventsFeature.events.filter(specialEvent => {
+      return this.specialEventsFeature.events.filter(specialEvent => {
         return specialEvent.isActive;
       })
     }
   },
   mounted() {
-    this.eventsFeature.onEventStart.subscribe((event) => {
+    this.specialEventsFeature.onEventStart.subscribe((event) => {
       this.$notify(
           {
             title: `Event started: ${event.title}`,
@@ -52,10 +53,10 @@ export default {
             type: "success",
             group: "top-left",
           },
-          20000
+          10000
       );
     });
-    this.eventsFeature.onEventEnd.subscribe((event) => {
+    this.specialEventsFeature.onEventEnd.subscribe((event) => {
       this.$notify(
           {
             title: `Event ended: ${event.title}`,
@@ -63,7 +64,7 @@ export default {
             type: "error",
             group: "top-left",
           },
-          20000
+          10000
       );
     });
   }

@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import {KeyItem} from "@/ig-template/features/key-items/KeyItem";
+import {KeyItem} from "igt-library";
 
 export default {
   name: "igt-key-item-small",

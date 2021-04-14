@@ -27,7 +27,7 @@
 import IgtFeature from "@/components/util/igt-feature";
 import IgtInventorySlot from "@/components/features/inventory/igt-inventory-slot";
 import IgtInventorySlotHighlight from "@/components/features/inventory/igt-inventory-slot-highlight";
-import {Inventory} from "@/ig-template/features/inventory/Inventory";
+import {IgtInventory} from "igt-library";
 
 export default {
   name: "igt-inventory",
@@ -38,8 +38,8 @@ export default {
   },
   props: {
     inventoryFeature: {
-      type: Inventory,
-      default: 0
+      type: IgtInventory,
+      required: true,
     },
   },
   data() {

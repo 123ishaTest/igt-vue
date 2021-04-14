@@ -19,8 +19,8 @@
 </template>
 
 <script>
-import {LootTable} from "@/ig-template/tools/loot-tables/LootTable";
 import IgtLootEntry from "@/components/features/loot-tables/igt-loot-entry";
+import {LootTable} from "igt-library";
 
 export default {
   name: "igt-loot-table",

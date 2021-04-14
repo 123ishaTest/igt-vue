@@ -20,7 +20,7 @@ import IgtTab from "@/components/util/igt-tab";
 import IgtDisplayField from "@/components/developer-panel/fields/igt-display-field";
 import IgtChoiceField from "@/components/developer-panel/fields/igt-choice-field";
 import IgtFeature from "@/components/util/igt-feature";
-import {DeveloperPanel} from "@/ig-template/developer-panel/DeveloperPanel";
+import {DeveloperPanel} from "igt-library";
 
 export default {
   name: "igt-developer-panel",

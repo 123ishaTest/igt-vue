@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import {ChoiceField} from "@/ig-template/developer-panel/fields/ChoiceField";
+import {ChoiceField} from "igt-library";
 
 export default {
   name: "igt-choice-field",

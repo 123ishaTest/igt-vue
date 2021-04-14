@@ -1,22 +1,22 @@
 <template>
   <igt-feature>
-    <igt-boolean-setting :setting="darkMode" true-icon="fa-moon" false-icon="fa-sun"></igt-boolean-setting>
     <button class="btn btn-red" @click="resetSave">Reset Save</button>
   </igt-feature>
 </template>
 
 <script>
-import {App} from "@/App.ts"
 import IgtFeature from "@/components/util/igt-feature";
-import IgtBooleanSetting from "@/components/features/settings/igt-boolean-setting";
+import {IgtSettings} from "igt-library";
+import {App} from "@/App";
 
 export default {
   name: "igt-settings",
-  components: {IgtBooleanSetting, IgtFeature},
-  data() {
-    return {
-      settings: App.game.features.settings,
-    }
+  components: {IgtFeature},
+  props: {
+    settingsFeature: {
+      type: IgtSettings,
+      required: true,
+    },
   },
   methods: {
     resetSave() {
@@ -28,16 +28,9 @@ export default {
       location.reload();
     }
   },
-  computed: {
-    darkMode() {
-      return this.settings.darkMode;
-    }
-  },
 }
 </script>
 
 <style scoped>
-th, td {
-  padding: 5px;
-}
+
 </style>

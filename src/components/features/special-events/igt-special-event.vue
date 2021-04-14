@@ -17,9 +17,7 @@
   </div>
 </template>
 <script>
-import {SpecialEvent} from "@/ig-template/features/special-events/SpecialEvent";
-import {SpecialEventDateState} from "@/ig-template/features/special-events/SpecialEventDateState";
-import {DateHelper} from "@/ig-template/util/DateHelper";
+import {DateHelper, SpecialEvent, SpecialEventDateState} from "igt-library";
 
 export default {
   name: "igt-special-event",

@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import {RangeField} from "@/ig-template/developer-panel/fields/RangeField";
+import {RangeField} from "igt-library";
 
 export default {
   name: "igt-range-field",

@@ -5,40 +5,8 @@
 
       <igt-sidebar-category name="Features"></igt-sidebar-category>
 
-      <igt-tab name="Example">
-        <igt-example-feature></igt-example-feature>
-      </igt-tab>
-
-      <igt-tab name="Inventory">
-        <igt-inventory></igt-inventory>
-      </igt-tab>
-
-      <igt-tab name="Loot Tables" :selected="true">
-        <igt-loot-tables></igt-loot-tables>
-      </igt-tab>
-
-      <igt-tab name="Wallet">
-        <igt-wallet></igt-wallet>
-      </igt-tab>
-
-      <igt-tab name="Key Items">
-        <igt-key-items></igt-key-items>
-      </igt-tab>
-
-      <igt-tab name="Special Events">
-        <igt-special-events></igt-special-events>
-      </igt-tab>
-
-      <igt-tab name="Achievements">
-        <igt-achievements :achievements-feature="game.features.achievements"></igt-achievements>
-      </igt-tab>
-
-      <igt-tab name="Redeemable Codes">
-        <igt-redeemable-codes></igt-redeemable-codes>
-      </igt-tab>
-
-      <igt-tab name="Settings">
-        <igt-settings></igt-settings>
+      <igt-tab name="Settings" :selected="true">
+        <igt-settings :settings-feature="game.features.settings"></igt-settings>
       </igt-tab>
 
       <igt-sidebar-category name="Other"></igt-sidebar-category>
@@ -65,35 +33,19 @@
 import {App} from "@/App.ts"
 import IgtSidebar from "@/components/util/sidebar/igt-sidebar-layout";
 import IgtTab from "@/components/util/igt-tab";
-import IgtAchievements from "@/components/features/achievements/igt-achievements";
-import IgtWallet from "@/components/features/wallet/igt-wallet";
 import IgtNotifications from "@/components/util/igt-notifications";
 import IgtDeveloperPanel from "@/components/developer-panel/igt-developer-panel";
 import IgtSidebarCategory from "@/components/util/sidebar/igt-sidebar-category";
 import IgtSidebarExternalLink from "@/components/util/sidebar/igt-sidebar-external-link";
 import IgtSettings from "@/components/features/settings/igt-settings";
-import IgtRedeemableCodes from "@/components/features/codes/igt-redeemable-codes";
-import IgtExampleFeature from "@/components/features/example/igt-example-feature";
-import IgtSpecialEvents from "@/components/features/special-events/igt-special-events";
-import IgtInventory from "@/components/features/inventory/igt-inventory";
-import IgtKeyItems from "@/components/features/key-items/igt-key-items";
-import IgtLootTables from "@/components/features/loot-tables/igt-loot-tables";
 
 export default {
   components: {
-    IgtLootTables,
-    IgtKeyItems,
-    IgtInventory,
-    IgtSpecialEvents,
-    IgtExampleFeature,
-    IgtRedeemableCodes,
     IgtSettings,
     IgtSidebarExternalLink,
     IgtSidebarCategory,
     IgtDeveloperPanel,
     IgtNotifications,
-    IgtWallet,
-    IgtAchievements,
     IgtTab,
     IgtSidebar
   },
@@ -107,7 +59,7 @@ export default {
       return !App.inProduction;
     },
     darkMode() {
-      return App.game.features.settings.darkMode.value;
+      return true;
     }
   },
 }

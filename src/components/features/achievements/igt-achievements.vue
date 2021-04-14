@@ -20,15 +20,15 @@
   </igt-feature>
 </template>
 <script>
-import {Achievements} from "@/ig-template/features/achievements/Achievements";
 import IgtFeature from "@/components/util/igt-feature";
+import {IgtAchievements} from "igt-library";
 
 export default {
   name: "igt-achievements",
   components: {IgtFeature},
   props: {
     achievementsFeature: {
-      type: Achievements,
+      type: IgtAchievements,
       required: true,
     },
   },
