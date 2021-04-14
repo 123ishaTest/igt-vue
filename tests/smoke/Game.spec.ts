@@ -18,7 +18,7 @@ describe('Game launch smoke test', () => {
             mount(VueApp);
 
             for (let i = 0; i < 100; i++) {
-                App.game.forceUpdate(1);
+                App.game.update();
             }
         }).not.toThrow();
     });
