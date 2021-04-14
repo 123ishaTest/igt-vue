@@ -10,17 +10,15 @@
 </template>
 
 <script>
-
-
-import {AbstractUpgrade} from "@/ig-template/tools/upgrades/AbstractUpgrade";
 import IgtCurrency from "@/components/features/wallet/igt-currency";
+import {IgtAbstractUpgrade} from "igt-library";
 
 export default {
   name: "igt-upgrade",
   components: {IgtCurrency},
   props: {
     upgrade: {
-      type: AbstractUpgrade,
+      type: IgtAbstractUpgrade,
       required: true,
     },
     canBuy: {

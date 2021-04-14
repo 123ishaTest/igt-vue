@@ -13,14 +13,14 @@
 
 
 import IgtProgressBar from "@/components/util/igt-progress-bar";
-import {AbstractAction} from "@/ig-template/tools/actions/AbstractAction";
+import {IgtAction} from "igt-library";
 
 export default {
   name: "igt-action",
   components: {IgtProgressBar},
   props: {
     action: {
-      type: AbstractAction,
+      type: IgtAction,
       required: true,
     },
   },
