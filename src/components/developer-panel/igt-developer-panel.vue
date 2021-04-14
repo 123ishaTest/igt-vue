@@ -12,7 +12,6 @@
 </template>
 
 <script>
-import {App} from "@/App.ts"
 import IgtNumberField from "@/components/developer-panel/fields/igt-number-field";
 import IgtButtonField from "@/components/developer-panel/fields/igt-button-field";
 import IgtRangeField from "@/components/developer-panel/fields/igt-range-field";
@@ -21,20 +20,26 @@ import IgtTab from "@/components/util/igt-tab";
 import IgtDisplayField from "@/components/developer-panel/fields/igt-display-field";
 import IgtChoiceField from "@/components/developer-panel/fields/igt-choice-field";
 import IgtFeature from "@/components/util/igt-feature";
+import {DeveloperPanel} from "incremental-game-template";
 
 export default {
   name: "igt-developer-panel",
   components: {
     IgtFeature,
-    IgtChoiceField, IgtDisplayField, IgtTab, IgtTabs, IgtRangeField, IgtButtonField, IgtNumberField
+    IgtChoiceField,
+    IgtDisplayField,
+    IgtTab,
+    IgtTabs,
+    IgtRangeField,
+    IgtButtonField,
+    IgtNumberField,
   },
-  data() {
-    return {
-      developerPanel: App.game.getDeveloperPanel(),
-    }
+  props: {
+    developerPanel: {
+      type: DeveloperPanel,
+      required: true,
+    },
   },
-  computed: {},
-
 }
 </script>
 

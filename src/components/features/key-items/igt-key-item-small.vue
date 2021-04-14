@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import {KeyItem} from "@/ig-template/features/key-items/KeyItem";
+import {KeyItem} from "incremental-game-template";
 
 export default {
   name: "igt-key-item-small",

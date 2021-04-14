@@ -2,10 +2,9 @@
   <div class="flex flex-row justify-center">
     <span v-if="textFirst" class="mr-1"><span v-if="negative">-</span>{{ currency.amount }}</span>
     <div v-if="showImage" class="w-8 h-8">
-      <img v-if="currency.type === CurrencyType.Money" :src="require('@/assets/images/currencies/money.svg')"
-           :alt="currency.type">
-      <img v-else-if="currency.type === CurrencyType.Secondary"
-           :src="require('@/assets/images/currencies/secondary.svg')" :alt="currency.type">
+      <!-- Add images here if you have them -->
+<!--      <img v-if="currency.type === CurrencyType.YourCurrency" :src="require('@/assets/images/currencies/money.svg')"-->
+<!--           :alt="currency.type">-->
     </div>
     <span v-else>{{ currency.type }}</span>
 
@@ -15,16 +14,10 @@
 </template>
 
 <script>
-import {Currency} from "@/ig-template/features/wallet/Currency";
-import {CurrencyType} from "@/ig-template/features/wallet/CurrencyType";
+import {Currency} from "incremental-game-template";
 
 export default {
   name: "igt-currency",
-  data() {
-    return {
-      CurrencyType: CurrencyType,
-    }
-  },
   props: {
     currency: {
       type: Currency,

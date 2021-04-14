@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import {DisplayField} from "@/ig-template/developer-panel/fields/DisplayField";
+import {DisplayField} from "incremental-game-template";
 
 export default {
   name: "igt-display-field",

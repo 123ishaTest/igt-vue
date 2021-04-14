@@ -21,9 +21,8 @@
 </template>
 
 <script>
-
-import {Booster} from "@/ig-template/tools/boosters/Booster";
 import IgtCurrency from "@/components/features/wallet/igt-currency";
+import {Booster} from "incremental-game-template";
 
 export default {
   name: "igt-booster",

@@ -14,17 +14,15 @@
 </template>
 
 <script>
-
-
-import {AbstractExpLevel} from "@/ig-template/tools/exp-level/AbstractExpLevel";
 import IgtProgressBar from "@/components/util/igt-progress-bar";
+import {IgtExpLevel} from "incremental-game-template";
 
 export default {
   name: "igt-exp-level",
   components: {IgtProgressBar},
   props: {
     expLevel: {
-      type: AbstractExpLevel,
+      type: IgtExpLevel,
       required: true,
     },
   },

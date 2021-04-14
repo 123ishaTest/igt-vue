@@ -1,8 +1,6 @@
 <template>
   <igt-feature>
     <div class="flex flex-row flex-wrap justify-center">
-    <button class="btn btn-blue" @click="gainItem">Gain a money pouch</button>
-    <button class="btn btn-blue" @click="gainItemWithData">Gain item with data</button>
     </div>
 
     <div class="flex flex-row flex-wrap justify-center sm:justify-start">
@@ -26,18 +24,26 @@
 </template>
 
 <script>
-import {App} from "@/App.ts"
 import IgtFeature from "@/components/util/igt-feature";
 import IgtInventorySlot from "@/components/features/inventory/igt-inventory-slot";
 import IgtInventorySlotHighlight from "@/components/features/inventory/igt-inventory-slot-highlight";
+import {IgtInventory} from "incremental-game-template";
 
 export default {
   name: "igt-inventory",
-  components: {IgtInventorySlotHighlight, IgtInventorySlot, IgtFeature},
+  components: {
+    IgtInventorySlotHighlight,
+    IgtInventorySlot,
+    IgtFeature
+  },
+  props: {
+    inventoryFeature: {
+      type: IgtInventory,
+      required: true,
+    },
+  },
   data() {
     return {
-      inventory: App.game.features.inventory,
-      itemList: App.game.features.itemList,
       selectedIndex: -1,
     }
   },
@@ -63,12 +69,6 @@ export default {
     },
     dropStack() {
       this.inventory.dropStack(this.selectedIndex)
-    },
-    gainItem() {
-      this.inventory.gainItem(this.itemList.moneyPouch);
-    },
-    gainItemWithData() {
-      this.inventory.gainItem(this.itemList.itemWithData);
     },
     selectItem(index) {
       this.selectedIndex = index;

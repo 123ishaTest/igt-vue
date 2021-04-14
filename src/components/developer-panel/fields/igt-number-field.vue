@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import {NumberField} from "@/ig-template/developer-panel/fields/NumberField";
+import {NumberField} from "incremental-game-template";
 
 export default {
   name: "igt-number-field",

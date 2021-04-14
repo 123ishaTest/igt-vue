@@ -11,21 +11,26 @@
 </template>
 
 <script>
-import {App} from "@/App.ts"
 import IgtFeature from "@/components/util/igt-feature";
+import {IgtRedeemableCodes} from "incremental-game-template";
 
 export default {
   name: "igt-redeemable-codes",
   components: {IgtFeature},
+  props: {
+    codesFeature: {
+      type: IgtRedeemableCodes,
+      required: true
+    },
+  },
   data() {
     return {
-      codes: App.game.features.codes,
       code: '',
     }
   },
   methods: {
     submitCode() {
-      const code = this.codes.enterCode(this.code);
+      const code = this.codesFeature.enterCode(this.code);
       if (code) {
         this.$notify(
             {

@@ -1,5 +1,5 @@
 {
-  "name": "incremental-game-template",
+  "name": "igt-vue",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -13,6 +13,7 @@
     "@tailwindcss/postcss7-compat": "^2.0.3",
     "autoprefixer": "^9.8.6",
     "core-js": "^3.6.5",
+    "incremental-game-template": "^1.0.1",
     "lodash-es": "^4.17.21",
     "mousetrap": "^1.6.5",
     "postcss": "^7.0.35",
