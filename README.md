@@ -1,7 +1,5 @@
-# Incremental Game Template
-> A template project to quickly create incremental games with Typescript.
-
-[![Build Status](https://travis-ci.org/123ishaTest/incremental-game-template.svg?branch=master)](https://travis-ci.org/123ishaTest/incremental-game-template)
+# igt-vue
+> A template Vue project to quickly create incremental games with the igt-library.
 
 [Please visit the actual Docs here](https://123ishatest.github.io/incremental-game-template-website)
 
