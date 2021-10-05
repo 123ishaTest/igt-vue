@@ -1,7 +1,7 @@
 # igt-vue
 > A template Vue project to quickly create incremental games with the igt-library.
 
-[Please visit the actual Docs here](https://123ishatest.github.io/incremental-game-template-website)
+[Please visit the actual Docs here](https://123ishatest.github.io/igt-docs)
 
 ## Requirements
 - [Nodejs](https://nodejs.org/en/) >= v12.13.0.
