@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import VueApp from './App.vue'
+import VueApp from './VueApp.vue'
 import {App} from "./App";
 
 import Notifications from "vt-notifications";
