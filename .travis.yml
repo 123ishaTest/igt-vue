@@ -11,18 +11,6 @@ install:
   - npm install
 
 script:
-  - npm install codecov -g
   - npm run build
   - npm run test
   - npm run lint
-
-after_success:
-  - codecov
-
-deploy:
-  provider: pages
-  skip_cleanup: true
-  github_token: $GITHUB_TOKEN
-  local_dir: dist
-  on:
-    branch: master
