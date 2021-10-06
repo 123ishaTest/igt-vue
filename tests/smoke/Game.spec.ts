@@ -1,5 +1,5 @@
-import {App} from "@/App.ts";
-import VueApp from "@/App.vue";
+import {App} from "@/App";
+import VueApp from "@/VueApp.vue";
 
 import '@/VueFilters';
 import {mount} from "@vue/test-utils";
