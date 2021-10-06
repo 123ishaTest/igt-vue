@@ -7,17 +7,12 @@ cache:
   directories:
     - node_modules
 
-install:
-  - npm install
 
 script:
   - npm install codecov -g
   - npm run build
   - npm run test
   - npm run lint
-
-after_success:
-  - codecov
 
 deploy:
   provider: pages
