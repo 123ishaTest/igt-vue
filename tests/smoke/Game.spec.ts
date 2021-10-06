@@ -1,4 +1,4 @@
-import {App} from "@/App.ts";
+import {App} from "@/App";
 import VueApp from "@/App.vue";
 
 import '@/VueFilters';
